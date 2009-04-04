@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A339B090F87236F00D0F64E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A339B080F87236F00D0F64E /* Foundation.framework */; };
-		0A339BB20F87257400D0F64E /* FeedParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A339B030F87234800D0F64E /* FeedParser.framework */; };
 		0A339BB40F87257400D0F64E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A339BB30F87257400D0F64E /* Cocoa.framework */; };
 		0A339C380F8725A300D0F64E /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; };
 		0A339C390F8725A900D0F64E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; };
@@ -16,29 +14,30 @@
 		0A339C3D0F8725AF00D0F64E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		0A339C3E0F8725AF00D0F64E /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* MyDocument.xib */; };
 		0A339C3F0F8725AF00D0F64E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
-		0A339C6F0F87267200D0F64E /* FeedParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A339C6D0F87267200D0F64E /* FeedParser.h */; };
-		0A339C700F87267200D0F64E /* FeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C6E0F87267200D0F64E /* FeedParser.m */; };
+		0A339C7C0F88037E00D0F64E /* libFeedParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A339C770F88034D00D0F64E /* libFeedParser.a */; };
+		0A339C7D0F88038500D0F64E /* FeedParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A339C6D0F87267200D0F64E /* FeedParser.h */; };
+		0A339C7E0F88038800D0F64E /* FeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C6E0F87267200D0F64E /* FeedParser.m */; };
+		0A339C8A0F8803C600D0F64E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A339B080F87236F00D0F64E /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0A339C570F87261800D0F64E /* PBXContainerItemProxy */ = {
+		0A339C7A0F88036700D0F64E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0A339B020F87234800D0F64E /* FeedParser */;
+			remoteGlobalIDString = 0A339C760F88034D00D0F64E /* FeedParser */;
 			remoteInfo = FeedParser;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0A339B030F87234800D0F64E /* FeedParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FeedParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A339B080F87236F00D0F64E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0A339B150F87242100D0F64E /* FeedParser Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FeedParser Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A339B230F8724C500D0F64E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A339BB30F87257400D0F64E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0A339C6D0F87267200D0F64E /* FeedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedParser.h; sourceTree = "<group>"; };
 		0A339C6E0F87267200D0F64E /* FeedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedParser.m; sourceTree = "<group>"; };
+		0A339C770F88034D00D0F64E /* libFeedParser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFeedParser.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MyDocument.xib; sourceTree = "<group>"; };
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
@@ -50,20 +49,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0A339B010F87234800D0F64E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0A339B090F87236F00D0F64E /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0A339B130F87242100D0F64E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A339BB20F87257400D0F64E /* FeedParser.framework in Frameworks */,
+				0A339C7C0F88037E00D0F64E /* libFeedParser.a in Frameworks */,
 				0A339BB40F87257400D0F64E /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A339C750F88034D00D0F64E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A339C8A0F8803C600D0F64E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,19 +72,10 @@
 		0A339AFC0F87227500D0F64E /* FeedParser */ = {
 			isa = PBXGroup;
 			children = (
-				0A339B1E0F87247E00D0F64E /* Source */,
-				0A339B230F8724C500D0F64E /* Info.plist */,
-			);
-			path = FeedParser;
-			sourceTree = "<group>";
-		};
-		0A339B1E0F87247E00D0F64E /* Source */ = {
-			isa = PBXGroup;
-			children = (
 				0A339C6D0F87267200D0F64E /* FeedParser.h */,
 				0A339C6E0F87267200D0F64E /* FeedParser.m */,
 			);
-			path = Source;
+			path = FeedParser;
 			sourceTree = "<group>";
 		};
 		0A339C370F87259100D0F64E /* Frameworks */ = {
@@ -100,8 +90,8 @@
 		19C28FB0FE9D524F11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0A339B030F87234800D0F64E /* FeedParser.framework */,
 				0A339B150F87242100D0F64E /* FeedParser Demo.app */,
+				0A339C770F88034D00D0F64E /* libFeedParser.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,35 +142,17 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		0A339AFE0F87234800D0F64E /* Headers */ = {
+		0A339C730F88034D00D0F64E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A339C6F0F87267200D0F64E /* FeedParser.h in Headers */,
+				0A339C7D0F88038500D0F64E /* FeedParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0A339B020F87234800D0F64E /* FeedParser */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0A339B070F87234900D0F64E /* Build configuration list for PBXNativeTarget "FeedParser" */;
-			buildPhases = (
-				0A339AFE0F87234800D0F64E /* Headers */,
-				0A339AFF0F87234800D0F64E /* Resources */,
-				0A339B000F87234800D0F64E /* Sources */,
-				0A339B010F87234800D0F64E /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = FeedParser;
-			productName = FeedParser;
-			productReference = 0A339B030F87234800D0F64E /* FeedParser.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		0A339B140F87242100D0F64E /* FeedParser Demo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A339B1A0F87242100D0F64E /* Build configuration list for PBXNativeTarget "FeedParser Demo" */;
@@ -192,12 +164,29 @@
 			buildRules = (
 			);
 			dependencies = (
-				0A339C580F87261800D0F64E /* PBXTargetDependency */,
+				0A339C7B0F88036700D0F64E /* PBXTargetDependency */,
 			);
 			name = "FeedParser Demo";
 			productName = "FeedParser Demo";
 			productReference = 0A339B150F87242100D0F64E /* FeedParser Demo.app */;
 			productType = "com.apple.product-type.application";
+		};
+		0A339C760F88034D00D0F64E /* FeedParser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A339C7F0F88038B00D0F64E /* Build configuration list for PBXNativeTarget "FeedParser" */;
+			buildPhases = (
+				0A339C730F88034D00D0F64E /* Headers */,
+				0A339C740F88034D00D0F64E /* Sources */,
+				0A339C750F88034D00D0F64E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FeedParser;
+			productName = FeedParser;
+			productReference = 0A339C770F88034D00D0F64E /* libFeedParser.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -211,20 +200,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0A339B020F87234800D0F64E /* FeedParser */,
+				0A339C760F88034D00D0F64E /* FeedParser */,
 				0A339B140F87242100D0F64E /* FeedParser Demo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0A339AFF0F87234800D0F64E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0A339B110F87242100D0F64E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -239,14 +221,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0A339B000F87234800D0F64E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0A339C700F87267200D0F64E /* FeedParser.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0A339B120F87242100D0F64E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -256,13 +230,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0A339C740F88034D00D0F64E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A339C7E0F88038800D0F64E /* FeedParser.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0A339C580F87261800D0F64E /* PBXTargetDependency */ = {
+		0A339C7B0F88036700D0F64E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0A339B020F87234800D0F64E /* FeedParser */;
-			targetProxy = 0A339C570F87261800D0F64E /* PBXContainerItemProxy */;
+			target = 0A339C760F88034D00D0F64E /* FeedParser */;
+			targetProxy = 0A339C7A0F88036700D0F64E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -302,48 +284,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0A339B050F87234900D0F64E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Foundation.framework/Headers/Foundation.h";
-				INFOPLIST_FILE = FeedParser/Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				PREBINDING = NO;
-				PRODUCT_NAME = FeedParser;
-			};
-			name = Debug;
-		};
-		0A339B060F87234900D0F64E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Foundation.framework/Headers/Foundation.h";
-				INFOPLIST_FILE = FeedParser/Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				PREBINDING = NO;
-				PRODUCT_NAME = FeedParser;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		0A339B180F87242100D0F64E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -392,6 +332,40 @@
 			};
 			name = Release;
 		};
+		0A339C780F88034D00D0F64E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Foundation.framework/Headers/Foundation.h";
+				INSTALL_PATH = /usr/local/lib;
+				PREBINDING = NO;
+				PRODUCT_NAME = FeedParser;
+			};
+			name = Debug;
+		};
+		0A339C790F88034D00D0F64E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Foundation.framework/Headers/Foundation.h";
+				INSTALL_PATH = /usr/local/lib;
+				PREBINDING = NO;
+				PRODUCT_NAME = FeedParser;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -421,20 +395,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0A339B070F87234900D0F64E /* Build configuration list for PBXNativeTarget "FeedParser" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0A339B050F87234900D0F64E /* Debug */,
-				0A339B060F87234900D0F64E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		0A339B1A0F87242100D0F64E /* Build configuration list for PBXNativeTarget "FeedParser Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0A339B180F87242100D0F64E /* Debug */,
 				0A339B190F87242100D0F64E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0A339C7F0F88038B00D0F64E /* Build configuration list for PBXNativeTarget "FeedParser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A339C780F88034D00D0F64E /* Debug */,
+				0A339C790F88034D00D0F64E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
