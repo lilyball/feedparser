@@ -6,10 +6,7 @@
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-@interface FeedParser : NSObject {
-
-}
-
-@end
+#import "FPParser.h"
+#import "FPFeed.h"
+#import "FPItem.h"
+#import "FPErrors.h"

@@ -15,9 +15,10 @@
 		0A339C3E0F8725AF00D0F64E /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58280DA1D0D100B32029 /* MyDocument.xib */; };
 		0A339C3F0F8725AF00D0F64E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		0A339C7C0F88037E00D0F64E /* libFeedParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A339C770F88034D00D0F64E /* libFeedParser.a */; };
-		0A339C7D0F88038500D0F64E /* FeedParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A339C6D0F87267200D0F64E /* FeedParser.h */; };
-		0A339C7E0F88038800D0F64E /* FeedParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C6E0F87267200D0F64E /* FeedParser.m */; };
 		0A339C8A0F8803C600D0F64E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A339B080F87236F00D0F64E /* Foundation.framework */; };
+		0A339C9B0F8804E400D0F64E /* FPFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C990F8804E400D0F64E /* FPFeed.m */; };
+		0AA74C0E0F881C4A007F6085 /* FPItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA74C0D0F881C4A007F6085 /* FPItem.m */; };
+		0AA74C110F881CBD007F6085 /* FPParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA74C100F881CBD007F6085 /* FPParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,7 +26,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0A339C760F88034D00D0F64E /* FeedParser */;
+			remoteGlobalIDString = 0A339C760F88034D00D0F64E;
 			remoteInfo = FeedParser;
 		};
 /* End PBXContainerItemProxy section */
@@ -36,8 +37,15 @@
 		0A339B150F87242100D0F64E /* FeedParser Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FeedParser Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A339BB30F87257400D0F64E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0A339C6D0F87267200D0F64E /* FeedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedParser.h; sourceTree = "<group>"; };
-		0A339C6E0F87267200D0F64E /* FeedParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedParser.m; sourceTree = "<group>"; };
 		0A339C770F88034D00D0F64E /* libFeedParser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFeedParser.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A339C980F8804E400D0F64E /* FPFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPFeed.h; sourceTree = "<group>"; };
+		0A339C990F8804E400D0F64E /* FPFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPFeed.m; sourceTree = "<group>"; };
+		0AA74C0C0F881C4A007F6085 /* FPItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPItem.h; sourceTree = "<group>"; };
+		0AA74C0D0F881C4A007F6085 /* FPItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPItem.m; sourceTree = "<group>"; };
+		0AA74C0F0F881CBD007F6085 /* FPParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPParser.h; sourceTree = "<group>"; };
+		0AA74C100F881CBD007F6085 /* FPParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPParser.m; sourceTree = "<group>"; };
+		0AA74C250F8825AF007F6085 /* FPErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPErrors.h; sourceTree = "<group>"; };
+		0AA74C280F8828D2007F6085 /* FPFeed_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPFeed_private.h; sourceTree = "<group>"; };
 		1DDD58290DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MyDocument.xib; sourceTree = "<group>"; };
 		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDocument.m; sourceTree = "<group>"; };
@@ -73,7 +81,14 @@
 			isa = PBXGroup;
 			children = (
 				0A339C6D0F87267200D0F64E /* FeedParser.h */,
-				0A339C6E0F87267200D0F64E /* FeedParser.m */,
+				0AA74C250F8825AF007F6085 /* FPErrors.h */,
+				0AA74C0F0F881CBD007F6085 /* FPParser.h */,
+				0AA74C100F881CBD007F6085 /* FPParser.m */,
+				0A339C980F8804E400D0F64E /* FPFeed.h */,
+				0AA74C280F8828D2007F6085 /* FPFeed_private.h */,
+				0A339C990F8804E400D0F64E /* FPFeed.m */,
+				0AA74C0C0F881C4A007F6085 /* FPItem.h */,
+				0AA74C0D0F881C4A007F6085 /* FPItem.m */,
 			);
 			path = FeedParser;
 			sourceTree = "<group>";
@@ -141,17 +156,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		0A339C730F88034D00D0F64E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0A339C7D0F88038500D0F64E /* FeedParser.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		0A339B140F87242100D0F64E /* FeedParser Demo */ = {
 			isa = PBXNativeTarget;
@@ -175,7 +179,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A339C7F0F88038B00D0F64E /* Build configuration list for PBXNativeTarget "FeedParser" */;
 			buildPhases = (
-				0A339C730F88034D00D0F64E /* Headers */,
 				0A339C740F88034D00D0F64E /* Sources */,
 				0A339C750F88034D00D0F64E /* Frameworks */,
 			);
@@ -234,7 +237,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A339C7E0F88038800D0F64E /* FeedParser.m in Sources */,
+				0A339C9B0F8804E400D0F64E /* FPFeed.m in Sources */,
+				0AA74C0E0F881C4A007F6085 /* FPItem.m in Sources */,
+				0AA74C110F881CBD007F6085 /* FPParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,7 +381,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx10.5;
 			};
 			name = Debug;
 		};
@@ -388,7 +393,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx10.5;
 			};
 			name = Release;
 		};
