@@ -10,12 +10,7 @@
 #import "FeedParser.h"
 
 @implementation FeedParserTest
-- (NSDate *)dateFromRFC822String:(NSString *)rfc822 {
-	NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
-	[formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-	[formatter setDateFormat:@"EEE, d MMM yyyy HH:mm:ss ZZZ"];
-	return [formatter dateFromString:rfc822];
-}
+// to produce an epoch from a date, use `date -j -f '%a, %d %b %Y %H:%M:%S %Z' 'Tue, 10 Jun 2003 04:00:00 GMT' +'%s'`
 
 - (void)testSampleRSSTwo {
 	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"sample-rss-2" ofType:@"rss"]];
@@ -26,6 +21,6 @@
 	STAssertEqualObjects(feed.title, @"Liftoff News", nil);
 	STAssertEqualObjects(feed.link, @"http://liftoff.msfc.nasa.gov/", nil);
 	STAssertEqualObjects(feed.feedDescription, @"Liftoff to Space Exploration.", nil);
-	STAssertEqualObjects(feed.pubDate, [self dateFromRFC822String:@"Tue, 10 Jun 2003 04:00:00 GMT"], nil);
+	STAssertEqualObjects(feed.pubDate, [NSDate dateWithTimeIntervalSince1970:1055217600], nil);
 }
 @end
