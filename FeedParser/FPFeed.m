@@ -36,8 +36,8 @@
 	}
 }
 
-- (id)initWithParent:(FPXMLParser *)parent {
-	if (self = [super initWithParent:parent]) {
+- (id)initWithParser:(NSXMLParser *)parser {
+	if (self = [super initWithParser:parser]) {
 		items = [[NSMutableArray alloc] init];
 	}
 	return self;
@@ -50,9 +50,8 @@
 }
 
 - (void)rss_item:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
-	FPItem *item = [[FPItem alloc] initWithParent:self];
+	FPItem *item = [[FPItem alloc] initWithParser:parser];
 	[items addObject:item];
-	[parser setDelegate:item];
 	[item release];
 }
 

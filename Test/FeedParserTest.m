@@ -25,7 +25,7 @@
 	if (feed == nil) return;
 	STAssertEqualObjects(feed.title, @"Liftoff News", nil);
 	STAssertEqualObjects(feed.link, @"http://liftoff.msfc.nasa.gov/", nil);
-	STAssertEqualObjects(feed.description, @"Liftoff to Space Exploration.", nil);
+	STAssertEqualObjects(feed.feedDescription, @"Liftoff to Space Exploration.", nil);
 	STAssertEqualObjects(feed.pubDate, [self dateFromRFC822String:@"Tue, 10 Jun 2003 04:00:00 GMT"], nil);
 }
 @end

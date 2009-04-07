@@ -26,10 +26,11 @@ extern NSString * const kFPXMLParserContentNamespaceURI;
 	NSDictionary *currentAttributeDict;
 	FPXMLParserElementType currentElementType;
 	NSUInteger skipDepth;
+	NSUInteger parseDepth;
 	SEL currentHandlerSelector;
 }
 + (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI type:(FPXMLParserElementType)type;
-- (id)initWithParent:(FPXMLParser *)parent;
+- (id)initWithParser:(NSXMLParser *)parser;
 - (void)abortParsing:(NSXMLParser *)parser;
 - (void)abortParsing:(NSXMLParser *)parser withFormat:(NSString *)description, ...;
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description;

@@ -39,9 +39,12 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 	[handlers setObject:valuePair forKey:keyPair];
 }
 
-- (id)initWithParent:(FPXMLParser *)parent {
+- (id)initWithParser:(NSXMLParser *)parser {
 	if (self = [self init]) {
-		parentParser = parent;
+		// assume that the old delegate was an FPXMLParser
+		// if not, then something is broken
+		parentParser = (FPXMLParser *)[parser delegate];
+		[parser setDelegate:self];
 	}
 	return self;
 }
@@ -50,6 +53,7 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 	if (self = [super init]) {
 		handlers = [[kHandlerMap objectForKey:[self class]] retain];
 		currentElementType = FPXMLParserStreamElementType;
+		parseDepth = 1;
 	}
 	return self;
 }
@@ -151,6 +155,7 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 					case FPXMLParserStreamElementType:
 						if (selector != NULL) {
 							handleStreamElement(self, selector, attributeDict, parser);
+							if ([parser delegate] == self) parseDepth++;
 						}
 						break;
 					case FPXMLParserTextElementType:
@@ -189,6 +194,10 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 			break;
 		}
 		case FPXMLParserStreamElementType:
+			parseDepth--;
+			if (parseDepth == 0) {
+				[self abdicateParsing:parser];
+			}
 			break;
 		case FPXMLParserSkipElementType:
 			skipDepth--;
