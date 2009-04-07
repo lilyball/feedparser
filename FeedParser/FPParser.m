@@ -67,6 +67,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 		if (error) *error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInternalError userInfo:nil];
 		return nil;
 	}
+	parseDepth = 1;
 	[xmlParser setDelegate:self];
 	[xmlParser setShouldProcessNamespaces:YES];
 	if ([xmlParser parse]) {
