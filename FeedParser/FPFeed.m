@@ -33,6 +33,10 @@
 			[self registerHandler:NULL forElement:key namespaceURI:@"" type:FPXMLParserSkipElementType];
 		}
 		[self registerHandler:@selector(rss_item:parser:) forElement:@"item" namespaceURI:@"" type:FPXMLParserStreamElementType];
+		
+		// atom elements
+		[self registerHandler:@selector(atom_link:attributes:parser:) forElement:@"link"
+				 namespaceURI:kFPXMLParserAtomNamespaceURI type:FPXMLParserTextElementType];
 	}
 }
 
@@ -53,6 +57,13 @@
 	FPItem *item = [[FPItem alloc] initWithParser:parser];
 	[items addObject:item];
 	[item release];
+}
+
+- (void)atom_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
+	NSString *rel = [attributes objectForKey:@"rel"];
+	if (rel == nil || [rel isEqualToString:@"alternate"]) {
+		self.link = [attributes objectForKey:@"href"];
+	}
 }
 
 - (void)dealloc {
