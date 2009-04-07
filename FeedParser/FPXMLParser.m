@@ -171,6 +171,10 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 				}
 			} else if ([namespaceURI isEqualToString:@""] || [namespaceURI isEqualToString:kFPXMLParserAtomNamespaceURI]) {
 				[self abortParsing:parser];
+			} else {
+				// element is unrecognized and out of our namespace. Skip its content
+				currentElementType = FPXMLParserSkipElementType;
+				skipDepth = 1;
 			}
 			break;
 		}
