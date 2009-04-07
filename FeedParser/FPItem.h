@@ -7,10 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FPXMLParser.h"
 
-
-@interface FPItem : NSObject {
-
+@interface FPItem : FPXMLParser {
+	NSString *title;
+	NSString *link;
+	NSString *guid;
+	NSString *content;
+	NSDate *pubDate;
 }
-
+@property (nonatomic, copy, readonly) NSString *title;
+@property (nonatomic, copy, readonly) NSString *link;
+@property (nonatomic, copy, readonly) NSString *guid;
+@property (nonatomic, copy, readonly) NSString *content;
+@property (nonatomic, copy, readonly) NSDate *pubDate;
 @end

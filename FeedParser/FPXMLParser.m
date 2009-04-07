@@ -92,10 +92,17 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 #pragma mark XML Parser methods
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-	if (currentElementType == FPXMLParserTextElementType) {
-		[currentTextValue appendString:string];
-	} else if ([string rangeOfCharacterFromSet:[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet]].location != NSNotFound) {
-		[self abortParsing:parser withFormat:@"Unexpected text \"%@\" at line %d", string, [parser lineNumber]];
+	switch (currentElementType) {
+		case FPXMLParserTextElementType:
+			[currentTextValue appendString:string];
+			break;
+		case FPXMLParserStreamElementType:
+			if ([string rangeOfCharacterFromSet:[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet]].location != NSNotFound) {
+				[self abortParsing:parser withFormat:@"Unexpected text \"%@\" at line %d", string, [parser lineNumber]];
+			}
+			break;
+		case FPXMLParserSkipElementType:
+			break;
 	}
 }
 
@@ -107,17 +114,23 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 }
 
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock {
-	if (currentElementType == FPXMLParserTextElementType) {
-		NSString *str = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
-		if (str == nil) {
-			// the data isn't valid UTF-8
-			// try as ISO-Latin-1. Probably not correct, but at least it will never fail
-			str = [[NSString alloc] initWithData:CDATABlock encoding:NSISOLatin1StringEncoding];
+	switch (currentElementType) {
+		case FPXMLParserTextElementType: {
+			NSString *str = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+			if (str == nil) {
+				// the data isn't valid UTF-8
+				// try as ISO-Latin-1. Probably not correct, but at least it will never fail
+				str = [[NSString alloc] initWithData:CDATABlock encoding:NSISOLatin1StringEncoding];
+			}
+			[currentTextValue appendString:str];
+			[str release];
+			break;
 		}
-		[currentTextValue appendString:str];
-		[str release];
-	} else {
-		[self abortParsing:parser withFormat:@"Unexpected CDATA at line %d", [parser lineNumber]];
+		case FPXMLParserStreamElementType:
+			[self abortParsing:parser withFormat:@"Unexpected CDATA at line %d", [parser lineNumber]];
+			break;
+		case FPXMLParserSkipElementType:
+			break;
 	}
 }
 
@@ -147,12 +160,18 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 						currentAttributeDict = [attributeDict copy];
 						currentHandlerSelector = selector;
 						break;
+					case FPXMLParserSkipElementType:
+						skipDepth = 1;
+						break;
 				}
 			} else if ([namespaceURI isEqualToString:@""] || [namespaceURI isEqualToString:kFPXMLParserAtomNamespaceURI]) {
 				[self abortParsing:parser];
 			}
 			break;
 		}
+		case FPXMLParserSkipElementType:
+			skipDepth++;
+			break;
 	}
 }
 
@@ -170,6 +189,12 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 			break;
 		}
 		case FPXMLParserStreamElementType:
+			break;
+		case FPXMLParserSkipElementType:
+			skipDepth--;
+			if (skipDepth == 0) {
+				currentElementType = FPXMLParserStreamElementType;
+			}
 			break;
 	}
 }

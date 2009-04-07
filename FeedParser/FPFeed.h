@@ -17,9 +17,11 @@
 	NSString *link;
 	NSString *feedDescription;
 	NSDate *pubDate;
+	NSMutableArray *items;
 }
 @property (nonatomic, copy, readonly) NSString *title;
 @property (nonatomic, copy, readonly) NSString *link;
 @property (nonatomic, copy, readonly) NSString *feedDescription;
 @property (nonatomic, copy, readonly) NSDate *pubDate;
+@property (nonatomic, retain, readonly) NSArray *items;
 @end

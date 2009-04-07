@@ -10,7 +10,8 @@
 
 typedef enum {
 	FPXMLParserTextElementType = 1,
-	FPXMLParserStreamElementType = 2
+	FPXMLParserStreamElementType = 2,
+	FPXMLParserSkipElementType = 3 // for keys we're skipping, and don't care about the contents
 } FPXMLParserElementType;
 
 // RSS has no namespace, just test against @""
@@ -24,6 +25,7 @@ extern NSString * const kFPXMLParserContentNamespaceURI;
 	NSMutableString *currentTextValue;
 	NSDictionary *currentAttributeDict;
 	FPXMLParserElementType currentElementType;
+	NSUInteger skipDepth;
 	SEL currentHandlerSelector;
 }
 + (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI type:(FPXMLParserElementType)type;
