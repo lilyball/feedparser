@@ -142,6 +142,7 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 					case FPXMLParserTextElementType:
 						[currentTextValue release];
 						currentTextValue = [[NSMutableString alloc] init];
+						[currentAttributeDict release];
 						currentAttributeDict = [attributeDict copy];
 						currentHandlerSelector = selector;
 						break;
@@ -157,11 +158,9 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	switch (currentElementType) {
 		case FPXMLParserTextElementType: {
-			NSString *text = [currentTextValue copy];
 			if (currentHandlerSelector != NULL) {
-				handleTextValue(self, currentHandlerSelector, text, currentAttributeDict, parser);
+				handleTextValue(self, currentHandlerSelector, currentTextValue, currentAttributeDict, parser);
 			}
-			[text release];
 			[currentTextValue release];
 			currentTextValue = nil;
 			[currentAttributeDict release];
