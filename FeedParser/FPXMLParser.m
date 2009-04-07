@@ -68,8 +68,9 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description {
 	if (parentParser != nil) {
-		[parentParser abortParsing:parser withString:description];
+		FPXMLParser *parent = parentParser;
 		parentParser = nil;
+		[parent abortParsing:parser withString:description];
 	} else {
 		[parser setDelegate:nil];
 		[parser abortParsing];
