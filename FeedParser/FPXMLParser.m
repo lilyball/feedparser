@@ -71,6 +71,7 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 		[parentParser abortParsing:parser withString:description];
 		parentParser = nil;
 	} else {
+		[parser setDelegate:nil];
 		[parser abortParsing];
 	}
 }
