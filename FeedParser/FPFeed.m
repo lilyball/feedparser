@@ -40,8 +40,8 @@
 	}
 }
 
-- (id)initWithParser:(NSXMLParser *)parser {
-	if (self = [super initWithParser:parser]) {
+- (id)initWithParser:(NSXMLParser *)parser baseNamespaceURI:namespaceURI {
+	if (self = [super initWithParser:parser baseNamespaceURI:namespaceURI]) {
 		items = [[NSMutableArray alloc] init];
 	}
 	return self;
@@ -54,7 +54,7 @@
 }
 
 - (void)rss_item:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
-	FPItem *item = [[FPItem alloc] initWithParser:parser];
+	FPItem *item = [[FPItem alloc] initWithParser:parser baseNamespaceURI:baseNamespaceURI];
 	[items addObject:item];
 	[item release];
 }

@@ -138,7 +138,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 	if (feed != nil || !lookingForChannel) {
 		[self abortParsing:parser];
 	} else {
-		feed = [[FPFeed alloc] initWithParser:parser];
+		feed = [[FPFeed alloc] initWithParser:parser baseNamespaceURI:baseNamespaceURI];
 		lookingForChannel = NO;
 	}
 }
@@ -147,7 +147,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 	if (feed != nil || lookingForChannel) {
 		[self abortParsing:parser];
 	} else {
-		feed = [[FPFeed alloc] initWithParser:parser];
+		feed = [[FPFeed alloc] initWithParser:parser baseNamespaceURI:baseNamespaceURI];
 	}
 }
 @end

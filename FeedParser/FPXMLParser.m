@@ -39,8 +39,9 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 	[handlers setObject:valuePair forKey:keyPair];
 }
 
-- (id)initWithParser:(NSXMLParser *)parser {
+- (id)initWithParser:(NSXMLParser *)parser baseNamespaceURI:(NSString *)namespaceURI {
 	if (self = [self init]) {
+		baseNamespaceURI = [namespaceURI copy];
 		// assume that the old delegate was an FPXMLParser
 		// if not, then something is broken
 		parentParser = (FPXMLParser *)[parser delegate];
@@ -140,6 +141,9 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI
  qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
+	if (baseNamespaceURI == nil) {
+		baseNamespaceURI = [namespaceURI copy];
+	}
 	switch (currentElementType) {
 		case FPXMLParserTextElementType:
 			[self abortParsing:parser];
@@ -169,7 +173,7 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 						skipDepth = 1;
 						break;
 				}
-			} else if ([namespaceURI isEqualToString:@""] || [namespaceURI isEqualToString:kFPXMLParserAtomNamespaceURI]) {
+			} else if ([namespaceURI isEqualToString:baseNamespaceURI]) {
 				[self abortParsing:parser];
 			} else {
 				// element is unrecognized and out of our namespace. Skip its content

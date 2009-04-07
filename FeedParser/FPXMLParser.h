@@ -21,6 +21,7 @@ extern NSString * const kFPXMLParserContentNamespaceURI;
 
 @interface FPXMLParser : NSObject {
 	FPXMLParser *parentParser; // non-retained
+	NSString *baseNamespaceURI;
 	NSDictionary *handlers;
 	NSMutableString *currentTextValue;
 	NSDictionary *currentAttributeDict;
@@ -30,7 +31,7 @@ extern NSString * const kFPXMLParserContentNamespaceURI;
 	SEL currentHandlerSelector;
 }
 + (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI type:(FPXMLParserElementType)type;
-- (id)initWithParser:(NSXMLParser *)parser;
+- (id)initWithParser:(NSXMLParser *)parser baseNamespaceURI:(NSString *)namespaceURI;
 - (void)abortParsing:(NSXMLParser *)parser;
 - (void)abortParsing:(NSXMLParser *)parser withFormat:(NSString *)description, ...;
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description;
