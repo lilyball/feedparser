@@ -6,7 +6,7 @@
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 // FPXLMPair is used to hold an immutable pair of objects
 // useful for using as the key in a dictionary

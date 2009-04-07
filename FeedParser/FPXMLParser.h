@@ -6,7 +6,7 @@
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 typedef enum {
 	FPXMLParserTextElementType = 1,
