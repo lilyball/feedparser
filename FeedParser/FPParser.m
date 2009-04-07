@@ -85,8 +85,13 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 		}
 	} else {
 		[feed release]; feed = nil;
-		[errorString release]; errorString = nil;
 		*error = [xmlParser parserError];
+		if ([[*error domain] isEqualToString:NSXMLParserErrorDomain] && [*error code] == NSXMLParserInternalError) {
+			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
+			[errorString release]; errorString = nil;
+			*error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInternalError userInfo:userInfo];
+		}
+		[errorString release]; errorString = nil;
 		return nil;
 	}
 }
@@ -96,7 +101,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 	feed = nil;
 	[errorString release];
 	if (description == nil) {
-		errorString = [[NSString stringWithFormat:@"Invalid feed data at line %d column  %d", [parser lineNumber], [parser columnNumber]] copy];
+		errorString = [[NSString stringWithFormat:@"Invalid feed data at line %d", [parser lineNumber]] copy];
 	} else {
 		errorString = [description copy];
 	}
