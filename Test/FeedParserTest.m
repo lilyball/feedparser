@@ -31,4 +31,16 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	STAssertEqualObjects(item.pubDate, [NSDate dateWithTimeIntervalSince1970:1054024652], nil);
 	STAssertEqualObjects(item.guid, @"http://liftoff.msfc.nasa.gov/2003/05/27.html#item571", nil);
 }
+
+- (void)testSampleRSSOhNineTwo {
+	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"sample-rss-092" ofType:@"rss"]];
+	NSError *error = nil;
+	FPFeed *feed = [FPParser parsedFeedWithData:data error:&error];
+	STAssertNotNil(feed, @"FPParser returned error: %@", [error localizedDescription]);
+	if (feed == nil) return;
+	STAssertEqualObjects(feed.title, @"Dave Winer: Grateful Dead", nil);
+	STAssertEquals([feed.items count], 22u, nil);
+	FPItem *item = [feed.items objectAtIndex:18];
+	STAssertEqualObjects(item.content, @"Truckin, like the doo-dah man, once told me gotta play your hand. Sometimes the cards ain't worth a dime, if you don't lay em down.", nil);
+}
 @end
