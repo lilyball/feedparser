@@ -9,6 +9,7 @@
 #import "FPXMLParser.h"
 #import "FPXMLPair.h"
 #import <objc/message.h>
+#import <stdarg.h>
 
 NSString * const kFPXMLParserAtomNamespaceURI = @"http://www.w3.org/2005/Atom";
 NSString * const kFPXMLParserDublinCoreNamespaceURI = @"http://purl.org/dc/elements/1.1/";
@@ -54,8 +55,20 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 }
 
 - (void)abortParsing:(NSXMLParser *)parser {
+	[self abortParsing:parser withString:nil];
+}
+
+- (void)abortParsing:(NSXMLParser *)parser withFormat:(NSString *)description, ... {
+	va_list valist;
+	va_start(valist, description);
+	NSString *desc = [[[NSString alloc] initWithFormat:description arguments:valist] autorelease];
+	va_end(valist);
+	return [self abortParsing:parser withString:desc];
+}
+
+- (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description {
 	if (parentParser != nil) {
-		[parentParser abortParsing:parser];
+		[parentParser abortParsing:parser withString:description];
 		parentParser = nil;
 	} else {
 		[parser abortParsing];
@@ -79,8 +92,8 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
 	if (currentElementType == FPXMLParserTextElementType) {
 		[currentTextValue appendString:string];
-	} else if ([string rangeOfCharacterFromSet:[[NSCharacterSet whitespaceCharacterSet] invertedSet]].location != NSNotFound) {
-		[self abortParsing:parser];
+	} else if ([string rangeOfCharacterFromSet:[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet]].location != NSNotFound) {
+		[self abortParsing:parser withFormat:@"Unexpected text \"%@\" at line %d", string, [parser lineNumber]];
 	}
 }
 
@@ -102,7 +115,7 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 		[currentTextValue appendString:str];
 		[str release];
 	} else {
-		[self abortParsing:parser];
+		[self abortParsing:parser withFormat:@"Unexpected CDATA at line %d", [parser lineNumber]];
 	}
 }
 

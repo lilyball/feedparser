@@ -18,6 +18,7 @@
 	NSURLConnection *urlConnection;
 	NSMutableData *networkData;
 	FPFeed *feed;
+	NSString *errorString;
 	BOOL lookingForChannel;
 }
 + (FPFeed *)parsedFeedWithData:(NSData *)data error:(NSError **)error;

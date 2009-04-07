@@ -55,6 +55,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 	[urlConnection release];
 	[networkData release];
 	[feed release];
+	[errorString release];
 	[super dealloc];
 }
 
@@ -72,27 +73,34 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 		if (feed != nil) {
 			FPFeed *retFeed = [feed autorelease];
 			feed = nil;
+			[errorString release]; errorString = nil;
 			return retFeed;
 		} else {
 			// nil means we aborted, but NSXMLParser didn't record the error
 			// there's a bug in NSXMLParser which means aborting in some cases produces no error value
-			NSString *errDesc = [NSString stringWithFormat:@"Invalid feed data at line %d column %d",
-								 [xmlParser lineNumber], [xmlParser columnNumber]];
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errDesc forKey:NSLocalizedDescriptionKey];
+			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
+			[errorString release]; errorString = nil;
 			*error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInvalidFeedError userInfo:userInfo];
 			return nil;
 		}
 	} else {
 		[feed release]; feed = nil;
+		[errorString release]; errorString = nil;
 		*error = [xmlParser parserError];
 		return nil;
 	}
 }
 
-- (void)abortParsing:(NSXMLParser *)parser {
+- (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description {
 	[feed release];
 	feed = nil;
-	[super abortParsing:parser];
+	[errorString release];
+	if (description == nil) {
+		errorString = [[NSString stringWithFormat:@"Invalid feed data at line %d column  %d", [parser lineNumber], [parser columnNumber]] copy];
+	} else {
+		errorString = [description copy];
+	}
+	[super abortParsing:parser withString:description];
 }
 
 #pragma mark XML Parser methods

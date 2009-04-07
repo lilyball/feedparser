@@ -29,5 +29,7 @@ extern NSString * const kFPXMLParserContentNamespaceURI;
 + (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI type:(FPXMLParserElementType)type;
 - (id)initWithParent:(FPXMLParser *)parent;
 - (void)abortParsing:(NSXMLParser *)parser;
+- (void)abortParsing:(NSXMLParser *)parser withFormat:(NSString *)description, ...;
+- (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description;
 - (void)abdicateParsing:(NSXMLParser *)parser;
 @end
