@@ -13,7 +13,8 @@
 // to produce an epoch from a date, use `date -j -f '%a, %d %b %Y %H:%M:%S %Z' 'Tue, 10 Jun 2003 04:00:00 GMT' +'%s'`
 
 - (void)testSampleRSSTwo {
-	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"sample-rss-2" ofType:@"rss"]];
+	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"sample-rss-2"
+																											 ofType:@"rss"]];
 	NSError *error = nil;
 	FPFeed *feed = [FPParser parsedFeedWithData:data error:&error];
 	STAssertNotNil(feed, @"FPParser returned error: %@", [error localizedDescription]);
@@ -33,7 +34,8 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 }
 
 - (void)testSampleRSSOhNineTwo {
-	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"sample-rss-092" ofType:@"rss"]];
+	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"sample-rss-092"
+																											 ofType:@"rss"]];
 	NSError *error = nil;
 	FPFeed *feed = [FPParser parsedFeedWithData:data error:&error];
 	STAssertNotNil(feed, @"FPParser returned error: %@", [error localizedDescription]);
@@ -42,5 +44,13 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	STAssertEquals([feed.items count], 22u, nil);
 	FPItem *item = [feed.items objectAtIndex:18];
 	STAssertEqualObjects(item.content, @"Truckin, like the doo-dah man, once told me gotta play your hand. Sometimes the cards ain't worth a dime, if you don't lay em down.", nil);
+}
+
+- (void)testSampleRSSOhNineOne {
+	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"sample-rss-092"
+																											 ofType:@"rss"]];
+	NSError *error = nil;
+	FPFeed *feed = [FPParser parsedFeedWithData:data error:&error];
+	STAssertNotNil(feed, @"FPParser returned error: %@", [error localizedDescription]);
 }
 @end
