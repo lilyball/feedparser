@@ -7,14 +7,13 @@
 //
 
 #import "FPFeed.h"
-#import "FPFeed_private.h"
-
-static NSDictionary *kNamespaceMap;
+#import "FPParser.h"
+#import "NSDate_FeedParserExtensions.h"
 
 @interface FPFeed ()
-- (NSString *)mappedNamespace:(NSString *)namespaceURI;
-- (NSString *)qualifiedName:(NSString *)name inNamespace:(NSString *)namespaceURI;
-- (void)abdicateParsing:(NSXMLParser *)parser;
+@property (nonatomic, copy, readwrite) NSString *title;
+@property (nonatomic, copy, readwrite) NSString *link;
+@property (nonatomic, copy, readwrite) NSString *description;
 @end
 
 @implementation FPFeed
@@ -22,79 +21,24 @@ static NSDictionary *kNamespaceMap;
 
 + (void)initialize {
 	if (self == [FPFeed class]) {
-		kNamespaceMap = [[NSDictionary alloc] initWithObjectsAndKeys:
-							@"atom",    @"http://www.w3.org/2005/Atom",
-							@"dc",      @"http://purl.org/dc/elements/1.1/",
-							@"content", @"http://purl.org/rss/1.0/modules/content/",
-							nil];
+		[self registerHandler:@selector(setTitle:) forElement:@"title" namespaceURI:@"" type:FPXMLParserTextElementType];
+		[self registerHandler:@selector(setLink:) forElement:@"link" namespaceURI:@"" type:FPXMLParserTextElementType];
+		[self registerHandler:@selector(setDescription:) forElement:@"description" namespaceURI:@"" type:FPXMLParserTextElementType];
+		[self registerHandler:@selector(setPubDateString:attributes:parser:) forElement:@"pubDate" namespaceURI:@"" type:FPXMLParserTextElementType];
 	}
 }
 
-- (id)initWithFeedType:(FPFeedType)type parser:(FPParser *)parser {
-	if (self = [super init]) {
-		feedParser = parser;
-		switch (type) {
-			case FPFeedTypeRSS:
-				feedNamespace = @"rss";
-				break;
-			case FPFeedTypeAtom:
-				feedNamespace = @"atom";
-				break;
-		}
-	}
-	return self;
-}
-
-- (NSString *)mappedNamespace:(NSString *)namespaceURI {
-	if ([namespaceURI isEqualToString:@""] ){
-		return feedNamespace;
-	} else {
-		return [kNamespaceMap objectForKey:namespaceURI];
-	}
-}
-
-- (NSString *)qualifiedName:(NSString *)name inNamespace:(NSString *)namespaceURI {
-	NSString *ns = ([self mappedNamespace:namespaceURI] ?: @"");
-	return [NSString stringWithFormat:@"%@:%@", ns, name];
-}
-
-- (void)abdicateParsing:(NSXMLParser *)parser {
-	[parser setDelegate:feedParser];
-	feedParser = nil;
+- (void)setPubDateString:(NSString *)pubDateString attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
+	[pubDate release];
+	pubDate = [[NSDate dateWithRFC822:pubDateString] copy];
+	if (pubDate == nil) [self abortParsing:parser];
 }
 
 - (void)dealloc {
-	[feedNamespace release];
 	[title release];
 	[link release];
 	[description release];
 	[pubDate release];
 	[super dealloc];
-}
-
-#pragma mark XML Parser methods
-
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	feedParser = nil;
-	[parser abortParsing];
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-	NSString *qName = [self qualifiedName:elementName inNamespace:namespaceURI];
-	if ([qName isEqualToString:@"rss:channel"] || [qName isEqualToString:@"atom:feed"]) {
-		[self abdicateParsing:parser];
-	}
-}
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI
- qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
-	NSString *ns = [self mappedNamespace:namespaceURI];
-	SEL sel = NSSelectorFromString([NSString stringWithFormat:@"%@_%@", ns, elementName]);
-	if ([self respondsToSelector:sel]) {
-		[self performSelector:sel withObject:attributeDict];
-	} else if ([namespaceURI isEqualToString:@""]) {
-		// no un-qualified names are allowed
-		[parser abortParsing];
-	}
 }
 @end

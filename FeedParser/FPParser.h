@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FPXMLParser.h"
 
 @class FPFeed;
 
 @protocol FPParserDelegate;
 
-@interface FPParser : NSObject {
+@interface FPParser : FPXMLParser {
 @private
 	NSURLConnection *urlConnection;
 	NSMutableData *networkData;

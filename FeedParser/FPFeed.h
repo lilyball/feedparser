@@ -7,20 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FPXMLParser.h"
 
 @class FPParser;
 
-@interface FPFeed : NSObject {
+@interface FPFeed : FPXMLParser {
 @private
-	FPParser *feedParser; // non-retained
-	NSString *feedNamespace;
 	NSString *title;
 	NSString *link;
 	NSString *description;
 	NSDate *pubDate;
 }
-@property (nonatomic, readonly) NSString *title;
-@property (nonatomic, readonly) NSString *link;
-@property (nonatomic, readonly) NSString *description;
-@property (nonatomic, readonly) NSDate *pubDate;
+@property (nonatomic, copy, readonly) NSString *title;
+@property (nonatomic, copy, readonly) NSString *link;
+@property (nonatomic, copy, readonly) NSString *description;
+@property (nonatomic, copy, readonly) NSDate *pubDate;
 @end

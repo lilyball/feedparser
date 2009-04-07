@@ -12,5 +12,6 @@
 extern NSString * const FPParserErrorDomain;
 
 typedef enum {
-	FPParserInternalError = 1
+	FPParserInternalError = 1,
+	FPParserInvalidFeedError = 2
 } FPParserError;
