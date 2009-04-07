@@ -64,7 +64,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 - (FPFeed *)parseData:(NSData *)data error:(NSError **)error {
 	NSXMLParser *xmlParser = [[[NSXMLParser alloc] initWithData:data] autorelease];
 	if (xmlParser == nil) {
-		*error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInternalError userInfo:nil];
+		if (error) *error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInternalError userInfo:nil];
 		return nil;
 	}
 	[xmlParser setDelegate:self];
@@ -80,16 +80,17 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 			// there's a bug in NSXMLParser which means aborting in some cases produces no error value
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
 			[errorString release]; errorString = nil;
-			*error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInvalidFeedError userInfo:userInfo];
+			if (error) *error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInvalidFeedError userInfo:userInfo];
 			return nil;
 		}
 	} else {
 		[feed release]; feed = nil;
-		*error = [xmlParser parserError];
-		if ([[*error domain] isEqualToString:NSXMLParserErrorDomain] && [*error code] == NSXMLParserInternalError) {
-			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
-			[errorString release]; errorString = nil;
-			*error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInternalError userInfo:userInfo];
+		if (error) {
+			*error = [xmlParser parserError];
+			if ([[*error domain] isEqualToString:NSXMLParserErrorDomain] && [*error code] == NSXMLParserInternalError) {
+				NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
+				*error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInternalError userInfo:userInfo];
+			}
 		}
 		[errorString release]; errorString = nil;
 		return nil;
@@ -99,9 +100,10 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description {
 	[feed release];
 	feed = nil;
-	[errorString release];
+	//[errorString release];
 	if (description == nil) {
-		errorString = [[NSString stringWithFormat:@"Invalid feed data at line %d", [parser lineNumber]] copy];
+		//errorString = [[NSString stringWithFormat:@"Invalid feed data at line %ld", [parser lineNumber]] copy];
+		errorString = [[NSString alloc] initWithFormat:@"Invalid feed data at line %ld", [parser lineNumber]];
 	} else {
 		errorString = [description copy];
 	}

@@ -15,11 +15,11 @@
 @private
 	NSString *title;
 	NSString *link;
-	NSString *description;
+	NSString *feedDescription;
 	NSDate *pubDate;
 }
 @property (nonatomic, copy, readonly) NSString *title;
 @property (nonatomic, copy, readonly) NSString *link;
-@property (nonatomic, copy, readonly) NSString *description;
+@property (nonatomic, copy, readonly) NSString *feedDescription;
 @property (nonatomic, copy, readonly) NSDate *pubDate;
 @end

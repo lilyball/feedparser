@@ -48,7 +48,7 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 
 - (id)init {
 	if (self = [super init]) {
-		handlers = [kHandlerMap objectForKey:[self class]];
+		handlers = [[kHandlerMap objectForKey:[self class]] retain];
 		currentElementType = FPXMLParserStreamElementType;
 	}
 	return self;

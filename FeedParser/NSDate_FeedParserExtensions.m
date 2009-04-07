@@ -37,7 +37,7 @@ static NSArray *kMonths;
 	ASSERT([scanner scanCharactersFromSet:digitSet intoString:&temp] && [temp length] >= 1 && [temp length] <= 2);
 	[components setDay:[temp integerValue]];
 	ASSERT([scanner scanCharactersFromSet:letterSet intoString:&temp]);
-	int month = [kMonths indexOfObject:temp];
+	NSUInteger month = [kMonths indexOfObject:temp];
 	ASSERT(month != NSNotFound);
 	[components setMonth:(month+1)];
 	ASSERT([scanner scanCharactersFromSet:digitSet intoString:&temp] && ([temp length] == 2 || [temp length] == 4));
