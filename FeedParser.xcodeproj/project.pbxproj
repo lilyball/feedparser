@@ -131,7 +131,7 @@
 				0A9BB9A20F8AD58800CB5F5D /* FPXMLPair.h */,
 				0A9BB9A30F8AD58800CB5F5D /* FPXMLPair.m */,
 			);
-			name = Internal;
+			path = Internal;
 			sourceTree = "<group>";
 		};
 		0A9BB9F20F8AE17F00CB5F5D /* Extensions */ = {
@@ -140,7 +140,7 @@
 				0A9BB9F30F8AE19000CB5F5D /* NSDate_FeedParserExtensions.h */,
 				0A9BB9F40F8AE19000CB5F5D /* NSDate_FeedParserExtensions.m */,
 			);
-			name = Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		0AACF25C0F8AC01B0061AEB8 /* Test */ = {
