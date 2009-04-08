@@ -30,30 +30,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 	return [parser parseData:data error:error];
 }
 
-+ (FPParser *)parserWithURL:(NSURL *)url delegate:(id<FPParserDelegate>)delegate {
-	NSAssert(NO, @"Not yet implemented"); // TODO
-	return nil;
-}
-
-- (id)initWithURL:(NSURL *)url delegate:(id<FPParserDelegate>)delegate {
-	[self release];
-	NSAssert(NO, @"Not yet implemented"); // TODO
-	return nil;
-}
-
-- (BOOL)parse {
-	NSAssert(NO, @"Not yet implemented"); // TODO
-	return NO;
-}
-
-- (void)cancel {
-	NSAssert(NO, @"Not yet implemented"); // TODO
-}
-
 - (void)dealloc {
-	[urlConnection cancel];
-	[urlConnection release];
-	[networkData release];
 	[feed release];
 	[errorString release];
 	[super dealloc];
