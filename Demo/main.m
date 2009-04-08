@@ -21,7 +21,7 @@ int main() {
       <link>http://liftoff.msfc.nasa.gov/</link>\
       <description>Liftoff to Space Exploration.</description>\
 	</channel>\
-</rssd>";
+</rss>";
 	NSData *data = [rss dataUsingEncoding:NSUTF8StringEncoding];
 	NSError *error;
 	FPFeed *feed = [FPParser parsedFeedWithData:data error:&error];
