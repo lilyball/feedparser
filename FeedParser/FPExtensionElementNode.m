@@ -85,7 +85,7 @@
 	if (currentText != nil) {
 		[self closeTextNode];
 	}
-	[parentParser acceptParsing:parser];
+	[parser setDelegate:parentParser];
 	parentParser = nil;
 }
 
