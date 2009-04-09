@@ -10,3 +10,4 @@
 #import "FPFeed.h"
 #import "FPItem.h"
 #import "FPErrors.h"
+#import "FPExtensionNode.h"
