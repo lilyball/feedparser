@@ -95,7 +95,7 @@
 }
 
 - (void)parser:(NSXMLParser *)parser foundIgnorableWhitespace:(NSString *)whitespaceString {
-	if (currentText != nil) currentText = [[NSMutableString alloc] init];
+	if (currentText == nil) currentText = [[NSMutableString alloc] init];
 	[currentText appendString:whitespaceString];
 }
 
@@ -104,7 +104,7 @@
 	if (data == nil) {
 		[self abortParsing:parser withString:[NSString stringWithFormat:@"Non-UTF8 data found in CDATA block at line %d", [parser lineNumber]]];
 	} else {
-		if (currentText != nil) currentText = [[NSMutableString alloc] init];
+		if (currentText == nil) currentText = [[NSMutableString alloc] init];
 		[currentText appendString:data];
 		[data release];
 	}
