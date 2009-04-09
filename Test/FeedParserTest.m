@@ -53,4 +53,37 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	FPFeed *feed = [FPParser parsedFeedWithData:data error:&error];
 	STAssertNotNil(feed, @"FPParser returned error: %@", [error localizedDescription]);
 }
+
+- (void)testExtensionElements {
+	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"extensions"
+																											 ofType:@"rss"]];
+	NSError *error = nil;
+	FPFeed *feed = [FPParser parsedFeedWithData:data error:&error];
+	STAssertNotNil(feed, @"FPParser returned error: %@", [error localizedDescription]);
+	if (feed == nil) return;
+	STAssertEquals([feed.extensionElements count], 3u, nil);
+	FPExtensionNode *node = [feed.extensionElements objectAtIndex:0];
+	STAssertTrue(node.isElement, nil);
+	STAssertEqualObjects(node.name, @"updatePeriod", nil);
+	STAssertEqualObjects(node.namespaceURI, @"http://purl.org/rss/1.0/modules/syndication/", nil);
+	STAssertEqualObjects(node.stringValue, @"hourly", nil);
+	STAssertEquals([[feed extensionElementsWithXMLNamespace:@"http://purl.org/rss/1.0/modules/syndication/"] count], 2u, nil);
+	FPItem *item = [feed.items objectAtIndex:0];
+	STAssertEquals([item.extensionElements count], 2u, nil);
+	STAssertEquals([[item extensionElementsWithXMLNamespace:@"uri:fake"] count], 1u, nil);
+	FPExtensionNode *fake = [[item extensionElementsWithXMLNamespace:@"uri:fake"] objectAtIndex:0];
+	NSLog(@"fake: %@", fake.children);
+	STAssertEquals([fake.children count], 5u, @"node children: %@", fake.children);
+	STAssertEqualObjects([[fake.children objectAtIndex:0] stringValue], @"\n            Text", nil);
+	FPExtensionNode *child = [fake.children objectAtIndex:1];
+	STAssertTrue(child.isElement, nil);
+	STAssertEqualObjects(child.name, @"child", nil);
+	STAssertEqualObjects(child.namespaceURI, @"uri:fake", nil);
+	STAssertEqualObjects(child.stringValue, @"Child", nil);
+	STAssertEqualObjects([[fake.children objectAtIndex:2] stringValue], @"\n            CDATA data\n            ", nil);
+	child = [fake.children objectAtIndex:3];
+	STAssertTrue(child.isElement, nil);
+	STAssertEqualObjects(child.stringValue, @"Child 2", nil);
+	STAssertEqualObjects([[fake.children objectAtIndex:4] stringValue], @"\n         ", nil);
+}
 @end

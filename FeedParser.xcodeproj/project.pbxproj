@@ -18,6 +18,7 @@
 		0A5C39D80F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
 		0A5C39D90F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
 		0A5C39DA0F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
+		0A5C3ACA0F8EAE3800106D24 /* extensions.rss in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C3AC90F8EAE3800106D24 /* extensions.rss */; };
 		0A9BB99E0F8ACCF200CB5F5D /* FPXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BB99D0F8ACCF200CB5F5D /* FPXMLParser.m */; };
 		0A9BB99F0F8ACCF200CB5F5D /* FPXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BB99D0F8ACCF200CB5F5D /* FPXMLParser.m */; };
 		0A9BB9A40F8AD58800CB5F5D /* FPXMLPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BB9A30F8AD58800CB5F5D /* FPXMLPair.m */; };
@@ -63,6 +64,7 @@
 		0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPExtensionTextNode.m; sourceTree = "<group>"; };
 		0A5C3A040F8E9ED200106D24 /* FPXMLParserProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPXMLParserProtocol.h; sourceTree = "<group>"; };
 		0A5C3A860F8EAC1D00106D24 /* FPExtensionElementNode_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPExtensionElementNode_Private.h; sourceTree = "<group>"; };
+		0A5C3AC90F8EAE3800106D24 /* extensions.rss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = extensions.rss; sourceTree = "<group>"; usesTabs = 0; };
 		0A9BB99C0F8ACCF200CB5F5D /* FPXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPXMLParser.h; sourceTree = "<group>"; };
 		0A9BB99D0F8ACCF200CB5F5D /* FPXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPXMLParser.m; sourceTree = "<group>"; };
 		0A9BB9A20F8AD58800CB5F5D /* FPXMLPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPXMLPair.h; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				0AACF26D0F8AC0810061AEB8 /* sample-rss-091.rss */,
 				0AACF26E0F8AC0810061AEB8 /* sample-rss-092.rss */,
 				0AACF26F0F8AC0810061AEB8 /* sample-rss-2.rss */,
+				0A5C3AC90F8EAE3800106D24 /* extensions.rss */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				0AACF2700F8AC0810061AEB8 /* sample-rss-091.rss in Resources */,
 				0AACF2710F8AC0810061AEB8 /* sample-rss-092.rss in Resources */,
 				0AACF2720F8AC0810061AEB8 /* sample-rss-2.rss in Resources */,
+				0A5C3ACA0F8EAE3800106D24 /* extensions.rss in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
