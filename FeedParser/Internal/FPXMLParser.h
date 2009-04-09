@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FPXMLParserProtocol.h"
 
 typedef enum {
 	FPXMLParserTextElementType = 1,
@@ -19,8 +20,8 @@ extern NSString * const kFPXMLParserAtomNamespaceURI;
 extern NSString * const kFPXMLParserDublinCoreNamespaceURI;
 extern NSString * const kFPXMLParserContentNamespaceURI;
 
-@interface FPXMLParser : NSObject {
-	FPXMLParser *parentParser; // non-retained
+@interface FPXMLParser : NSObject <FPXMLParserProtocol> {
+	id<FPXMLParserProtocol> parentParser; // non-retained
 	NSString *baseNamespaceURI;
 	NSDictionary *handlers;
 	NSMutableString *currentTextValue;
@@ -31,7 +32,7 @@ extern NSString * const kFPXMLParserContentNamespaceURI;
 	SEL currentHandlerSelector;
 }
 + (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI type:(FPXMLParserElementType)type;
-- (id)initWithParser:(NSXMLParser *)parser baseNamespaceURI:(NSString *)namespaceURI;
+- (id)initWithBaseNamespaceURI:(NSString *)namespaceURI;
 - (void)abortParsing:(NSXMLParser *)parser;
 - (void)abortParsing:(NSXMLParser *)parser withFormat:(NSString *)description, ...;
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description;

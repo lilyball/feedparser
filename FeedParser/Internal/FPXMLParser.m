@@ -8,6 +8,8 @@
 
 #import "FPXMLParser.h"
 #import "FPXMLPair.h"
+#import "FPExtensionNode.h"
+#import "FPExtensionElementNode.h"
 #import <objc/message.h>
 #import <stdarg.h>
 
@@ -39,13 +41,9 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 	[handlers setObject:valuePair forKey:keyPair];
 }
 
-- (id)initWithParser:(NSXMLParser *)parser baseNamespaceURI:(NSString *)namespaceURI {
+- (id)initWithBaseNamespaceURI:(NSString *)namespaceURI {
 	if (self = [self init]) {
 		baseNamespaceURI = [namespaceURI copy];
-		// assume that the old delegate was an FPXMLParser
-		// if not, then something is broken
-		parentParser = (FPXMLParser *)[parser delegate];
-		[parser setDelegate:self];
 	}
 	return self;
 }
@@ -57,6 +55,11 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 		parseDepth = 1;
 	}
 	return self;
+}
+
+- (void)acceptParsing:(NSXMLParser *)parser {
+	parentParser = (id<FPXMLParserProtocol>)[parser delegate];
+	[parser setDelegate:self];
 }
 
 - (void)abortParsing:(NSXMLParser *)parser {

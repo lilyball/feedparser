@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		0A339C8A0F8803C600D0F64E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A339B080F87236F00D0F64E /* Foundation.framework */; };
 		0A339C9B0F8804E400D0F64E /* FPFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C990F8804E400D0F64E /* FPFeed.m */; };
+		0A5C39C70F8E981000106D24 /* FPExtensionElementNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39C60F8E981000106D24 /* FPExtensionElementNode.m */; };
+		0A5C39C80F8E981100106D24 /* FPExtensionElementNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39C60F8E981000106D24 /* FPExtensionElementNode.m */; };
+		0A5C39C90F8E981100106D24 /* FPExtensionElementNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39C60F8E981000106D24 /* FPExtensionElementNode.m */; };
+		0A5C39D20F8E999A00106D24 /* FPExtensionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D10F8E999A00106D24 /* FPExtensionNode.m */; };
+		0A5C39D30F8E999A00106D24 /* FPExtensionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D10F8E999A00106D24 /* FPExtensionNode.m */; };
+		0A5C39D40F8E999A00106D24 /* FPExtensionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D10F8E999A00106D24 /* FPExtensionNode.m */; };
+		0A5C39D80F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
+		0A5C39D90F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
+		0A5C39DA0F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
 		0A9BB99E0F8ACCF200CB5F5D /* FPXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BB99D0F8ACCF200CB5F5D /* FPXMLParser.m */; };
 		0A9BB99F0F8ACCF200CB5F5D /* FPXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BB99D0F8ACCF200CB5F5D /* FPXMLParser.m */; };
 		0A9BB9A40F8AD58800CB5F5D /* FPXMLPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BB9A30F8AD58800CB5F5D /* FPXMLPair.m */; };
@@ -46,6 +55,13 @@
 		0A339C770F88034D00D0F64E /* libFeedParser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFeedParser.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A339C980F8804E400D0F64E /* FPFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPFeed.h; sourceTree = "<group>"; };
 		0A339C990F8804E400D0F64E /* FPFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPFeed.m; sourceTree = "<group>"; };
+		0A5C39C50F8E981000106D24 /* FPExtensionElementNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPExtensionElementNode.h; sourceTree = "<group>"; };
+		0A5C39C60F8E981000106D24 /* FPExtensionElementNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPExtensionElementNode.m; sourceTree = "<group>"; };
+		0A5C39D00F8E999A00106D24 /* FPExtensionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPExtensionNode.h; sourceTree = "<group>"; };
+		0A5C39D10F8E999A00106D24 /* FPExtensionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPExtensionNode.m; sourceTree = "<group>"; };
+		0A5C39D60F8E9B1200106D24 /* FPExtensionTextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPExtensionTextNode.h; sourceTree = "<group>"; };
+		0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPExtensionTextNode.m; sourceTree = "<group>"; };
+		0A5C3A040F8E9ED200106D24 /* FPXMLParserProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPXMLParserProtocol.h; sourceTree = "<group>"; };
 		0A9BB99C0F8ACCF200CB5F5D /* FPXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPXMLParser.h; sourceTree = "<group>"; };
 		0A9BB99D0F8ACCF200CB5F5D /* FPXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPXMLParser.m; sourceTree = "<group>"; };
 		0A9BB9A20F8AD58800CB5F5D /* FPXMLPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPXMLPair.h; sourceTree = "<group>"; };
@@ -108,6 +124,7 @@
 				0A339C990F8804E400D0F64E /* FPFeed.m */,
 				0AA74C0C0F881C4A007F6085 /* FPItem.h */,
 				0AA74C0D0F881C4A007F6085 /* FPItem.m */,
+				0A5C39CA0F8E98A000106D24 /* XML Extensions */,
 				0A9BB99B0F8ACCDE00CB5F5D /* Internal */,
 				0A9BB9F20F8AE17F00CB5F5D /* Extensions */,
 			);
@@ -123,9 +140,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0A5C39CA0F8E98A000106D24 /* XML Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0A5C39D00F8E999A00106D24 /* FPExtensionNode.h */,
+				0A5C39D10F8E999A00106D24 /* FPExtensionNode.m */,
+				0A5C39C50F8E981000106D24 /* FPExtensionElementNode.h */,
+				0A5C39C60F8E981000106D24 /* FPExtensionElementNode.m */,
+				0A5C39D60F8E9B1200106D24 /* FPExtensionTextNode.h */,
+				0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */,
+			);
+			name = "XML Extensions";
+			sourceTree = "<group>";
+		};
 		0A9BB99B0F8ACCDE00CB5F5D /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				0A5C3A040F8E9ED200106D24 /* FPXMLParserProtocol.h */,
 				0A9BB99C0F8ACCF200CB5F5D /* FPXMLParser.h */,
 				0A9BB99D0F8ACCF200CB5F5D /* FPXMLParser.m */,
 				0A9BB9A20F8AD58800CB5F5D /* FPXMLPair.h */,
@@ -309,6 +340,9 @@
 				0A9BB99F0F8ACCF200CB5F5D /* FPXMLParser.m in Sources */,
 				0A9BB9A50F8AD58800CB5F5D /* FPXMLPair.m in Sources */,
 				0A9BB9F60F8AE19000CB5F5D /* NSDate_FeedParserExtensions.m in Sources */,
+				0A5C39C70F8E981000106D24 /* FPExtensionElementNode.m in Sources */,
+				0A5C39D40F8E999A00106D24 /* FPExtensionNode.m in Sources */,
+				0A5C39D90F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +358,9 @@
 				0A9BB9A40F8AD58800CB5F5D /* FPXMLPair.m in Sources */,
 				0A9BB9F50F8AE19000CB5F5D /* NSDate_FeedParserExtensions.m in Sources */,
 				0AAF74D40F8AEE3800120935 /* RFC822Test.m in Sources */,
+				0A5C39C80F8E981100106D24 /* FPExtensionElementNode.m in Sources */,
+				0A5C39D20F8E999A00106D24 /* FPExtensionNode.m in Sources */,
+				0A5C39D80F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +369,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AAF77120F8B1ED600120935 /* main.m in Sources */,
+				0A5C39C90F8E981100106D24 /* FPExtensionElementNode.m in Sources */,
+				0A5C39D30F8E999A00106D24 /* FPExtensionNode.m in Sources */,
+				0A5C39DA0F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
