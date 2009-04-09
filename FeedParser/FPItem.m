@@ -15,10 +15,12 @@
 @property (nonatomic, copy, readwrite) NSString *guid;
 @property (nonatomic, copy, readwrite) NSString *content;
 @property (nonatomic, copy, readwrite) NSDate *pubDate;
+@property (nonatomic, copy, readwrite) NSString *creator;
 @end
 
 @implementation FPItem
 @synthesize title, link, guid, content, pubDate;
+@synthesize creator;
 
 + (void)initialize {
 	if (self == [FPItem class]) {
@@ -30,6 +32,8 @@
 		for (NSString *key in [NSArray arrayWithObjects:@"author", @"category", @"comments", @"enclosure", @"source", nil]) {
 			[self registerHandler:NULL forElement:key namespaceURI:@"" type:FPXMLParserSkipElementType];
 		}
+		[self registerHandler:@selector(setCreator:) forElement:@"creator"
+				 namespaceURI:kFPXMLParserDublinCoreNamespaceURI type:FPXMLParserTextElementType];
 	}
 }
 
@@ -45,6 +49,7 @@
 	[guid release];
 	[content release];
 	[pubDate release];
+	[creator release];
 	[super dealloc];
 }
 @end

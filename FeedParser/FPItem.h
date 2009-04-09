@@ -15,10 +15,16 @@
 	NSString *guid;
 	NSString *content;
 	NSDate *pubDate;
+	// extensions
+	// DublinCore
+	NSString *creator;
 }
 @property (nonatomic, copy, readonly) NSString *title;
 @property (nonatomic, copy, readonly) NSString *link;
 @property (nonatomic, copy, readonly) NSString *guid;
 @property (nonatomic, copy, readonly) NSString *content;
 @property (nonatomic, copy, readonly) NSDate *pubDate;
+// extensions
+// DublinCore
+@property (nonatomic, copy, readonly) NSString *creator;
 @end
