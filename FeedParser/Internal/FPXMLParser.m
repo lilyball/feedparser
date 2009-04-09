@@ -198,7 +198,7 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 			} else if (![namespaceURI isEqualToString:kFPXMLParserAtomNamespaceURI] && ![namespaceURI isEqualToString:@""]) {
 				// element is unknown and belongs to neither the Atom nor RSS namespaces
 				FPExtensionElementNode *node = [[FPExtensionElementNode alloc] initWithElementName:elementName namespaceURI:namespaceURI
-																						attributes:attributeDict];
+																					 qualifiedName:qualifiedName attributes:attributeDict];
 				[node acceptParsing:parser];
 				[extensionElements addObject:node];
 				[node release];

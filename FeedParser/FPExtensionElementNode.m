@@ -16,11 +16,13 @@
 @end
 
 @implementation FPExtensionElementNode
-@synthesize name, namespaceURI, attributes, children;
+@synthesize name, qualifiedName, namespaceURI, attributes, children;
 
-- (id)initWithElementName:(NSString *)aName namespaceURI:(NSString *)aNamespaceURI attributes:(NSDictionary *)attributeDict {
+- (id)initWithElementName:(NSString *)aName namespaceURI:(NSString *)aNamespaceURI qualifiedName:(NSString *)qName
+			   attributes:(NSDictionary *)attributeDict {
 	if (self = [super init]) {
 		name = [aName copy];
+		qualifiedName = [qName copy];
 		namespaceURI = [aNamespaceURI copy];
 		attributes = [attributeDict copy];
 		children = [[NSMutableArray alloc] init];
@@ -30,6 +32,10 @@
 
 - (BOOL)isElement {
 	return YES;
+}
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<%@: %p <%@>>", NSStringFromClass([self class]), self, qualifiedName];
 }
 
 - (NSString *)stringValue {
@@ -53,6 +59,7 @@
 
 - (void)dealloc {
 	[name release];
+	[qualifiedName release];
 	[namespaceURI release];
 	[attributes release];
 	[children release];
@@ -63,12 +70,12 @@
 #pragma mark XML parser methods
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)aNamespaceURI
- qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
+ qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
 	if (currentText != nil) {
 		[self closeTextNode];
 	}
 	FPExtensionElementNode *child = [[FPExtensionElementNode alloc] initWithElementName:elementName namespaceURI:aNamespaceURI
-																			 attributes:attributeDict];
+																		  qualifiedName:qName attributes:attributeDict];
 	[child acceptParsing:parser];
 	[children addObject:child];
 	[child release];

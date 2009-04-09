@@ -27,6 +27,10 @@
 	return nil;
 }
 
+- (NSString *)qualifiedName {
+	return nil;
+}
+
 - (NSString *)namespaceURI {
 	return nil;
 }

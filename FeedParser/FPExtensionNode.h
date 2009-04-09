@@ -24,6 +24,7 @@
 
 // The following properties are only valid for element nodes
 @property (nonatomic, readonly) NSString *name;
+@property (nonatomic, readonly) NSString *qualifiedName; // returns the name as existed in the XML source
 @property (nonatomic, readonly) NSString *namespaceURI;
 @property (nonatomic, readonly) NSDictionary *attributes;
 @property (nonatomic, readonly) NSArray *children; // an array of FPExtensionNodes

@@ -15,6 +15,7 @@
 @interface FPExtensionElementNode : FPExtensionNode {
 @private
 	NSString *name;
+	NSString *qualifiedName;
 	NSString *namespaceURI;
 	NSDictionary *attributes;
 	NSMutableArray *children;
@@ -22,5 +23,6 @@
 	id<FPXMLParserProtocol> parentParser;
 	NSMutableString *currentText;
 }
-- (id)initWithElementName:(NSString *)name namespaceURI:(NSString *)namespaceURI attributes:(NSDictionary *)attributeDict;
+- (id)initWithElementName:(NSString *)name namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+			   attributes:(NSDictionary *)attributeDict;
 @end
