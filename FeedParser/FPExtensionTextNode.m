@@ -20,6 +20,10 @@
 	return YES;
 }
 
+- (NSString *)stringValue {
+	return stringValue;
+}
+
 - (void)dealloc {
 	[stringValue release];
 	[super dealloc];
