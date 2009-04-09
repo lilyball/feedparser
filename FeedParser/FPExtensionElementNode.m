@@ -32,6 +32,17 @@
 	return YES;
 }
 
+- (NSString *)stringValue {
+	NSMutableString *stringValue = [NSMutableString string];
+	for (FPExtensionNode *child in children) {
+		NSString *str = child.stringValue;
+		if (str != nil) {
+			[stringValue appendString:str];
+		}
+	}
+	return stringValue;
+}
+
 - (void)closeTextNode {
 	FPExtensionTextNode *child = [[FPExtensionTextNode alloc] initWithStringValue:currentText];
 	[children addObject:child];

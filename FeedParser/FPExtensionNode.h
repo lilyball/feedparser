@@ -16,7 +16,10 @@
 @property (nonatomic, readonly) BOOL isElement;
 @property (nonatomic, readonly) BOOL isTextNode;
 
-// The following properties are only valid for text nodes
+// stringValue returns a string representing the node
+// for text nodes, it returns the text associated with the node
+// for element nodes, it returns a concatenation of the stringValue of all its children
+// this means that any child element nodes get effectively flattened out and disappear
 @property (nonatomic, readonly) NSString *stringValue;
 
 // The following properties are only valid for element nodes
