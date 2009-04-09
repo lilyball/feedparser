@@ -7,10 +7,11 @@
 //
 
 #import "FPExtensionElementNode.h"
+#import "FPExtensionElementNode_Private.h"
 #import "FPXMLParserProtocol.h"
 #import "FPExtensionTextNode.h"
 
-@interface FPExtensionElementNode () <FPXMLParserProtocol>
+@interface FPExtensionElementNode ()
 - (void)closeTextNode;
 @end
 

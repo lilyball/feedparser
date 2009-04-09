@@ -21,6 +21,8 @@ extern NSString * const kFPXMLParserDublinCoreNamespaceURI;
 extern NSString * const kFPXMLParserContentNamespaceURI;
 
 @interface FPXMLParser : NSObject <FPXMLParserProtocol> {
+@protected
+	NSMutableArray *extensionElements;
 	id<FPXMLParserProtocol> parentParser; // non-retained
 	NSString *baseNamespaceURI;
 	NSDictionary *handlers;
@@ -31,10 +33,13 @@ extern NSString * const kFPXMLParserContentNamespaceURI;
 	NSUInteger parseDepth;
 	SEL currentHandlerSelector;
 }
+@property (nonatomic, readonly) NSArray *extensionElements;
 + (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI type:(FPXMLParserElementType)type;
 - (id)initWithBaseNamespaceURI:(NSString *)namespaceURI;
 - (void)abortParsing:(NSXMLParser *)parser;
 - (void)abortParsing:(NSXMLParser *)parser withFormat:(NSString *)description, ...;
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description;
 - (void)abdicateParsing:(NSXMLParser *)parser;
+
+- (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI;
 @end

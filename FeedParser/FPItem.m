@@ -14,8 +14,8 @@
 @property (nonatomic, copy, readwrite) NSString *link;
 @property (nonatomic, copy, readwrite) NSString *guid;
 @property (nonatomic, copy, readwrite) NSString *content;
-@property (nonatomic, copy, readwrite) NSDate *pubDate;
 @property (nonatomic, copy, readwrite) NSString *creator;
+@property (nonatomic, copy, readwrite) NSDate *pubDate;
 @end
 
 @implementation FPItem

@@ -15,16 +15,14 @@
 	NSString *guid;
 	NSString *content;
 	NSDate *pubDate;
-	// extensions
-	// DublinCore
-	NSString *creator;
+	NSString *creator; // <dc:creator>
 }
 @property (nonatomic, copy, readonly) NSString *title;
 @property (nonatomic, copy, readonly) NSString *link;
 @property (nonatomic, copy, readonly) NSString *guid;
 @property (nonatomic, copy, readonly) NSString *content;
+@property (nonatomic, copy, readonly) NSString *creator; // <dc:creator>
 @property (nonatomic, copy, readonly) NSDate *pubDate;
-// extensions
-// DublinCore
-@property (nonatomic, copy, readonly) NSString *creator;
+// parent class defines property NSArray *extensionElements
+// parent class defines method -(NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
 @end

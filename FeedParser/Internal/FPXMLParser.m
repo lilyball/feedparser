@@ -10,6 +10,7 @@
 #import "FPXMLPair.h"
 #import "FPExtensionNode.h"
 #import "FPExtensionElementNode.h"
+#import "FPExtensionElementNode_Private.h"
 #import <objc/message.h>
 #import <stdarg.h>
 
@@ -50,6 +51,7 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 
 - (id)init {
 	if (self = [super init]) {
+		extensionElements = [[NSMutableArray alloc] init];
 		handlers = [[kHandlerMap objectForKey:[self class]] retain];
 		currentElementType = FPXMLParserStreamElementType;
 		parseDepth = 1;
@@ -90,7 +92,22 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 	parentParser = nil;
 }
 
+- (NSArray *)extensionElements {
+	return [NSArray arrayWithArray:extensionElements];
+}
+
+- (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI {
+	NSMutableArray *ary = [NSMutableArray arrayWithCapacity:[extensionElements count]];
+	for (FPExtensionNode *node in extensionElements) {
+		if ([node.namespaceURI isEqualToString:namespaceURI]) {
+			[ary addObject:node];
+		}
+	}
+	return ary;
+}
+
 - (void)dealloc {
+	[extensionElements release];
 	[handlers release];
 	[currentTextValue release];
 	[currentAttributeDict release];
@@ -178,10 +195,13 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 				}
 			} else if ([namespaceURI isEqualToString:baseNamespaceURI]) {
 				[self abortParsing:parser];
-			} else {
-				// element is unrecognized and out of our namespace. Skip its content
-				currentElementType = FPXMLParserSkipElementType;
-				skipDepth = 1;
+			} else if (![namespaceURI isEqualToString:kFPXMLParserAtomNamespaceURI] && ![namespaceURI isEqualToString:@""]) {
+				// element is unknown and belongs to neither the Atom nor RSS namespaces
+				FPExtensionElementNode *node = [[FPExtensionElementNode alloc] initWithElementName:elementName namespaceURI:namespaceURI
+																						attributes:attributeDict];
+				[node acceptParsing:parser];
+				[extensionElements addObject:node];
+				[node release];
 			}
 			break;
 		}

@@ -24,4 +24,6 @@
 @property (nonatomic, copy, readonly) NSString *feedDescription;
 @property (nonatomic, copy, readonly) NSDate *pubDate;
 @property (nonatomic, retain, readonly) NSArray *items;
+// parent class defines property NSArray *extensionElements
+// parent class defines method -(NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
 @end
