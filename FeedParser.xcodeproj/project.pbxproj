@@ -11,19 +11,14 @@
 		0A339C9B0F8804E400D0F64E /* FPFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C990F8804E400D0F64E /* FPFeed.m */; };
 		0A5C39C70F8E981000106D24 /* FPExtensionElementNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39C60F8E981000106D24 /* FPExtensionElementNode.m */; };
 		0A5C39C80F8E981100106D24 /* FPExtensionElementNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39C60F8E981000106D24 /* FPExtensionElementNode.m */; };
-		0A5C39C90F8E981100106D24 /* FPExtensionElementNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39C60F8E981000106D24 /* FPExtensionElementNode.m */; };
 		0A5C39D20F8E999A00106D24 /* FPExtensionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D10F8E999A00106D24 /* FPExtensionNode.m */; };
-		0A5C39D30F8E999A00106D24 /* FPExtensionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D10F8E999A00106D24 /* FPExtensionNode.m */; };
 		0A5C39D40F8E999A00106D24 /* FPExtensionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D10F8E999A00106D24 /* FPExtensionNode.m */; };
 		0A5C39D80F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
 		0A5C39D90F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
-		0A5C39DA0F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
 		0A5C3ACA0F8EAE3800106D24 /* extensions.rss in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C3AC90F8EAE3800106D24 /* extensions.rss */; };
 		0A5C3BF40F901AF100106D24 /* rss-with-atom.rss in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C3BF30F901AF100106D24 /* rss-with-atom.rss */; };
 		0A5C3C7F0F902A2A00106D24 /* FPLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3C7E0F902A2A00106D24 /* FPLink.m */; };
 		0A5C3C800F902A2A00106D24 /* FPLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3C7E0F902A2A00106D24 /* FPLink.m */; };
-		0A5C3C810F902A2A00106D24 /* FPLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3C7E0F902A2A00106D24 /* FPLink.m */; };
-		0A5C3CB90F9031E000106D24 /* NSString_extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3CB80F9031E000106D24 /* NSString_extensions.m */; };
 		0A5C3CBA0F9031E000106D24 /* NSString_extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3CB80F9031E000106D24 /* NSString_extensions.m */; };
 		0A5C3CBB0F9031E000106D24 /* NSString_extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3CB80F9031E000106D24 /* NSString_extensions.m */; };
 		0A9BB99E0F8ACCF200CB5F5D /* FPXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BB99D0F8ACCF200CB5F5D /* FPXMLParser.m */; };
@@ -42,19 +37,7 @@
 		0AACF2750F8AC1350061AEB8 /* FPFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C990F8804E400D0F64E /* FPFeed.m */; };
 		0AACF27F0F8AC1540061AEB8 /* FeedParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AACF27E0F8AC1540061AEB8 /* FeedParserTest.m */; };
 		0AAF74D40F8AEE3800120935 /* RFC822Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF74D30F8AEE3800120935 /* RFC822Test.m */; };
-		0AAF770C0F8B1E9A00120935 /* libFeedParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A339C770F88034D00D0F64E /* libFeedParser.a */; };
-		0AAF77120F8B1ED600120935 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF77110F8B1ED600120935 /* main.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		0AAF770A0F8B1E9400120935 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0A339C760F88034D00D0F64E;
-			remoteInfo = FeedParser;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0A339B080F87236F00D0F64E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -97,8 +80,6 @@
 		0AACF27E0F8AC1540061AEB8 /* FeedParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedParserTest.m; sourceTree = "<group>"; };
 		0AAF74D20F8AEE3800120935 /* RFC822Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC822Test.h; sourceTree = "<group>"; };
 		0AAF74D30F8AEE3800120935 /* RFC822Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFC822Test.m; sourceTree = "<group>"; };
-		0AAF77060F8B1E8100120935 /* FeedParserDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FeedParserDemo; sourceTree = BUILT_PRODUCTS_DIR; };
-		0AAF77110F8B1ED600120935 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0AD2F7350F9044C800D7CAF1 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,14 +96,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0AAF77040F8B1E8100120935 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0AAF770C0F8B1E9A00120935 /* libFeedParser.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,20 +193,11 @@
 			path = Fixtures;
 			sourceTree = "<group>";
 		};
-		0AAF77020F8B1E7000120935 /* Demo */ = {
-			isa = PBXGroup;
-			children = (
-				0AAF77110F8B1ED600120935 /* main.m */,
-			);
-			path = Demo;
-			sourceTree = "<group>";
-		};
 		19C28FB0FE9D524F11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				0A339C770F88034D00D0F64E /* libFeedParser.a */,
 				0AACF2620F8AC02E0061AEB8 /* Test.octest */,
-				0AAF77060F8B1E8100120935 /* FeedParserDemo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -243,7 +207,6 @@
 			children = (
 				0AD2F7350F9044C800D7CAF1 /* README.txt */,
 				0A339AFC0F87227500D0F64E /* FeedParser */,
-				0AAF77020F8B1E7000120935 /* Demo */,
 				0AACF25C0F8AC01B0061AEB8 /* Test */,
 				0A339C370F87259100D0F64E /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
@@ -288,23 +251,6 @@
 			productReference = 0AACF2620F8AC02E0061AEB8 /* Test.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		0AAF77050F8B1E8100120935 /* FeedParser Demo */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0AAF770D0F8B1EB800120935 /* Build configuration list for PBXNativeTarget "FeedParser Demo" */;
-			buildPhases = (
-				0AAF77030F8B1E8100120935 /* Sources */,
-				0AAF77040F8B1E8100120935 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0AAF770B0F8B1E9400120935 /* PBXTargetDependency */,
-			);
-			name = "FeedParser Demo";
-			productName = "FeedParser Demo";
-			productReference = 0AAF77060F8B1E8100120935 /* FeedParserDemo */;
-			productType = "com.apple.product-type.tool";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -318,7 +264,6 @@
 			projectRoot = "";
 			targets = (
 				0A339C760F88034D00D0F64E /* FeedParser */,
-				0AAF77050F8B1E8100120935 /* FeedParser Demo */,
 				0AACF2610F8AC02E0061AEB8 /* Test */,
 			);
 		};
@@ -394,28 +339,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0AAF77030F8B1E8100120935 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0AAF77120F8B1ED600120935 /* main.m in Sources */,
-				0A5C39C90F8E981100106D24 /* FPExtensionElementNode.m in Sources */,
-				0A5C39D30F8E999A00106D24 /* FPExtensionNode.m in Sources */,
-				0A5C39DA0F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */,
-				0A5C3C810F902A2A00106D24 /* FPLink.m in Sources */,
-				0A5C3CB90F9031E000106D24 /* NSString_extensions.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0AAF770B0F8B1E9400120935 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0A339C760F88034D00D0F64E /* FeedParser */;
-			targetProxy = 0AAF770A0F8B1E9400120935 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0A339C780F88034D00D0F64E /* Debug */ = {
@@ -506,48 +430,6 @@
 			};
 			name = Release;
 		};
-		0AAF77080F8B1E8200120935 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Foundation.framework/Headers/Foundation.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = FeedParserDemo;
-			};
-			name = Debug;
-		};
-		0AAF77090F8B1E8200120935 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Foundation.framework/Headers/Foundation.h";
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = FeedParserDemo;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -591,15 +473,6 @@
 			buildConfigurations = (
 				0AACF2640F8AC02F0061AEB8 /* Debug */,
 				0AACF2650F8AC02F0061AEB8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0AAF770D0F8B1EB800120935 /* Build configuration list for PBXNativeTarget "FeedParser Demo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0AAF77080F8B1E8200120935 /* Debug */,
-				0AAF77090F8B1E8200120935 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
