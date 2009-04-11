@@ -99,6 +99,7 @@
 		0AAF74D30F8AEE3800120935 /* RFC822Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFC822Test.m; sourceTree = "<group>"; };
 		0AAF77060F8B1E8100120935 /* FeedParserDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FeedParserDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AAF77110F8B1ED600120935 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0AD2F7350F9044C800D7CAF1 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +241,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* FeedParser */ = {
 			isa = PBXGroup;
 			children = (
+				0AD2F7350F9044C800D7CAF1 /* README.txt */,
 				0A339AFC0F87227500D0F64E /* FeedParser */,
 				0AAF77020F8B1E7000120935 /* Demo */,
 				0AACF25C0F8AC01B0061AEB8 /* Test */,

@@ -1,0 +1,52 @@
+=== Introduction ===
+
+FeedParser is an NSXMLParser-based RSS/Atom feed parser for Cocoa. It is
+intended to parse well-formed RSS and Atom feeds on both the desktop and the
+iPhone.
+
+=== Usage ===
+
+The simplest way to use FeedParser is to simply add the FeedParser directory
+to your project. FeedParser also includes a static library target if you
+prefer to include it that way.
+
+=== Design Goals ===
+
+FeedParser was designed to parse valid RSS and Atom feeds, including support
+for extensions outside of the RSS or Atom namespaces. All parsed feeds MUST be
+well-formed, but the parser may or may not enforce validity.
+
+=== Current State ===
+
+As of this writing, FeedParser can parse a full valid RSS 2.0 feed, though it
+intentionally skips elements that I did not consider useful. The parser may be
+extended later to expose the values of those elements. FeedParser has only a
+limited understanding of Atom feeds. It can understand a handful of Atom
+elements embedded within an RSS feed, but it cannot understand a complete Atom
+feed. Full understanding of Atom feeds is one of the future goals of this
+project.
+
+FeedParser requires that the entire feed must be a well-formed XML document,
+but it does not do any validity checking of individual elements.
+
+=== Future Development ===
+
+The goals for future development of FeedParser are the following:
+
+* Fully support Atom feeds
+
+* Be as lenient as possible. To this extend, parsing non-well-formed documents
+  should be investigated. NSXMLParser is documented as aborting parsing upon
+  encountering an error, but in practice it appears that, at least on Mac OS X
+  10.5, it actually can recover from errors. However, at the current time
+  FeedParser explicitly aborts the parser when an error is encountered
+
+* Support the more common RSS/Atom extensions
+
+* Better error reporting
+
+=== Naming Issues ===
+
+The name FeedParser conflicts with RSS/Atom parsers for other languages. A new
+name unique name should be chosen that is available on Google Code for bug
+reporting purposes.
