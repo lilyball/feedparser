@@ -167,7 +167,7 @@
 				0A5C39D60F8E9B1200106D24 /* FPExtensionTextNode.h */,
 				0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */,
 			);
-			name = "XML Extensions";
+			path = "XML Extensions";
 			sourceTree = "<group>";
 		};
 		0A9BB99B0F8ACCDE00CB5F5D /* Internal */ = {
