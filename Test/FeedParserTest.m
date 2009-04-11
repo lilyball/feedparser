@@ -12,15 +12,21 @@
 @implementation FeedParserTest
 // to produce an epoch from a date, use `date -j -f '%a, %d %b %Y %H:%M:%S %Z' 'Tue, 10 Jun 2003 04:00:00 GMT' +'%s'`
 
-- (void)testSampleRSSTwo {
-	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"sample-rss-2"
-																											 ofType:@"rss"]];
+- (FPFeed *)feedFromFixture:(NSString *)fixture {
+	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:fixture ofType:nil]];
 	NSError *error = nil;
 	FPFeed *feed = [FPParser parsedFeedWithData:data error:&error];
 	STAssertNotNil(feed, @"FPParser returned error: %@", [error localizedDescription]);
+	return feed;
+}
+
+- (void)testSampleRSSTwo {
+	FPFeed *feed = [self feedFromFixture:@"sample-rss-2.rss"];
 	if (feed == nil) return;
 	STAssertEqualObjects(feed.title, @"Liftoff News", nil);
-	STAssertEqualObjects(feed.link, @"http://liftoff.msfc.nasa.gov/", nil);
+	STAssertEqualObjects(feed.link.href, @"http://liftoff.msfc.nasa.gov/", nil);
+	STAssertEqualObjects(feed.link.rel, @"alternate", nil);
+	STAssertEqualObjects(feed.links, [NSArray arrayWithObject:feed.link], nil);
 	STAssertEqualObjects(feed.feedDescription, @"Liftoff to Space Exploration.", nil);
 	STAssertEqualObjects(feed.pubDate, [NSDate dateWithTimeIntervalSince1970:1055217600], nil);
 	STAssertEquals([feed.items count], 4u, nil);
@@ -34,11 +40,7 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 }
 
 - (void)testSampleRSSOhNineTwo {
-	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"sample-rss-092"
-																											 ofType:@"rss"]];
-	NSError *error = nil;
-	FPFeed *feed = [FPParser parsedFeedWithData:data error:&error];
-	STAssertNotNil(feed, @"FPParser returned error: %@", [error localizedDescription]);
+	FPFeed *feed = [self feedFromFixture:@"sample-rss-092.rss"];
 	if (feed == nil) return;
 	STAssertEqualObjects(feed.title, @"Dave Winer: Grateful Dead", nil);
 	STAssertEquals([feed.items count], 22u, nil);
@@ -47,19 +49,12 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 }
 
 - (void)testSampleRSSOhNineOne {
-	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"sample-rss-092"
-																											 ofType:@"rss"]];
-	NSError *error = nil;
-	FPFeed *feed = [FPParser parsedFeedWithData:data error:&error];
-	STAssertNotNil(feed, @"FPParser returned error: %@", [error localizedDescription]);
+	// for now, just make sure it loads
+	[self feedFromFixture:@"sample-rss-091.rss"];
 }
 
 - (void)testExtensionElements {
-	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[FeedParserTest class]] pathForResource:@"extensions"
-																											 ofType:@"rss"]];
-	NSError *error = nil;
-	FPFeed *feed = [FPParser parsedFeedWithData:data error:&error];
-	STAssertNotNil(feed, @"FPParser returned error: %@", [error localizedDescription]);
+	FPFeed *feed = [self feedFromFixture:@"extensions.rss"];
 	if (feed == nil) return;
 	STAssertEquals([feed.extensionElements count], 3u, nil);
 	FPExtensionNode *node = [feed.extensionElements objectAtIndex:0];
@@ -85,5 +80,19 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	STAssertTrue(child.isElement, nil);
 	STAssertEqualObjects(child.stringValue, @"Child 2", nil);
 	STAssertEqualObjects([[fake.children objectAtIndex:4] stringValue], @"\n         ", nil);
+}
+
+- (void)testLinks {
+	FPFeed *feed = [self feedFromFixture:@"rss-with-atom.rss"];
+	if (feed == nil) return;
+	STAssertEqualObjects(feed.link.href, @"http://liftoff.msfc.nasa.gov/", nil);
+	STAssertEqualObjects(feed.link.rel, @"alternate", nil);
+	STAssertNil(feed.link.type, nil);
+	STAssertNil(feed.link.title, nil);
+	STAssertEquals([feed.items count], 4u, nil);
+	FPFeed *item = [feed.items objectAtIndex:0];
+	STAssertEqualObjects(item.link.href, @"http://liftoff.msfc.nasa.gov/news/2003/news-starcity.asp", nil);
+	item = [feed.items objectAtIndex:1];
+	STAssertEqualObjects(item.link.href, @"http://fake/", nil);
 }
 @end

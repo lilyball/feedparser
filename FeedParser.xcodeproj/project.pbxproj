@@ -19,6 +19,7 @@
 		0A5C39D90F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
 		0A5C39DA0F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
 		0A5C3ACA0F8EAE3800106D24 /* extensions.rss in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C3AC90F8EAE3800106D24 /* extensions.rss */; };
+		0A5C3BF40F901AF100106D24 /* rss-with-atom.rss in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C3BF30F901AF100106D24 /* rss-with-atom.rss */; };
 		0A5C3C7F0F902A2A00106D24 /* FPLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3C7E0F902A2A00106D24 /* FPLink.m */; };
 		0A5C3C800F902A2A00106D24 /* FPLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3C7E0F902A2A00106D24 /* FPLink.m */; };
 		0A5C3C810F902A2A00106D24 /* FPLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3C7E0F902A2A00106D24 /* FPLink.m */; };
@@ -71,6 +72,7 @@
 		0A5C3A040F8E9ED200106D24 /* FPXMLParserProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPXMLParserProtocol.h; sourceTree = "<group>"; };
 		0A5C3A860F8EAC1D00106D24 /* FPExtensionElementNode_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPExtensionElementNode_Private.h; sourceTree = "<group>"; };
 		0A5C3AC90F8EAE3800106D24 /* extensions.rss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = extensions.rss; sourceTree = "<group>"; usesTabs = 0; };
+		0A5C3BF30F901AF100106D24 /* rss-with-atom.rss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "rss-with-atom.rss"; sourceTree = "<group>"; };
 		0A5C3C7D0F902A2A00106D24 /* FPLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPLink.h; sourceTree = "<group>"; };
 		0A5C3C7E0F902A2A00106D24 /* FPLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPLink.m; sourceTree = "<group>"; };
 		0A5C3CB70F9031E000106D24 /* NSString_extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_extensions.h; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				0AACF26E0F8AC0810061AEB8 /* sample-rss-092.rss */,
 				0AACF26F0F8AC0810061AEB8 /* sample-rss-2.rss */,
 				0A5C3AC90F8EAE3800106D24 /* extensions.rss */,
+				0A5C3BF30F901AF100106D24 /* rss-with-atom.rss */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				0AACF2710F8AC0810061AEB8 /* sample-rss-092.rss in Resources */,
 				0AACF2720F8AC0810061AEB8 /* sample-rss-2.rss in Resources */,
 				0A5C3ACA0F8EAE3800106D24 /* extensions.rss in Resources */,
+				0A5C3BF40F901AF100106D24 /* rss-with-atom.rss in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
