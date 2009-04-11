@@ -43,6 +43,10 @@
 	return 0xABADBABE ^ [first hash] ^ [second hash];
 }
 
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<%@ %p: (%@, %@)>", NSStringFromClass([self class]), self, self.first, self.second];
+}
+
 - (void)dealloc {
 	[first release];
 	[second release];
