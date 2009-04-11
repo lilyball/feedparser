@@ -35,8 +35,8 @@
 		[self registerHandler:@selector(rss_item:parser:) forElement:@"item" namespaceURI:@"" type:FPXMLParserStreamElementType];
 		
 		// atom elements
-		[self registerHandler:@selector(atom_link:attributes:parser:) forElement:@"link"
-				 namespaceURI:kFPXMLParserAtomNamespaceURI type:FPXMLParserTextElementType];
+		[self registerHandler:@selector(atom_link:parser:) forElement:@"link"
+				 namespaceURI:kFPXMLParserAtomNamespaceURI type:FPXMLParserSkipElementType];
 	}
 }
 
@@ -60,9 +60,9 @@
 	[item release];
 }
 
-- (void)atom_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
-	NSString *rel = [attributes objectForKey:@"rel"];
-	if (rel == nil || [rel isEqualToString:@"alternate"]) {
+- (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
+	NSString *rel = ([attributes objectForKey:@"rel"] ?: @"alternate");
+	if ([rel isEqualToString:@"alternate"]) {
 		self.link = [attributes objectForKey:@"href"];
 	}
 }
