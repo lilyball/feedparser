@@ -19,6 +19,9 @@
 		0A5C39D90F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
 		0A5C39DA0F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39D70F8E9B1200106D24 /* FPExtensionTextNode.m */; };
 		0A5C3ACA0F8EAE3800106D24 /* extensions.rss in Resources */ = {isa = PBXBuildFile; fileRef = 0A5C3AC90F8EAE3800106D24 /* extensions.rss */; };
+		0A5C3CB90F9031E000106D24 /* NSString_extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3CB80F9031E000106D24 /* NSString_extensions.m */; };
+		0A5C3CBA0F9031E000106D24 /* NSString_extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3CB80F9031E000106D24 /* NSString_extensions.m */; };
+		0A5C3CBB0F9031E000106D24 /* NSString_extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C3CB80F9031E000106D24 /* NSString_extensions.m */; };
 		0A9BB99E0F8ACCF200CB5F5D /* FPXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BB99D0F8ACCF200CB5F5D /* FPXMLParser.m */; };
 		0A9BB99F0F8ACCF200CB5F5D /* FPXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BB99D0F8ACCF200CB5F5D /* FPXMLParser.m */; };
 		0A9BB9A40F8AD58800CB5F5D /* FPXMLPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9BB9A30F8AD58800CB5F5D /* FPXMLPair.m */; };
@@ -65,6 +68,8 @@
 		0A5C3A040F8E9ED200106D24 /* FPXMLParserProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPXMLParserProtocol.h; sourceTree = "<group>"; };
 		0A5C3A860F8EAC1D00106D24 /* FPExtensionElementNode_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPExtensionElementNode_Private.h; sourceTree = "<group>"; };
 		0A5C3AC90F8EAE3800106D24 /* extensions.rss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = extensions.rss; sourceTree = "<group>"; usesTabs = 0; };
+		0A5C3CB70F9031E000106D24 /* NSString_extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_extensions.h; sourceTree = "<group>"; };
+		0A5C3CB80F9031E000106D24 /* NSString_extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_extensions.m; sourceTree = "<group>"; };
 		0A9BB99C0F8ACCF200CB5F5D /* FPXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPXMLParser.h; sourceTree = "<group>"; };
 		0A9BB99D0F8ACCF200CB5F5D /* FPXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPXMLParser.m; sourceTree = "<group>"; };
 		0A9BB9A20F8AD58800CB5F5D /* FPXMLPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPXMLPair.h; sourceTree = "<group>"; };
@@ -174,6 +179,8 @@
 			children = (
 				0A9BB9F30F8AE19000CB5F5D /* NSDate_FeedParserExtensions.h */,
 				0A9BB9F40F8AE19000CB5F5D /* NSDate_FeedParserExtensions.m */,
+				0A5C3CB70F9031E000106D24 /* NSString_extensions.h */,
+				0A5C3CB80F9031E000106D24 /* NSString_extensions.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -349,6 +356,7 @@
 				0A5C39C70F8E981000106D24 /* FPExtensionElementNode.m in Sources */,
 				0A5C39D40F8E999A00106D24 /* FPExtensionNode.m in Sources */,
 				0A5C39D90F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */,
+				0A5C3CBB0F9031E000106D24 /* NSString_extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +375,7 @@
 				0A5C39C80F8E981100106D24 /* FPExtensionElementNode.m in Sources */,
 				0A5C39D20F8E999A00106D24 /* FPExtensionNode.m in Sources */,
 				0A5C39D80F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */,
+				0A5C3CBA0F9031E000106D24 /* NSString_extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +387,7 @@
 				0A5C39C90F8E981100106D24 /* FPExtensionElementNode.m in Sources */,
 				0A5C39D30F8E999A00106D24 /* FPExtensionNode.m in Sources */,
 				0A5C39DA0F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */,
+				0A5C3CB90F9031E000106D24 /* NSString_extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
