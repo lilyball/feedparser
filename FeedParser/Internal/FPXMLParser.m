@@ -22,6 +22,7 @@ static NSMutableDictionary *kHandlerMap;
 
 void (*handleTextValue)(id, SEL, NSString*, NSDictionary*, NSXMLParser*) = (void(*)(id, SEL, NSString*, NSDictionary*, NSXMLParser*))objc_msgSend;
 void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id, SEL, NSDictionary*, NSXMLParser*))objc_msgSend;
+void (*handleSkipElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id, SEL, NSDictionary*, NSXMLParser*))objc_msgSend;
 
 @implementation FPXMLParser
 + (void)initialize {
@@ -173,14 +174,13 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 			FPXMLPair *handler = [handlers objectForKey:keyPair];
 			if (handler != nil) {
 				SEL selector = NSSelectorFromString((NSString *)handler.first);
-				FPXMLParserElementType type = (FPXMLParserElementType)[(NSNumber *)handler.second intValue];
-				currentElementType = type;
-				switch (type) {
+				currentElementType = (FPXMLParserElementType)[(NSNumber *)handler.second intValue];
+				switch (currentElementType) {
 					case FPXMLParserStreamElementType:
 						if (selector != NULL) {
 							handleStreamElement(self, selector, attributeDict, parser);
-							if ([parser delegate] == self) parseDepth++;
 						}
+						if ([parser delegate] == self) parseDepth++;
 						break;
 					case FPXMLParserTextElementType:
 						[currentTextValue release];
@@ -190,7 +190,18 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 						currentHandlerSelector = selector;
 						break;
 					case FPXMLParserSkipElementType:
-						skipDepth = 1;
+						if (selector != NULL) {
+							handleSkipElement(self, selector, attributeDict, parser);
+						}
+						if ([parser delegate] == self) {
+							skipDepth++;
+						} else {
+							// if the skip handler changed the delegate, then when we gain control
+							// again we should be in the stream mode.
+							// note that this is an exceptional condition, as skip handlers are not expected
+							// to change the delegate. If the handler wants to do that it should use a stream handler.
+							currentElementType = FPXMLParserStreamElementType;
+						}
 						break;
 				}
 			} else if ([namespaceURI isEqualToString:baseNamespaceURI]) {
