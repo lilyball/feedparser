@@ -44,6 +44,13 @@
 	}
 }
 
+- (id)initWithBaseNamespaceURI:(NSString *)namespaceURI {
+	if (self = [super initWithBaseNamespaceURI:namespaceURI]) {
+		links = [[NSMutableArray alloc] init];
+	}
+	return self;
+}
+
 - (void)rss_pubDate:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
 	NSDate *date = [NSDate dateWithRFC822:textValue];
 	self.pubDate = date;
