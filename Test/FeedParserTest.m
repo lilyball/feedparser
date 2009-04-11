@@ -83,14 +83,32 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 - (void)testLinks {
 	FPFeed *feed = [self feedFromFixture:@"rss-with-atom.rss"];
 	if (feed == nil) return;
-	STAssertEqualObjects(feed.link.href, @"http://liftoff.msfc.nasa.gov/", nil);
-	STAssertEqualObjects(feed.link.rel, @"alternate", nil);
-	STAssertNil(feed.link.type, nil);
-	STAssertNil(feed.link.title, nil);
+	STAssertEqualObjects(feed.link, [FPLink linkWithHref:@"http://liftoff.msfc.nasa.gov/" rel:@"alternate" type:nil title:nil], nil);
+	STAssertEquals([feed.links count], 2u, nil);
+	STAssertEqualObjects([feed.links objectAtIndex:0], feed.link, nil);
+	STAssertEqualObjects([feed.links objectAtIndex:1], [FPLink linkWithHref:@"file:///path/to/rss-with-atom.rss" rel:@"self"
+																	   type:@"application/rss+xml" title:nil], nil);
 	STAssertEquals([feed.items count], 4u, nil);
+	// item 0
 	FPFeed *item = [feed.items objectAtIndex:0];
-	STAssertEqualObjects(item.link.href, @"http://liftoff.msfc.nasa.gov/news/2003/news-starcity.asp", nil);
+	STAssertEqualObjects(item.link, [FPLink linkWithHref:@"http://liftoff.msfc.nasa.gov/news/2003/news-starcity.asp" rel:@"alternate"
+													type:nil title:nil], nil);
+	STAssertEqualObjects(item.links, [NSArray arrayWithObject:item.link], nil);
+	// item 1
 	item = [feed.items objectAtIndex:1];
-	STAssertEqualObjects(item.link.href, @"http://fake/", nil);
+	STAssertEqualObjects(item.link, [FPLink linkWithHref:@"http://fake/" rel:@"alternate" type:nil title:nil], nil);
+	STAssertEqualObjects(item.links, [NSArray arrayWithObject:item.link], nil);
+	// item 2
+	item = [feed.items objectAtIndex:2];
+	STAssertEqualObjects(item.link, [FPLink linkWithHref:@"http://liftoff.msfc.nasa.gov/news/2003/news-VASIMR.asp" rel:@"alternate"
+													type:nil title:nil], nil);
+	NSArray *links = [NSArray arrayWithObjects:item.link, [FPLink linkWithHref:@"http://fake/" rel:@"alternate" type:nil title:nil], nil];
+	STAssertEqualObjects(item.links, links, nil);
+	// item 3
+	item = [feed.items objectAtIndex:3];
+	STAssertEqualObjects(item.link, [FPLink linkWithHref:@"http://liftoff.msfc.nasa.gov/news/2003/news-laundry.asp" rel:@"alternate"
+													type:nil title:nil], nil);
+	links = [NSArray arrayWithObjects:[FPLink linkWithHref:@"http://fake/" rel:@"random" type:@"text/plain" title:@"A fake link"], item.link, nil];
+	STAssertEqualObjects(item.links, links, nil);
 }
 @end
