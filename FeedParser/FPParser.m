@@ -69,9 +69,17 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 		[feed release]; feed = nil;
 		if (error) {
 			*error = [xmlParser parserError];
-			if ([[*error domain] isEqualToString:NSXMLParserErrorDomain] && [*error code] == NSXMLParserInternalError) {
-				NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
-				*error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInternalError userInfo:userInfo];
+			if ([[*error domain] isEqualToString:NSXMLParserErrorDomain]) {
+				if ([*error code] == NSXMLParserInternalError) {
+					NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
+					*error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInternalError userInfo:userInfo];
+				} else {
+					// adjust the error localizedDescription to include the line number
+					NSString *desc = [NSString stringWithFormat:@"line %ld: %@", [xmlParser lineNumber], [*error localizedDescription]];
+					NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[*error userInfo]];
+					[userInfo setObject:desc forKey:NSLocalizedDescriptionKey];
+					*error = [NSError errorWithDomain:[*error domain] code:[*error code] userInfo:userInfo];
+				}
 			}
 		}
 		[errorString release]; errorString = nil;
