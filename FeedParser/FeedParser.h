@@ -9,5 +9,6 @@
 #import "FPParser.h"
 #import "FPFeed.h"
 #import "FPItem.h"
+#import "FPLink.h"
 #import "FPErrors.h"
 #import "FPExtensionNode.h"

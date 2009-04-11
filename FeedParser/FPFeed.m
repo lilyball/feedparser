@@ -8,23 +8,27 @@
 
 #import "FPFeed.h"
 #import "FPItem.h"
+#import "FPLink.h"
 #import "FPParser.h"
 #import "NSDate_FeedParserExtensions.h"
 
 @interface FPFeed ()
 @property (nonatomic, copy, readwrite) NSString *title;
-@property (nonatomic, copy, readwrite) NSString *link;
 @property (nonatomic, copy, readwrite) NSString *feedDescription;
 @property (nonatomic, copy, readwrite) NSDate *pubDate;
+- (void)rss_pubDate:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
+- (void)rss_item:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
+- (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
+- (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 @end
 
 @implementation FPFeed
-@synthesize title, link, feedDescription, pubDate, items;
+@synthesize title, link, links, feedDescription, pubDate, items;
 
 + (void)initialize {
 	if (self == [FPFeed class]) {
 		[self registerHandler:@selector(setTitle:) forElement:@"title" namespaceURI:@"" type:FPXMLParserTextElementType];
-		[self registerHandler:@selector(setLink:) forElement:@"link" namespaceURI:@"" type:FPXMLParserTextElementType];
+		[self registerHandler:@selector(rss_link:attributes:parser:) forElement:@"link" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(setFeedDescription:) forElement:@"description" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" namespaceURI:@"" type:FPXMLParserTextElementType];
 		for (NSString *key in [NSArray arrayWithObjects:
@@ -43,6 +47,7 @@
 - (id)initWithBaseNamespaceURI:namespaceURI {
 	if (self = [super initWithBaseNamespaceURI:namespaceURI]) {
 		items = [[NSMutableArray alloc] init];
+		links = [[NSMutableArray alloc] init];
 	}
 	return self;
 }
@@ -60,16 +65,31 @@
 	[item release];
 }
 
-- (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
-	NSString *rel = ([attributes objectForKey:@"rel"] ?: @"alternate");
-	if ([rel isEqualToString:@"alternate"]) {
-		self.link = [attributes objectForKey:@"href"];
+- (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
+	FPLink *aLink = [[FPLink alloc] initWithHref:textValue rel:@"alternate" type:nil title:nil];
+	if (link == nil) {
+		link = [aLink retain];
 	}
+	[links addObject:aLink];
+	[aLink release];
+}
+
+- (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
+	NSString *href = [attributes objectForKey:@"href"];
+	if (href == nil) return; // sanity check
+	FPLink *aLink = [[FPLink alloc] initWithHref:href rel:[attributes objectForKey:@"rel"] type:[attributes objectForKey:@"type"]
+										   title:[attributes objectForKey:@"title"]];
+	if (link == nil && [aLink.rel isEqualToString:@"alternate"]) {
+		link = [aLink retain];
+	}
+	[links addObject:aLink];
+	[aLink release];
 }
 
 - (void)dealloc {
 	[title release];
 	[link release];
+	[links release];
 	[feedDescription release];
 	[pubDate release];
 	[items release];

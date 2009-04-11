@@ -10,17 +10,24 @@
 #import "FPXMLParser.h"
 
 @class FPParser;
+@class FPLink;
 
 @interface FPFeed : FPXMLParser {
 @private
 	NSString *title;
-	NSString *link;
+	FPLink *link;
+	NSMutableArray *links;
 	NSString *feedDescription;
 	NSDate *pubDate;
 	NSMutableArray *items;
 }
 @property (nonatomic, copy, readonly) NSString *title;
-@property (nonatomic, copy, readonly) NSString *link;
+// RSS <link> or Atom <link rel="alternate">
+// If multiple qualifying links exist, the first is returned
+@property (nonatomic, copy, readonly) FPLink *link;
+// An array of FPLink objects corresponding to Atom <link> elements
+// RSS <link> elements are represented as links of rel="alternate"
+@property (nonatomic, copy, readonly) NSArray *links;
 @property (nonatomic, copy, readonly) NSString *feedDescription;
 @property (nonatomic, copy, readonly) NSDate *pubDate;
 @property (nonatomic, retain, readonly) NSArray *items;
