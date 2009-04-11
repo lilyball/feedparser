@@ -9,16 +9,25 @@
 #import <Foundation/Foundation.h>
 #import "FPXMLParser.h"
 
+@class FPLink;
+
 @interface FPItem : FPXMLParser {
+@private
 	NSString *title;
-	NSString *link;
+	FPLink *link;
+	NSMutableArray *links;
 	NSString *guid;
 	NSString *content;
 	NSDate *pubDate;
 	NSString *creator; // <dc:creator>
 }
 @property (nonatomic, copy, readonly) NSString *title;
-@property (nonatomic, copy, readonly) NSString *link;
+// RSS <link> or Atom <link rel="alternate">
+// If multiple qualifying links exist, returns the first
+@property (nonatomic, copy, readonly) FPLink *link;
+// An array of FPLink objects corresponding to Atom <link> elements
+// RSS <link> elements are treated as Atom <link rel="alternate"> elements
+@property (nonatomic, copy, readonly) NSArray *links;
 @property (nonatomic, copy, readonly) NSString *guid;
 @property (nonatomic, copy, readonly) NSString *content;
 @property (nonatomic, copy, readonly) NSString *creator; // <dc:creator>
