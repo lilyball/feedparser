@@ -11,6 +11,10 @@
 
 @implementation FPLink
 @synthesize href, rel, type, title;
++ (id)linkWithHref:(NSString *)href rel:(NSString *)rel type:(NSString *)type title:(NSString *)title {
+	return [[[self alloc] initWithHref:href rel:rel type:type title:title] autorelease];
+}
+
 - (id)initWithHref:(NSString *)inHref rel:(NSString *)inRel type:(NSString *)inType title:(NSString *)inTitle {
 	if (self = [super init]) {
 		href = [inHref copy];
