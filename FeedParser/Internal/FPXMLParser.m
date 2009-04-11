@@ -25,6 +25,7 @@ void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id,
 void (*handleSkipElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id, SEL, NSDictionary*, NSXMLParser*))objc_msgSend;
 
 @implementation FPXMLParser
+@synthesize extensionElements;
 + (void)initialize {
 	if (self == [FPXMLParser class]) {
 		kHandlerMap = (NSMutableDictionary *)CFDictionaryCreateMutable(NULL, 0, NULL, &kCFTypeDictionaryValueCallBacks);
@@ -93,14 +94,19 @@ void (*handleSkipElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id, S
 	parentParser = nil;
 }
 
-- (NSArray *)extensionElements {
-	return [NSArray arrayWithArray:extensionElements];
+- (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI {
+	if (namespaceURI == nil) {
+		return self.extensionElements;
+	} else {
+		return [self extensionElementsWithXMLNamespace:namespaceURI elementName:nil];
+	}
 }
 
-- (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI {
+- (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName {
 	NSMutableArray *ary = [NSMutableArray arrayWithCapacity:[extensionElements count]];
 	for (FPExtensionNode *node in extensionElements) {
-		if ([node.namespaceURI isEqualToString:namespaceURI]) {
+		if ([node.namespaceURI isEqualToString:namespaceURI] &&
+			(elementName == nil || [node.name isEqualToString:elementName])) {
 			[ary addObject:node];
 		}
 	}

@@ -30,6 +30,7 @@
             <![CDATA[CDATA data]]>
             <fake:child>Child 2</fake:child>
          </fake:tree>
+         <fake:empty/>
       </item>
       <item>
          <description>Sky watchers in Europe, Asia, and parts of Alaska and Canada will experience a &lt;a href="http://science.nasa.gov/headlines/y2003/30may_solareclipse.htm"&gt;partial eclipse of the Sun&lt;/a&gt; on Saturday, May 31st.</description>

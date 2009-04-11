@@ -62,10 +62,9 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	STAssertEqualObjects(node.stringValue, @"hourly", nil);
 	STAssertEquals([[feed extensionElementsWithXMLNamespace:@"http://purl.org/rss/1.0/modules/syndication/"] count], 2u, nil);
 	FPItem *item = [feed.items objectAtIndex:0];
-	STAssertEquals([item.extensionElements count], 2u, nil);
-	STAssertEquals([[item extensionElementsWithXMLNamespace:@"uri:fake"] count], 1u, nil);
+	STAssertEquals([item.extensionElements count], 3u, nil);
+	STAssertEquals([[item extensionElementsWithXMLNamespace:@"uri:fake"] count], 2u, nil);
 	FPExtensionNode *fake = [[item extensionElementsWithXMLNamespace:@"uri:fake"] objectAtIndex:0];
-	NSLog(@"fake: %@", fake.children);
 	STAssertEquals([fake.children count], 5u, @"node children: %@", fake.children);
 	STAssertEqualObjects([[fake.children objectAtIndex:0] stringValue], @"\n            Text", nil);
 	FPExtensionNode *child = [fake.children objectAtIndex:1];
@@ -78,6 +77,11 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	STAssertTrue(child.isElement, nil);
 	STAssertEqualObjects(child.stringValue, @"Child 2", nil);
 	STAssertEqualObjects([[fake.children objectAtIndex:4] stringValue], @"\n         ", nil);
+	STAssertEqualObjects([[[item extensionElementsWithXMLNamespace:@"uri:fake"] objectAtIndex:1] name], @"empty", nil);
+	STAssertEquals([[item extensionElementsWithXMLNamespace:@"uri:fake" elementName:@"tree"] count], 1u, nil);
+	STAssertEquals([[item extensionElementsWithXMLNamespace:@"uri:fake" elementName:@"empty"] count], 1u, nil);
+	STAssertEquals([[item extensionElementsWithXMLNamespace:@"uri:fake" elementName:@"bogus"] count], 0u, nil);
+	STAssertEqualObjects([[[item extensionElementsWithXMLNamespace:@"uri:fake" elementName:@"empty"] objectAtIndex:0] name], @"empty", nil);
 }
 
 - (void)testLinks {

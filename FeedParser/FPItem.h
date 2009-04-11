@@ -33,5 +33,6 @@
 @property (nonatomic, copy, readonly) NSString *creator; // <dc:creator>
 @property (nonatomic, copy, readonly) NSDate *pubDate;
 // parent class defines property NSArray *extensionElements
-// parent class defines method -(NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
+// parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
+// parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName
 @end

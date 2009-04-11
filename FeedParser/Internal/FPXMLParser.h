@@ -42,4 +42,5 @@ extern NSString * const kFPXMLParserContentNamespaceURI;
 - (void)abdicateParsing:(NSXMLParser *)parser;
 
 - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI;
+- (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName;
 @end
