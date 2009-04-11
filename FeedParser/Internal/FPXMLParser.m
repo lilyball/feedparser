@@ -213,6 +213,14 @@ void (*handleSkipElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id, S
 				[node acceptParsing:parser];
 				[extensionElements addObject:node];
 				[node release];
+			} else {
+				// this is an unknown element outside of the base namespace, but still belonging to either RSS or Atom
+				// As this is not in our base namespace, we are not required to handle it.
+				// Do not use the extension mechanism for this because of forward-compatibility issues. If we use the
+				// extension mechanism, then later add support for the element, code relying on the extension mechanism
+				// would stop working.
+				currentElementType = FPXMLParserSkipElementType;
+				skipDepth = 1;
 			}
 			break;
 		}
