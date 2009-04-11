@@ -44,7 +44,7 @@
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"<%@ %p: (%@, %@)>", NSStringFromClass([self class]), self, self.first, self.second];
+	return [NSString stringWithFormat:@"<%@: (%@, %@)>", NSStringFromClass([self class]), self.first, self.second];
 }
 
 - (void)dealloc {
