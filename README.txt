@@ -35,7 +35,7 @@ The goals for future development of FeedParser are the following:
 
 * Fully support Atom feeds
 
-* Be as lenient as possible. To this extend, parsing non-well-formed documents
+* Be as lenient as possible. To this extent, parsing non-well-formed documents
   should be investigated. NSXMLParser is documented as aborting parsing upon
   encountering an error, but in practice it appears that, at least on Mac OS X
   10.5, it actually can recover from errors. However, at the current time
