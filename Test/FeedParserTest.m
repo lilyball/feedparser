@@ -52,6 +52,7 @@
 us fly through the Solar System more quickly.  The proposed VASIMR engine would do that.", nil);
 	STAssertEqualObjects(item.pubDate, [NSDate dateWithTimeIntervalSince1970:1054024652], nil);
 	STAssertEqualObjects(item.guid, @"http://liftoff.msfc.nasa.gov/2003/05/27.html#item571", nil);
+	STAssertEqualObjects(item.author, @"fake@nasa.gov", nil);
 }
 
 - (void)testSampleRSSOhNineTwo {

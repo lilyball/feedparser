@@ -33,23 +33,25 @@
 @property (nonatomic, copy, readwrite) NSString *content;
 @property (nonatomic, copy, readwrite) NSString *creator;
 @property (nonatomic, copy, readwrite) NSDate *pubDate;
+@property (nonatomic, copy, readwrite) NSString *author;
 - (void)rss_pubDate:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 - (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 - (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 @end
 
 @implementation FPItem
-@synthesize title, link, links, guid, content, pubDate;
+@synthesize title, link, links, guid, content, pubDate, author;
 @synthesize creator;
 
 + (void)initialize {
 	if (self == [FPItem class]) {
 		[self registerHandler:@selector(setTitle:) forElement:@"title" namespaceURI:@"" type:FPXMLParserTextElementType];
+		[self registerHandler:@selector(setAuthor:) forElement:@"author" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(rss_link:attributes:parser:) forElement:@"link" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(setGuid:) forElement:@"guid" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(setContent:) forElement:@"description" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" namespaceURI:@"" type:FPXMLParserTextElementType];
-		for (NSString *key in [NSArray arrayWithObjects:@"author", @"category", @"comments", @"enclosure", @"source", nil]) {
+		for (NSString *key in [NSArray arrayWithObjects:@"category", @"comments", @"enclosure", @"source", nil]) {
 			[self registerHandler:NULL forElement:key namespaceURI:@"" type:FPXMLParserSkipElementType];
 		}
 		// Atom
@@ -103,6 +105,7 @@
 	[content release];
 	[pubDate release];
 	[creator release];
+	[author release];
 	[super dealloc];
 }
 @end
