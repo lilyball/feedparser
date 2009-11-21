@@ -1,8 +1,8 @@
 //
-//  FeedParser.h
+//  FPEnclosure.h
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/3/09.
+//  Created by Kevin Ballard on 11/20/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,10 +23,18 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPParser.h"
-#import "FPFeed.h"
-#import "FPItem.h"
-#import "FPLink.h"
-#import "FPEnclosure.h"
-#import "FPErrors.h"
-#import "FPExtensionNode.h"
+#import <Foundation/Foundation.h>
+
+
+@interface FPEnclosure : NSObject {
+@private
+	NSString *url;
+	NSUInteger length;
+	NSString *type;
+}
+@property (nonatomic, readonly) NSString *url;
+@property (nonatomic, readonly) NSUInteger length;
+@property (nonatomic, readonly) NSString *type;
++ (id)enclosureWithURL:(NSString *)url length:(NSUInteger)length type:(NSString *)type;
+- (id)initWithURL:(NSString *)url length:(NSUInteger)length type:(NSString *)type;
+@end

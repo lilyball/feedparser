@@ -112,7 +112,7 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 																	   type:@"application/rss+xml" title:nil], nil);
 	STAssertEquals([feed.items count], 4u, nil);
 	// item 0
-	FPFeed *item = [feed.items objectAtIndex:0];
+	FPItem *item = [feed.items objectAtIndex:0];
 	STAssertEqualObjects(item.link, [FPLink linkWithHref:@"http://liftoff.msfc.nasa.gov/news/2003/news-starcity.asp" rel:@"alternate"
 													type:nil title:nil], nil);
 	STAssertEqualObjects(item.links, [NSArray arrayWithObject:item.link], nil);
@@ -132,5 +132,13 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 													type:nil title:nil], nil);
 	links = [NSArray arrayWithObjects:[FPLink linkWithHref:@"http://fake/" rel:@"random" type:@"text/plain" title:@"A fake link"], item.link, nil];
 	STAssertEqualObjects(item.links, links, nil);
+}
+
+- (void)testEnclosures {
+	FPFeed *feed = [self feedFromFixture:@"sample-rss-092.rss"];
+	if (feed == nil) return;
+	FPItem *item = [feed.items objectAtIndex:0];
+	STAssertEquals([item.enclosures count], 1u, nil);
+	STAssertEqualObjects([item.enclosures objectAtIndex:0], [FPEnclosure enclosureWithURL:@"http://www.scripting.com/mp3s/weatherReportDicksPicsVol7.mp3" length:6182912 type:@"audio/mpeg"], nil);
 }
 @end

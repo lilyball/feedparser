@@ -1,8 +1,8 @@
 //
-//  FeedParser.h
+//  FPEnclosure.m
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/3/09.
+//  Created by Kevin Ballard on 11/20/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,10 +23,40 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPParser.h"
-#import "FPFeed.h"
-#import "FPItem.h"
-#import "FPLink.h"
 #import "FPEnclosure.h"
-#import "FPErrors.h"
-#import "FPExtensionNode.h"
+
+
+@implementation FPEnclosure
+@synthesize url, length, type;
+
++ (id)enclosureWithURL:(NSString *)url length:(NSUInteger)length type:(NSString *)type {
+	return [[[self alloc] initWithURL:url length:length type:type] autorelease];
+}
+
+- (id)initWithURL:(NSString *)inurl length:(NSUInteger)inlength type:(NSString *)intype {
+	if (self = [super init]) {
+		url = [inurl copy];
+		length = inlength;
+		type = [intype copy];
+	}
+	return self;
+}
+
+- (BOOL)isEqual:(id)object {
+	if (![object isKindOfClass:[FPEnclosure class]]) return NO;
+	FPEnclosure *other = (FPEnclosure *)object;
+	return ((url    == other.url  || [url  isEqualToString:other.url]) &&
+			(type   == other.type || [type isEqualToString:other.type]) &&
+			(length == other.length));
+}
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<%@: %@ (length=%lu type=\"%@\")>", NSStringFromClass([self class]), self.url, (unsigned long)self.length, self.type];
+}
+
+- (void)dealloc {
+	[url release];
+	[type release];
+	[super dealloc];
+}
+@end

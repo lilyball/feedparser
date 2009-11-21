@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A33059B10B794F9006E6FDD /* FPEnclosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A33059A10B794F9006E6FDD /* FPEnclosure.m */; };
+		0A33059C10B794F9006E6FDD /* FPEnclosure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A33059A10B794F9006E6FDD /* FPEnclosure.m */; };
 		0A339C8A0F8803C600D0F64E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A339B080F87236F00D0F64E /* Foundation.framework */; };
 		0A339C9B0F8804E400D0F64E /* FPFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C990F8804E400D0F64E /* FPFeed.m */; };
 		0A5C39C70F8E981000106D24 /* FPExtensionElementNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5C39C60F8E981000106D24 /* FPExtensionElementNode.m */; };
@@ -41,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		0A244C5D0F921B8100E6C6A7 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		0A33059910B794F9006E6FDD /* FPEnclosure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPEnclosure.h; sourceTree = "<group>"; };
+		0A33059A10B794F9006E6FDD /* FPEnclosure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPEnclosure.m; sourceTree = "<group>"; };
 		0A339B080F87236F00D0F64E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0A339BB30F87257400D0F64E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		0A339C6D0F87267200D0F64E /* FeedParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedParser.h; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 				0AA74C0D0F881C4A007F6085 /* FPItem.m */,
 				0A5C3C7D0F902A2A00106D24 /* FPLink.h */,
 				0A5C3C7E0F902A2A00106D24 /* FPLink.m */,
+				0A33059910B794F9006E6FDD /* FPEnclosure.h */,
+				0A33059A10B794F9006E6FDD /* FPEnclosure.m */,
 				0A5C39CA0F8E98A000106D24 /* XML Extensions */,
 				0A9BB99B0F8ACCDE00CB5F5D /* Internal */,
 				0A9BB9F20F8AE17F00CB5F5D /* Extensions */,
@@ -318,6 +324,7 @@
 				0A5C39D90F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */,
 				0A5C3C800F902A2A00106D24 /* FPLink.m in Sources */,
 				0A5C3CBB0F9031E000106D24 /* NSString_extensions.m in Sources */,
+				0A33059B10B794F9006E6FDD /* FPEnclosure.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +345,7 @@
 				0A5C39D80F8E9B1200106D24 /* FPExtensionTextNode.m in Sources */,
 				0A5C3C7F0F902A2A00106D24 /* FPLink.m in Sources */,
 				0A5C3CBA0F9031E000106D24 /* NSString_extensions.m in Sources */,
+				0A33059C10B794F9006E6FDD /* FPEnclosure.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

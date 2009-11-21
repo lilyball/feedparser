@@ -25,6 +25,7 @@
 
 #import "FPItem.h"
 #import "FPLink.h"
+#import "FPEnclosure.h"
 #import "NSDate_FeedParserExtensions.h"
 
 @interface FPItem ()
@@ -37,10 +38,11 @@
 - (void)rss_pubDate:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 - (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 - (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
+- (void)rss_enclosure:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 @end
 
 @implementation FPItem
-@synthesize title, link, links, guid, content, pubDate, author;
+@synthesize title, link, links, guid, content, pubDate, author, enclosures;
 @synthesize creator;
 
 + (void)initialize {
@@ -51,7 +53,8 @@
 		[self registerHandler:@selector(setGuid:) forElement:@"guid" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(setContent:) forElement:@"description" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" namespaceURI:@"" type:FPXMLParserTextElementType];
-		for (NSString *key in [NSArray arrayWithObjects:@"category", @"comments", @"enclosure", @"source", nil]) {
+		[self registerHandler:@selector(rss_enclosure:parser:) forElement:@"enclosure" namespaceURI:@"" type:FPXMLParserSkipElementType];
+		for (NSString *key in [NSArray arrayWithObjects:@"category", @"comments", @"source", nil]) {
 			[self registerHandler:NULL forElement:key namespaceURI:@"" type:FPXMLParserSkipElementType];
 		}
 		// Atom
@@ -66,6 +69,7 @@
 - (id)initWithBaseNamespaceURI:(NSString *)namespaceURI {
 	if (self = [super initWithBaseNamespaceURI:namespaceURI]) {
 		links = [[NSMutableArray alloc] init];
+		enclosures = [[NSMutableArray alloc] init];
 	}
 	return self;
 }
@@ -97,6 +101,17 @@
 	[aLink release];
 }
 
+- (void)rss_enclosure:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
+	NSString *url = [attributes objectForKey:@"url"];
+	NSString *type = [attributes objectForKey:@"type"];
+	NSString *lengthStr = [attributes objectForKey:@"length"];
+	if (url == nil || type == nil || lengthStr == nil) return; // sanity check
+	NSUInteger length = [lengthStr integerValue];
+	FPEnclosure *anEnclosure = [[FPEnclosure alloc] initWithURL:url length:length type:type];
+	[enclosures addObject:anEnclosure];
+	[anEnclosure release];
+}
+
 - (void)dealloc {
 	[title release];
 	[link release];
@@ -106,6 +121,7 @@
 	[pubDate release];
 	[creator release];
 	[author release];
+	[enclosures release];
 	[super dealloc];
 }
 @end

@@ -38,11 +38,12 @@
 	NSDate *pubDate;
 	NSString *creator; // <dc:creator>
 	NSString *author;
+	NSMutableArray *enclosures;
 }
 @property (nonatomic, copy, readonly) NSString *title;
 // RSS <link> or Atom <link rel="alternate">
 // If multiple qualifying links exist, returns the first
-@property (nonatomic, copy, readonly) FPLink *link;
+@property (nonatomic, retain, readonly) FPLink *link;
 // An array of FPLink objects corresponding to Atom <link> elements
 // RSS <link> elements are treated as Atom <link rel="alternate"> elements
 @property (nonatomic, copy, readonly) NSArray *links;
@@ -51,6 +52,7 @@
 @property (nonatomic, copy, readonly) NSString *creator; // <dc:creator>
 @property (nonatomic, copy, readonly) NSDate *pubDate;
 @property (nonatomic, copy, readonly) NSString *author;
+@property (nonatomic, copy, readonly) NSArray *enclosures;
 // parent class defines property NSArray *extensionElements
 // parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
 // parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName
