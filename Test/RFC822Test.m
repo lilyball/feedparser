@@ -29,6 +29,9 @@
 @implementation RFC822Test
 - (void)testDateWithRFC822 {
 	STAssertEquals([[NSDate dateWithRFC822:@"Tue, 10 Jun 03 09:41:01 GMT"] timeIntervalSince1970], 1055238061.0, nil);
+	STAssertEquals([[NSDate dateWithRFC822:@"Tue, 10 Jun 03 07:41:01 B"] timeIntervalSince1970], 1055238061.0, nil);
+	STAssertEquals([[NSDate dateWithRFC822:@"Tue, 10 Jun 03 07:41:01 -0200"] timeIntervalSince1970], 1055238061.0, nil);
+	STAssertEquals([[NSDate dateWithRFC822:@"Tue, 10 Jun 03 11:51:01 +0210"] timeIntervalSince1970], 1055238061.0, nil);
 }
 
 // this should be fleshed out to test all the edge cases

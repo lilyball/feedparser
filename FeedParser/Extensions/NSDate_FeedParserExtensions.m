@@ -94,9 +94,11 @@ static NSArray *kMonths;
 	} else if ([scanner scanCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"-+"] intoString:&temp]) {
 		BOOL neg = [temp isEqualToString:@"-"];
 		ASSERT([scanner scanCharactersFromSet:digitSet intoString:&temp] && [temp length] == 4);
-		NSInteger offset = [temp integerValue];
+		NSInteger hourOffset = [[temp substringToIndex:2] integerValue];
+		NSInteger minuteOffset = [[temp substringFromIndex:2] integerValue];
+		NSInteger offset = hourOffset * 3600 + minuteOffset * 60;
 		if (neg) offset = -offset;
-		tz = [NSTimeZone timeZoneForSecondsFromGMT:offset * 3600];
+		tz = [NSTimeZone timeZoneForSecondsFromGMT:offset];
 	}
 	ASSERT(tz != nil);
 	ASSERT([scanner isAtEnd]);
