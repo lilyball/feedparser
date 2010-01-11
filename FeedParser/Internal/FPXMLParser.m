@@ -33,7 +33,7 @@
 
 NSString * const kFPXMLParserAtomNamespaceURI = @"http://www.w3.org/2005/Atom";
 NSString * const kFPXMLParserDublinCoreNamespaceURI = @"http://purl.org/dc/elements/1.1/";
-NSString * const kFPXMLParserContentNamespaceURI = @"http://web.resource.org/rss/1.0/modules/content/";
+NSString * const kFPXMLParserContentNamespaceURI = @"http://purl.org/rss/1.0/modules/content/";
 
 static NSMutableDictionary *kHandlerMap;
 
