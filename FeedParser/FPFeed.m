@@ -44,20 +44,19 @@
 
 + (void)initialize {
 	if (self == [FPFeed class]) {
-		[self registerHandler:@selector(setTitle:) forElement:@"title" namespaceURI:@"" type:FPXMLParserTextElementType];
-		[self registerHandler:@selector(rss_link:attributes:parser:) forElement:@"link" namespaceURI:@"" type:FPXMLParserTextElementType];
-		[self registerHandler:@selector(setFeedDescription:) forElement:@"description" namespaceURI:@"" type:FPXMLParserTextElementType];
-		[self registerHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" namespaceURI:@"" type:FPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(setTitle:) forElement:@"title" type:FPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(rss_link:attributes:parser:) forElement:@"link" type:FPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(setFeedDescription:) forElement:@"description" type:FPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" type:FPXMLParserTextElementType];
 		for (NSString *key in [NSArray arrayWithObjects:
 							   @"language", @"copyright", @"managingEditor", @"webMaster", @"lastBuildDate", @"category",
 							   @"generator", @"docs", @"cloud", @"ttl", @"image", @"rating", @"textInput", @"skipHours", @"skipDays", nil]) {
-			[self registerHandler:NULL forElement:key namespaceURI:@"" type:FPXMLParserSkipElementType];
+			[self registerRSSHandler:NULL forElement:key type:FPXMLParserSkipElementType];
 		}
-		[self registerHandler:@selector(rss_item:parser:) forElement:@"item" namespaceURI:@"" type:FPXMLParserStreamElementType];
+		[self registerRSSHandler:@selector(rss_item:parser:) forElement:@"item" type:FPXMLParserStreamElementType];
 		
 		// atom elements
-		[self registerHandler:@selector(atom_link:parser:) forElement:@"link"
-				 namespaceURI:kFPXMLParserAtomNamespaceURI type:FPXMLParserSkipElementType];
+		[self registerAtomHandler:@selector(atom_link:parser:) forElement:@"link" type:FPXMLParserSkipElementType];
 	}
 }
 

@@ -36,9 +36,9 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 @implementation FPParser
 + (void)initialize {
 	if (self == [FPParser class]) {
-		[self registerHandler:@selector(rss_rss:parser:) forElement:@"rss" namespaceURI:@"" type:FPXMLParserStreamElementType];
-		[self registerHandler:@selector(rss_channel:parser:) forElement:@"channel" namespaceURI:@"" type:FPXMLParserStreamElementType];
-		[self registerHandler:@selector(atom_feed:parser:) forElement:@"feed" namespaceURI:kFPXMLParserAtomNamespaceURI type:FPXMLParserStreamElementType];
+		[self registerRSSHandler:@selector(rss_rss:parser:) forElement:@"rss" type:FPXMLParserStreamElementType];
+		[self registerRSSHandler:@selector(rss_channel:parser:) forElement:@"channel" type:FPXMLParserStreamElementType];
+		[self registerAtomHandler:@selector(atom_feed:parser:) forElement:@"feed" type:FPXMLParserStreamElementType];
 	}
 }
 

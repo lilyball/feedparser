@@ -48,25 +48,22 @@
 
 + (void)initialize {
 	if (self == [FPItem class]) {
-		[self registerHandler:@selector(setTitle:) forElement:@"title" namespaceURI:@"" type:FPXMLParserTextElementType];
-		[self registerHandler:@selector(setAuthor:) forElement:@"author" namespaceURI:@"" type:FPXMLParserTextElementType];
-		[self registerHandler:@selector(rss_link:attributes:parser:) forElement:@"link" namespaceURI:@"" type:FPXMLParserTextElementType];
-		[self registerHandler:@selector(setGuid:) forElement:@"guid" namespaceURI:@"" type:FPXMLParserTextElementType];
-		[self registerHandler:@selector(setDescription:) forElement:@"description" namespaceURI:@"" type:FPXMLParserTextElementType];
-		[self registerHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" namespaceURI:@"" type:FPXMLParserTextElementType];
-		[self registerHandler:@selector(rss_enclosure:parser:) forElement:@"enclosure" namespaceURI:@"" type:FPXMLParserSkipElementType];
+		[self registerRSSHandler:@selector(setTitle:) forElement:@"title" type:FPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(setAuthor:) forElement:@"author" type:FPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(rss_link:attributes:parser:) forElement:@"link" type:FPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(setGuid:) forElement:@"guid" type:FPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(setDescription:) forElement:@"description" type:FPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" type:FPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(rss_enclosure:parser:) forElement:@"enclosure" type:FPXMLParserSkipElementType];
 		for (NSString *key in [NSArray arrayWithObjects:@"category", @"comments", @"source", nil]) {
-			[self registerHandler:NULL forElement:key namespaceURI:@"" type:FPXMLParserSkipElementType];
+			[self registerRSSHandler:NULL forElement:key type:FPXMLParserSkipElementType];
 		}
 		// Atom
-		[self registerHandler:@selector(atom_link:parser:) forElement:@"link" namespaceURI:kFPXMLParserAtomNamespaceURI
-						 type:FPXMLParserSkipElementType];
+		[self registerAtomHandler:@selector(atom_link:parser:) forElement:@"link" type:FPXMLParserSkipElementType];
 		// DublinCore
-		[self registerHandler:@selector(setCreator:) forElement:@"creator"
-				 namespaceURI:kFPXMLParserDublinCoreNamespaceURI type:FPXMLParserTextElementType];
+		[self registerTextHandler:@selector(setCreator:) forElement:@"creator" namespaceURI:kFPXMLParserDublinCoreNamespaceURI];
 		// Content
-		[self registerHandler:@selector(setContent:) forElement:@"encoded"
-				 namespaceURI:kFPXMLParserContentNamespaceURI type:FPXMLParserTextElementType];
+		[self registerTextHandler:@selector(setContent:) forElement:@"encoded" namespaceURI:kFPXMLParserContentNamespaceURI];
 	}
 }
 

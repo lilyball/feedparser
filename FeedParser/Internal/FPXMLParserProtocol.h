@@ -54,4 +54,14 @@
 				Be aware that the call to super may cause self to be deallocated.
 */
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description;
+/*!
+	@method
+	@abstract	Resume parsing
+	param parser The NSXMLParser that is currently parsing the document
+	@param child The id<FPXMLParserProtocol> that was previously the parser delegate
+	@discussion This method must be called when parsing control is returned to a parent parser.
+				It is simply a notification to the parent parser that it should expect to receive
+				delegate methods again.
+*/
+- (void)resumeParsing:(NSXMLParser *)parser fromChild:(id<FPXMLParserProtocol>)child;
 @end

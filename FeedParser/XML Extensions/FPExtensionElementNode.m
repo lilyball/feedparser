@@ -56,14 +56,19 @@
 }
 
 - (NSString *)stringValue {
-	NSMutableString *stringValue = [NSMutableString string];
-	for (FPExtensionNode *child in children) {
-		NSString *str = child.stringValue;
-		if (str != nil) {
-			[stringValue appendString:str];
+	if ([children count] == 1) {
+		// optimize for single child
+		return [[children objectAtIndex:0] stringValue];
+	} else {
+		NSMutableString *stringValue = [NSMutableString string];
+		for (FPExtensionNode *child in children) {
+			NSString *str = child.stringValue;
+			if (str != nil) {
+				[stringValue appendString:str];
+			}
 		}
+		return stringValue;
 	}
-	return stringValue;
 }
 
 - (void)closeTextNode {
@@ -103,6 +108,7 @@
 		[self closeTextNode];
 	}
 	[parser setDelegate:parentParser];
+	[parentParser resumeParsing:parser fromChild:self];
 	parentParser = nil;
 }
 
@@ -144,6 +150,10 @@
 	[currentText release];
 	currentText = nil;
 	[parent abortParsing:parser withString:description];
+}
+
+- (void)resumeParsing:(NSXMLParser *)parser fromChild:(id<FPXMLParserProtocol>)child {
+	// stub
 }
 
 @end

@@ -29,7 +29,9 @@
 typedef enum {
 	FPXMLParserTextElementType = 1,
 	FPXMLParserStreamElementType = 2,
-	FPXMLParserSkipElementType = 3 // for keys we're skipping, and don't care about the contents
+	FPXMLParserSkipElementType = 3, // for keys we're skipping, and don't care about the contents
+	FPXMLParserExtensionElementType = 4,
+	FPXMLParserTextExtensionElementType = 5,
 } FPXMLParserElementType;
 
 // RSS has no namespace, just test against @""
@@ -51,7 +53,17 @@ extern NSString * const kFPXMLParserContentNamespaceURI;
 	SEL currentHandlerSelector;
 }
 @property (nonatomic, readonly) NSArray *extensionElements;
-+ (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI type:(FPXMLParserElementType)type;
++ (void)registerRSSHandler:(SEL)selector forElement:(NSString *)elementName type:(FPXMLParserElementType)type;
++ (void)registerAtomHandler:(SEL)selector forElement:(NSString *)elementName type:(FPXMLParserElementType)type;
+// The following method is for registering handlers for non-Atom/RSS tags. This method behaves differently
+// than the previous 2 methods, in that it builds an extension element for the node, and then passes that
+// object to the handler. This does mean that extension elements are slightly more complicated to handle,
+// but it has the benefit of preserving the extension mechanism for elements which we later decide to support directly.
++ (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI;
+// +registerTextHandler:forElement:namespaceURI: is like +registerHandler:forElement:namespaceURI: but it
+// automatically validates the extension node to ensure it only contains text, and then passes that string to the handler.
+// This is the equivalent of an FPXMLParserTextElementType parser for extension elements.
++ (void)registerTextHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI;
 - (id)initWithBaseNamespaceURI:(NSString *)namespaceURI;
 - (void)abortParsing:(NSXMLParser *)parser;
 - (void)abortParsing:(NSXMLParser *)parser withFormat:(NSString *)description, ...;

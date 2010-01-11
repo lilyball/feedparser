@@ -25,11 +25,10 @@
 
 #import <Foundation/Foundation.h>
 #import "FPExtensionNode.h"
-
-@protocol FPXMLParserProtocol;
+#import "FPXMLParserProtocol.h"
 
 // FPExtensionElementNode is used for unknown elements outside of the RSS and Atom namespaces
-@interface FPExtensionElementNode : FPExtensionNode {
+@interface FPExtensionElementNode : FPExtensionNode <FPXMLParserProtocol> {
 @private
 	NSString *name;
 	NSString *qualifiedName;

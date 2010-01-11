@@ -107,7 +107,9 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	STAssertEqualObjects(encoded.name, @"encoded", nil);
 	STAssertEqualObjects(encoded.qualifiedName, @"content:encoded", nil);
 	STAssertEqualObjects(encoded.namespaceURI, kFPXMLParserContentNamespaceURI, nil);
-	STAssertTrue(encoded.isTextNode, nil);
+	STAssertTrue(encoded.isElement, nil);
+	STAssertEquals([encoded.children count], 1u, nil);
+	STAssertTrue([[encoded.children objectAtIndex:0] isTextNode], nil);
 	STAssertEqualObjects(encoded.stringValue,
 						 @"<p>How do Americans get ready to work with Russians aboard the International Space Station? " \
 						 @"They take a crash course in culture, language and protocol at Russia's " \
