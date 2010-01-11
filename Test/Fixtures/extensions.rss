@@ -3,6 +3,7 @@
      xmlns:content="http://purl.org/rss/1.0/modules/content/"
      xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
      xmlns:fake="uri:fake"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
 >
    <channel>
       <title>Liftoff News</title>
@@ -42,9 +43,9 @@
          <title>The Engine That Does More</title>
          <link>http://liftoff.msfc.nasa.gov/news/2003/news-VASIMR.asp</link>
          <description>Before man travels to Mars, NASA hopes to design new engines that will let us fly through the Solar System more quickly.  The proposed VASIMR engine would do that.</description>
-         <content:encoded><![CDATA[<p>Before man travels to Mars, NASA hopes to design new engines that will let us fly through the Solar System more quickly.  The proposed VASIMR engine would do that.</p>]]></content:encoded>
          <pubDate>Tue, 27 May 2003 08:37:32 GMT</pubDate>
          <guid>http://liftoff.msfc.nasa.gov/2003/05/27.html#item571</guid>
+         <dc:creator>Joe Smith</dc:creator>
       </item>
       <item>
          <title>Astronauts' Dirty Laundry</title>

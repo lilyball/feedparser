@@ -34,6 +34,7 @@
 	FPLink *link;
 	NSMutableArray *links;
 	NSString *guid;
+	NSString *description;
 	NSString *content;
 	NSDate *pubDate;
 	NSString *creator; // <dc:creator>
@@ -48,6 +49,11 @@
 // RSS <link> elements are treated as Atom <link rel="alternate"> elements
 @property (nonatomic, copy, readonly) NSArray *links;
 @property (nonatomic, copy, readonly) NSString *guid;
+@property (nonatomic, copy, readonly) NSString *description;
+// The content property is, in most feeds, the same thing as the description property.
+// However, if a feed contains a <content:encoded> tag, the content property will
+// contain that data instead. The description tag will always contain the <description> tag.
+// If you need to test for the presence of <content:encoded>, you can check if item.content == item.description.
 @property (nonatomic, copy, readonly) NSString *content;
 @property (nonatomic, copy, readonly) NSString *creator; // <dc:creator>
 @property (nonatomic, copy, readonly) NSDate *pubDate;

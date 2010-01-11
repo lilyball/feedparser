@@ -39,7 +39,7 @@
 
 - (void)testSampleRSSTwo {
 	FPFeed *feed = [self feedFromFixture:@"sample-rss-2.rss"];
-	if (feed == nil) return;
+	NSAssert(feed != nil, @"sample-rss-2.rss feed was nil");
 	STAssertEqualObjects(feed.title, @"Liftoff News", nil);
 	STAssertEqualObjects(feed.link.href, @"http://liftoff.msfc.nasa.gov/", nil);
 	STAssertEqualObjects(feed.feedDescription, @"Liftoff to Space Exploration.", nil);
@@ -48,7 +48,7 @@
 	FPItem *item = [feed.items objectAtIndex:2];
 	STAssertEqualObjects(item.title, @"The Engine That Does More", nil);
 	STAssertEqualObjects(item.link.href, @"http://liftoff.msfc.nasa.gov/news/2003/news-VASIMR.asp", nil);
-	STAssertEqualObjects(item.content, @"Before man travels to Mars, NASA hopes to design new engines that will let \
+	STAssertEqualObjects(item.description, @"Before man travels to Mars, NASA hopes to design new engines that will let \
 us fly through the Solar System more quickly.  The proposed VASIMR engine would do that.", nil);
 	STAssertEqualObjects(item.pubDate, [NSDate dateWithTimeIntervalSince1970:1054024652], nil);
 	STAssertEqualObjects(item.guid, @"http://liftoff.msfc.nasa.gov/2003/05/27.html#item571", nil);
@@ -57,11 +57,11 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 
 - (void)testSampleRSSOhNineTwo {
 	FPFeed *feed = [self feedFromFixture:@"sample-rss-092.rss"];
-	if (feed == nil) return;
+	NSAssert(feed != nil, @"sample-rss-092.rss feed was nil");
 	STAssertEqualObjects(feed.title, @"Dave Winer: Grateful Dead", nil);
 	STAssertEquals([feed.items count], 22u, nil);
 	FPItem *item = [feed.items objectAtIndex:18];
-	STAssertEqualObjects(item.content, @"Truckin, like the doo-dah man, once told me gotta play your hand. Sometimes the cards ain't worth a dime, if you don't lay em down.", nil);
+	STAssertEqualObjects(item.description, @"Truckin, like the doo-dah man, once told me gotta play your hand. Sometimes the cards ain't worth a dime, if you don't lay em down.", nil);
 }
 
 - (void)testSampleRSSOhNineOne {
@@ -71,7 +71,7 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 
 - (void)testExtensionElements {
 	FPFeed *feed = [self feedFromFixture:@"extensions.rss"];
-	if (feed == nil) return;
+	NSAssert(feed != nil, @"extensions.rss feed was nil");
 	STAssertEquals([feed.extensionElements count], 3u, nil);
 	FPExtensionNode *node = [feed.extensionElements objectAtIndex:0];
 	STAssertTrue(node.isElement, nil);
@@ -81,6 +81,7 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	STAssertEquals([[feed extensionElementsWithXMLNamespace:@"http://purl.org/rss/1.0/modules/syndication/"] count], 2u, nil);
 	FPItem *item = [feed.items objectAtIndex:0];
 	STAssertEquals([item.extensionElements count], 3u, nil);
+	// fake
 	STAssertEquals([[item extensionElementsWithXMLNamespace:@"uri:fake"] count], 2u, nil);
 	FPExtensionNode *fake = [[item extensionElementsWithXMLNamespace:@"uri:fake"] objectAtIndex:0];
 	STAssertEquals([fake.children count], 5u, @"node children: %@", fake.children);
@@ -100,11 +101,48 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	STAssertEquals([[item extensionElementsWithXMLNamespace:@"uri:fake" elementName:@"empty"] count], 1u, nil);
 	STAssertEquals([[item extensionElementsWithXMLNamespace:@"uri:fake" elementName:@"bogus"] count], 0u, nil);
 	STAssertEqualObjects([[[item extensionElementsWithXMLNamespace:@"uri:fake" elementName:@"empty"] objectAtIndex:0] name], @"empty", nil);
+	// content
+	STAssertEquals([[item extensionElementsWithXMLNamespace:kFPXMLParserContentNamespaceURI] count], 1u, nil);
+	FPExtensionNode *encoded = [[item extensionElementsWithXMLNamespace:kFPXMLParserContentNamespaceURI] objectAtIndex:0];
+	STAssertEqualObjects(encoded.name, @"encoded", nil);
+	STAssertEqualObjects(encoded.qualifiedName, @"content:encoded", nil);
+	STAssertEqualObjects(encoded.namespaceURI, kFPXMLParserContentNamespaceURI, nil);
+	STAssertTrue(encoded.isTextNode, nil);
+	STAssertEqualObjects(encoded.stringValue,
+						 @"<p>How do Americans get ready to work with Russians aboard the International Space Station? " \
+						 @"They take a crash course in culture, language and protocol at Russia's " \
+						 @"<a href=\"http://howe.iki.rssi.ru/GCTC/gctc_e.htm\">Star City</a>.</p>", nil);
+	STAssertEqualObjects(item.content, encoded.stringValue, nil);
+	STAssertEqualObjects(item.description,
+						 @"How do Americans get ready to work with Russians aboard the International Space Station? " \
+						 @"They take a crash course in culture, language and protocol at Russia's " \
+						 @"<a href=\"http://howe.iki.rssi.ru/GCTC/gctc_e.htm\">Star City</a>.", nil);
+	
+}
+
+- (void)testSupportedExtensions {
+	FPFeed *feed = [self feedFromFixture:@"extensions.rss"];
+	NSAssert(feed != nil, @"extensions.rss feed was nil");
+	FPItem *item = [feed.items objectAtIndex:0];
+	STAssertFalse(item.description == item.content, nil);
+	STAssertEqualObjects(item.description,
+						 @"How do Americans get ready to work with Russians aboard the International Space Station? " \
+						 @"They take a crash course in culture, language and protocol at Russia's " \
+						 @"<a href=\"http://howe.iki.rssi.ru/GCTC/gctc_e.htm\">Star City</a>.", nil);
+	STAssertEqualObjects(item.content,
+						 @"<p>How do Americans get ready to work with Russians aboard the International Space Station? " \
+						 @"They take a crash course in culture, language and protocol at Russia's " \
+						 @"<a href=\"http://howe.iki.rssi.ru/GCTC/gctc_e.htm\">Star City</a>.</p>", nil);
+	STAssertNil(item.creator, nil);
+	item = [feed.items objectAtIndex:2];
+	STAssertTrue(item.description == item.content, nil);
+	STAssertEqualObjects(item.creator, @"Joe Smith", nil);
+	STAssertNil(item.author, nil);
 }
 
 - (void)testLinks {
 	FPFeed *feed = [self feedFromFixture:@"rss-with-atom.rss"];
-	if (feed == nil) return;
+	NSAssert(feed != nil, @"rss-with-atom.rss feed was nil");
 	STAssertEqualObjects(feed.link, [FPLink linkWithHref:@"http://liftoff.msfc.nasa.gov/" rel:@"alternate" type:nil title:nil], nil);
 	STAssertEquals([feed.links count], 2u, nil);
 	STAssertEqualObjects([feed.links objectAtIndex:0], feed.link, nil);

@@ -31,6 +31,7 @@
 @interface FPItem ()
 @property (nonatomic, copy, readwrite) NSString *title;
 @property (nonatomic, copy, readwrite) NSString *guid;
+@property (nonatomic, copy, readwrite) NSString *description;
 @property (nonatomic, copy, readwrite) NSString *content;
 @property (nonatomic, copy, readwrite) NSString *creator;
 @property (nonatomic, copy, readwrite) NSDate *pubDate;
@@ -42,7 +43,7 @@
 @end
 
 @implementation FPItem
-@synthesize title, link, links, guid, content, pubDate, author, enclosures;
+@synthesize title, link, links, guid, description, content, pubDate, author, enclosures;
 @synthesize creator;
 
 + (void)initialize {
@@ -51,7 +52,7 @@
 		[self registerHandler:@selector(setAuthor:) forElement:@"author" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(rss_link:attributes:parser:) forElement:@"link" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(setGuid:) forElement:@"guid" namespaceURI:@"" type:FPXMLParserTextElementType];
-		[self registerHandler:@selector(setContent:) forElement:@"description" namespaceURI:@"" type:FPXMLParserTextElementType];
+		[self registerHandler:@selector(setDescription:) forElement:@"description" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" namespaceURI:@"" type:FPXMLParserTextElementType];
 		[self registerHandler:@selector(rss_enclosure:parser:) forElement:@"enclosure" namespaceURI:@"" type:FPXMLParserSkipElementType];
 		for (NSString *key in [NSArray arrayWithObjects:@"category", @"comments", @"source", nil]) {
@@ -63,6 +64,9 @@
 		// DublinCore
 		[self registerHandler:@selector(setCreator:) forElement:@"creator"
 				 namespaceURI:kFPXMLParserDublinCoreNamespaceURI type:FPXMLParserTextElementType];
+		// Content
+		[self registerHandler:@selector(setContent:) forElement:@"encoded"
+				 namespaceURI:kFPXMLParserContentNamespaceURI type:FPXMLParserTextElementType];
 	}
 }
 
@@ -112,11 +116,16 @@
 	[anEnclosure release];
 }
 
+- (NSString *)content {
+	return (content ?: description);
+}
+
 - (void)dealloc {
 	[title release];
 	[link release];
 	[links release];
 	[guid release];
+	[description release];
 	[content release];
 	[pubDate release];
 	[creator release];
