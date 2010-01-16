@@ -32,6 +32,7 @@
 	STAssertEquals([[NSDate dateWithRFC822:@"Tue, 10 Jun 03 07:41:01 B"] timeIntervalSince1970], 1055238061.0, nil);
 	STAssertEquals([[NSDate dateWithRFC822:@"Tue, 10 Jun 03 07:41:01 -0200"] timeIntervalSince1970], 1055238061.0, nil);
 	STAssertEquals([[NSDate dateWithRFC822:@"Tue, 10 Jun 03 11:51:01 +0210"] timeIntervalSince1970], 1055238061.0, nil);
+	STAssertEquals([[NSDate dateWithRFC822:@"Fri, 15 Jan 2010 16:17:03"] timeIntervalSince1970], 1263572223.0, nil);
 }
 
 // this should be fleshed out to test all the edge cases

@@ -73,7 +73,8 @@ static NSArray *kMonths;
 		ASSERT([scanner scanCharactersFromSet:digitSet intoString:&temp] && [temp length] == 2);
 		[components setSecond:[temp integerValue]];
 	}
-	NSTimeZone *tz = nil;
+	// Default to GMT, for feeds that have malformed dates and don't explicitly specify a timezone.
+	NSTimeZone *tz = [NSTimeZone timeZoneForSecondsFromGMT:0];
 	if ([scanner scanCharactersFromSet:letterSet intoString:&temp]) {
 		tz = [NSTimeZone timeZoneWithAbbreviation:temp];
 		if (tz == nil && [temp length] == 1) {
