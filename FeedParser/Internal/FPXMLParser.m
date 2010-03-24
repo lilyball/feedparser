@@ -334,8 +334,9 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 		FPExtensionNode *node = (FPExtensionNode *)child;
 		if (currentElementType == FPXMLParserTextExtensionElementType) {
 			// validation
-			if ([node.children count] != 1 || ([node.children count] != 0 && ![[node.children objectAtIndex:0] isTextNode])) {
+			if ([node.children count] > 1 || ([node.children count] == 1 && ![[node.children objectAtIndex:0] isTextNode])) {
 				[self abortParsing:parser withFormat:@"Unexpected child elements in node <%@>", node.qualifiedName];
+				return;
 			}
 			if (currentHandlerSelector != NULL) {
 				handleTextValue(self, currentHandlerSelector, node.stringValue, node.attributes, parser);

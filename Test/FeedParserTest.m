@@ -120,6 +120,14 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 						 @"They take a crash course in culture, language and protocol at Russia's " \
 						 @"<a href=\"http://howe.iki.rssi.ru/GCTC/gctc_e.htm\">Star City</a>.", nil);
 	
+	// test fake textual extension element, in this case <dc:creator></dc:creator>
+	item = [feed.items objectAtIndex:3];
+	STAssertNotNil(item.creator, nil);
+	STAssertEqualObjects(item.creator, @"", nil);
+	FPExtensionNode *creator = [[item extensionElementsWithXMLNamespace:kFPXMLParserDublinCoreNamespaceURI] objectAtIndex:0];
+	STAssertEqualObjects(creator.name, @"creator", nil);
+	STAssertEquals([creator.children count], 0u, nil);
+	STAssertEqualObjects(creator.stringValue, @"", nil);
 }
 
 - (void)testSupportedExtensions {
