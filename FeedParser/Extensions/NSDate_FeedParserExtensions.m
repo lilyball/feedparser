@@ -92,9 +92,19 @@ static NSArray *kMonths;
 				tz = [NSTimeZone timeZoneForSecondsFromGMT:((1 + (c - 'N')) * 3600)];
 			}
 		}
-	} else if ([scanner scanCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"-+"] intoString:&temp]) {
+	}
+	// some feeds (such as Google News) specify their time zone with both formats, e.g. GMT+00:00
+	// when we encounter this format, trust the number over the letters
+	// also note that this weird format uses +00:00 instead of +0000. Very weird, but let's support that too
+	if ([scanner scanCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"-+"] intoString:&temp]) {
 		BOOL neg = [temp isEqualToString:@"-"];
-		ASSERT([scanner scanCharactersFromSet:digitSet intoString:&temp] && [temp length] == 4);
+		ASSERT([scanner scanCharactersFromSet:digitSet intoString:&temp] && ([temp length] == 2 || [temp length] == 4));
+		if ([temp length] == 2) {
+			NSString *hours = temp;
+			ASSERT([scanner scanString:@":" intoString:NULL]);
+			ASSERT([scanner scanCharactersFromSet:digitSet intoString:&temp] && [temp length] == 2);
+			temp = [hours stringByAppendingString:temp];
+		}
 		NSInteger hourOffset = [[temp substringToIndex:2] integerValue];
 		NSInteger minuteOffset = [[temp substringFromIndex:2] integerValue];
 		NSInteger offset = hourOffset * 3600 + minuteOffset * 60;
