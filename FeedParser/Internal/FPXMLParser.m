@@ -109,6 +109,8 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description {
 	if (parentParser != nil) {
+		// we may be owned by our parent. If this is true, ensure we don't die instantly
+		[[self retain] autorelease];
 		FPXMLParser *parent = parentParser;
 		parentParser = nil;
 		[parent abortParsing:parser withString:description];
