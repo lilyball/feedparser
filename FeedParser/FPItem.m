@@ -78,7 +78,7 @@
 - (void)rss_pubDate:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
 	NSDate *date = [NSDate dateWithRFC822:textValue];
 	self.pubDate = date;
-	if (date == nil) [self abortParsing:parser];
+	if (date == nil) [self abortParsing:parser withFormat:@"could not parse pubDate '%@'", textValue];
 }
 
 - (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {

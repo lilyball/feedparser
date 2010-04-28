@@ -107,12 +107,11 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description {
 	[feed release];
 	feed = nil;
-	//[errorString release];
+	[errorString release];
 	if (description == nil) {
-		//errorString = [[NSString stringWithFormat:@"Invalid feed data at line %ld", [parser lineNumber]] copy];
-		errorString = [[NSString alloc] initWithFormat:@"Invalid feed data at line %ld", [parser lineNumber]];
+		errorString = [[NSString alloc] initWithFormat:@"Invalid feed data at line %ld", (long)[parser lineNumber]];
 	} else {
-		errorString = [description copy];
+		errorString = [[NSString alloc] initWithFormat:@"Invalid feed data at line %ld: %@", (long)[parser lineNumber], description];
 	}
 	[super abortParsing:parser withString:description];
 }
