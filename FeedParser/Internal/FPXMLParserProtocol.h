@@ -30,7 +30,11 @@
 				 This ensures that each class can pass parser delegation to its parent appropriately.
 */
 
+#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
+@protocol FPXMLParserProtocol <NSObject, NSXMLParserDelegate>
+#else
 @protocol FPXMLParserProtocol <NSObject>
+#endif
 @required
 /*!
     @method     
