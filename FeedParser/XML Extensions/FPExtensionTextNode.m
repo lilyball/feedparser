@@ -46,6 +46,12 @@
 	return [NSString stringWithFormat:@"<%@: %0p \"%@\"", NSStringFromClass([self class]), self, [stringValue fpEscapedString]];
 }
 
+- (BOOL)isEqual:(id)anObject {
+	if (![anObject isKindOfClass:[FPExtensionTextNode class]]) return NO;
+	FPExtensionTextNode *other = (FPExtensionTextNode *)anObject;
+	return (stringValue == other->stringValue || [stringValue isEqualToString:other->stringValue]);
+}
+
 - (void)dealloc {
 	[stringValue release];
 	[super dealloc];

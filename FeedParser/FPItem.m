@@ -117,6 +117,21 @@
 	return (content ?: description);
 }
 
+- (BOOL)isEqual:(id)anObject {
+	if (![anObject isKindOfClass:[FPItem class]]) return NO;
+	FPItem *other = (FPItem *)anObject;
+	return ((title       == other->title       || [title       isEqualToString:other->title])       &&
+			(link        == other->link        || [link        isEqual:other->link])                &&
+			(links       == other->links       || [links       isEqualToArray:other->links])        &&
+			(guid        == other->guid        || [guid        isEqualToString:other->guid])        &&
+			(description == other->description || [description isEqualToString:other->description]) &&
+			(content     == other->content     || [content     isEqualToString:other->content])     &&
+			(pubDate     == other->pubDate     || [pubDate     isEqual:other->pubDate])             &&
+			(creator     == other->creator     || [creator     isEqualToString:other->creator])     &&
+			(author      == other->author      || [author      isEqualToString:other->author])      &&
+			(enclosures  == other->enclosures  || [enclosures  isEqualToArray:other->enclosures]));
+}
+
 - (void)dealloc {
 	[title release];
 	[link release];

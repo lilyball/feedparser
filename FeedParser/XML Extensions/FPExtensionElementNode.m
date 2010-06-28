@@ -79,6 +79,16 @@
 	currentText = nil;
 }
 
+- (BOOL)isEqual:(id)anObject {
+	if (![anObject isKindOfClass:[FPExtensionElementNode class]]) return NO;
+	FPExtensionElementNode *other = (FPExtensionElementNode *)anObject;
+	return ((name          == other->name          || [name          isEqualToString:other->name])           &&
+			(qualifiedName == other->qualifiedName || [qualifiedName isEqualToString:other->qualifiedName])  &&
+			(namespaceURI  == other->namespaceURI  || [namespaceURI  isEqualToString:other->namespaceURI])   &&
+			(attributes    == other->attributes    || [attributes    isEqualToDictionary:other->attributes]) &&
+			(children      == other->children      || [children      isEqualToArray:other->children]));
+}
+
 - (void)dealloc {
 	[name release];
 	[qualifiedName release];

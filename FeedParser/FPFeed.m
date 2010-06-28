@@ -102,6 +102,17 @@
 	[aLink release];
 }
 
+- (BOOL)isEqual:(id)anObject {
+	if (![anObject isKindOfClass:[FPFeed class]]) return NO;
+	FPFeed *other = (FPFeed *)anObject;
+	return ((title           == other->title           || [title           isEqualToString:other->title])           &&
+			(link            == other->link            || [link            isEqual:other->link])                    &&
+			(links           == other->links           || [links           isEqualToArray:other->links])            &&
+			(feedDescription == other->feedDescription || [feedDescription isEqualToString:other->feedDescription]) &&
+			(pubDate         == other->pubDate         || [pubDate         isEqual:other->pubDate])                 &&
+			(items           == other->items           || [items           isEqualToArray:other->items]));
+}
+
 - (void)dealloc {
 	[title release];
 	[link release];

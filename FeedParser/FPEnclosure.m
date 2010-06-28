@@ -45,9 +45,9 @@
 - (BOOL)isEqual:(id)object {
 	if (![object isKindOfClass:[FPEnclosure class]]) return NO;
 	FPEnclosure *other = (FPEnclosure *)object;
-	return ((url    == other.url  || [url  isEqualToString:other.url]) &&
-			(type   == other.type || [type isEqualToString:other.type]) &&
-			(length == other.length));
+	return ((url    == other->url  || [url  isEqualToString:other->url]) &&
+			(type   == other->type || [type isEqualToString:other->type]) &&
+			(length == other->length));
 }
 
 - (NSString *)description {

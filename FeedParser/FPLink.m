@@ -45,10 +45,10 @@
 - (BOOL)isEqual:(id)anObject {
 	if (![anObject isKindOfClass:[FPLink class]]) return NO;
 	FPLink *other = (FPLink *)anObject;
-	return ((href  == other.href  || [href  isEqualToString:other.href]) &&
-			(rel   == other.rel   || [rel   isEqualToString:other.rel])  &&
-			(type  == other.type  || [type  isEqualToString:other.type]) &&
-			(title == other.title || [title isEqualToString:other.title]));
+	return ((href  == other->href  || [href  isEqualToString:other->href]) &&
+			(rel   == other->rel   || [rel   isEqualToString:other->rel])  &&
+			(type  == other->type  || [type  isEqualToString:other->type]) &&
+			(title == other->title || [title isEqualToString:other->title]));
 }
 
 - (NSString *)description {
