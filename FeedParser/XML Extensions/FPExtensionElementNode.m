@@ -156,4 +156,27 @@
 	// stub
 }
 
+#pragma mark -
+#pragma mark Coding Support
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self = [super initWithCoder:aDecoder]) {
+		name = [[aDecoder decodeObjectForKey:@"name"] copy];
+		qualifiedName = [[aDecoder decodeObjectForKey:@"qualifiedName"] copy];
+		namespaceURI = [[aDecoder decodeObjectForKey:@"namespaceURI"] copy];
+		attributes = [[aDecoder decodeObjectForKey:@"attributes"] copy];
+		children = [[aDecoder decodeObjectForKey:@"children"] mutableCopy];
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	[super encodeWithCoder:aCoder];
+	[aCoder encodeObject:name forKey:@"name"];
+	[aCoder encodeObject:qualifiedName forKey:@"qualifiedName"];
+	[aCoder encodeObject:namespaceURI forKey:@"namespaceURI"];
+	[aCoder encodeObject:attributes forKey:@"attributes"];
+	[aCoder encodeObject:children forKey:@"children"];
+}
+
 @end

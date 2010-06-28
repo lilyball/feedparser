@@ -60,7 +60,7 @@
 	}
 }
 
-- (id)initWithBaseNamespaceURI:namespaceURI {
+- (id)initWithBaseNamespaceURI:(NSString *)namespaceURI {
 	if (self = [super initWithBaseNamespaceURI:namespaceURI]) {
 		items = [[NSMutableArray alloc] init];
 		links = [[NSMutableArray alloc] init];
@@ -110,5 +110,30 @@
 	[pubDate release];
 	[items release];
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark Coding Support
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self = [super initWithCoder:aDecoder]) {
+		title = [[aDecoder decodeObjectForKey:@"title"] copy];
+		link = [[aDecoder decodeObjectForKey:@"link"] retain];
+		links = [[aDecoder decodeObjectForKey:@"links"] mutableCopy];
+		feedDescription = [[aDecoder decodeObjectForKey:@"feedDescription"] copy];
+		pubDate = [[aDecoder decodeObjectForKey:@"pubDate"] copy];
+		items = [[aDecoder decodeObjectForKey:@"items"] mutableCopy];
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	[super encodeWithCoder:aCoder];
+	[aCoder encodeObject:title forKey:@"title"];
+	[aCoder encodeObject:link forKey:@"link"];
+	[aCoder encodeObject:links forKey:@"links"];
+	[aCoder encodeObject:feedDescription forKey:@"feedDescription"];
+	[aCoder encodeObject:pubDate forKey:@"pubDate"];
+	[aCoder encodeObject:items forKey:@"items"];
 }
 @end

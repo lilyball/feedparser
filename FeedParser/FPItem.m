@@ -130,4 +130,37 @@
 	[enclosures release];
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Coding Support
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self = [super initWithCoder:aDecoder]) {
+		title = [[aDecoder decodeObjectForKey:@"title"] copy];
+		link = [[aDecoder decodeObjectForKey:@"link"] retain];
+		links = [[aDecoder decodeObjectForKey:@"links"] mutableCopy];
+		guid = [[aDecoder decodeObjectForKey:@"guid"] copy];
+		description = [[aDecoder decodeObjectForKey:@"description"] copy];
+		content = [[aDecoder decodeObjectForKey:@"content"] copy];
+		pubDate = [[aDecoder decodeObjectForKey:@"pubDate"] copy];
+		creator = [[aDecoder decodeObjectForKey:@"creator"] copy];
+		author = [[aDecoder decodeObjectForKey:@"author"] copy];
+		enclosures = [[aDecoder decodeObjectForKey:@"enclosures"] mutableCopy];
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	[super encodeWithCoder:aCoder];
+	[aCoder encodeObject:title forKey:@"title"];
+	[aCoder encodeObject:link forKey:@"link"];
+	[aCoder encodeObject:links forKey:@"links"];
+	[aCoder encodeObject:guid forKey:@"guid"];
+	[aCoder encodeObject:description forKey:@"description"];
+	[aCoder encodeObject:content forKey:@"content"];
+	[aCoder encodeObject:pubDate forKey:@"pubDate"];
+	[aCoder encodeObject:creator forKey:@"creator"];
+	[aCoder encodeObject:author forKey:@"author"];
+	[aCoder encodeObject:enclosures forKey:@"enclosures"];
+}
 @end

@@ -29,7 +29,7 @@
 @class FPParser;
 @class FPLink;
 
-@interface FPFeed : FPXMLParser {
+@interface FPFeed : FPXMLParser <NSCoding> {
 @private
 	NSString *title;
 	FPLink *link;

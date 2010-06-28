@@ -50,4 +50,19 @@
 	[stringValue release];
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Coding Support
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self = [super initWithCoder:aDecoder]) {
+		stringValue = [[aDecoder decodeObjectForKey:@"stringValue"] copy];
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	[super encodeWithCoder:aCoder];
+	[aCoder encodeObject:stringValue forKey:@"stringValue"];
+}
 @end

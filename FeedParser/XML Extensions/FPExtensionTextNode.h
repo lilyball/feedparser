@@ -26,7 +26,7 @@
 #import <Foundation/Foundation.h>
 #import "FPExtensionNode.h"
 
-@interface FPExtensionTextNode : FPExtensionNode {
+@interface FPExtensionTextNode : FPExtensionNode <NSCoding> {
 	NSString *stringValue;
 }
 - (id)initWithStringValue:(NSString *)value;

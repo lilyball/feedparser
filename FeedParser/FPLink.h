@@ -26,7 +26,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface FPLink : NSObject {
+@interface FPLink : NSObject <NSCoding> {
 @private
 	NSString *href;
 	NSString *rel;

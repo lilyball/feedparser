@@ -70,4 +70,24 @@
 	[super dealloc];
 }
 
+#pragma mark -
+#pragma mark Coding Support
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self = [super init]) {
+		href = [[aDecoder decodeObjectForKey:@"href"] copy];
+		rel = [[aDecoder decodeObjectForKey:@"rel"] copy];
+		type = [[aDecoder decodeObjectForKey:@"type"] copy];
+		title = [[aDecoder decodeObjectForKey:@"title"] copy];
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	[aCoder encodeObject:href forKey:@"href"];
+	[aCoder encodeObject:rel forKey:@"rel"];
+	[aCoder encodeObject:type forKey:@"type"];
+	[aCoder encodeObject:title forKey:@"title"];
+}
+
 @end

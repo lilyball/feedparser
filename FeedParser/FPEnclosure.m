@@ -59,4 +59,22 @@
 	[type release];
 	[super dealloc];
 }
+
+#pragma mark -
+#pragma mark Coding Support
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self = [super init]) {
+		url = [[aDecoder decodeObjectForKey:@"url"] copy];
+		length = [[aDecoder decodeObjectForKey:@"length"] unsignedIntegerValue];
+		type = [[aDecoder decodeObjectForKey:@"type"] copy];
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	[aCoder encodeObject:url forKey:@"url"];
+	[aCoder encodeObject:[NSNumber numberWithUnsignedInteger:length] forKey:@"length"];
+	[aCoder encodeObject:type forKey:@"type"];
+}
 @end

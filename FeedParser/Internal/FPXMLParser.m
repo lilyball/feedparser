@@ -111,7 +111,7 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 	if (parentParser != nil) {
 		// we may be owned by our parent. If this is true, ensure we don't die instantly
 		[[self retain] autorelease];
-		FPXMLParser *parent = parentParser;
+		id<FPXMLParserProtocol> parent = parentParser;
 		parentParser = nil;
 		[parent abortParsing:parser withString:description];
 	} else {
@@ -351,5 +351,22 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 		currentHandlerSelector = NULL;
 		currentElementType = FPXMLParserStreamElementType;
 	}
+}
+
+#pragma mark -
+#pragma mark Coding Support
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self = [self init]) {
+		baseNamespaceURI = [[aDecoder decodeObjectForKey:@"baseNamespaceURI"] copy];
+		[extensionElements release];
+		extensionElements = [[aDecoder decodeObjectForKey:@"extensionElements"] mutableCopy];
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	[aCoder encodeObject:baseNamespaceURI forKey:@"baseNamespaceURI"];
+	[aCoder encodeObject:extensionElements forKey:@"extensionElements"];
 }
 @end

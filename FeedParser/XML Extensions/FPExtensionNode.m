@@ -59,4 +59,16 @@
 - (NSArray *)children {
 	return nil;
 }
+
+#pragma mark -
+#pragma mark Coding Support
+
+// these are just shims, to declare that this class should support coding
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	return [super init];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	// no-op
+}
 @end

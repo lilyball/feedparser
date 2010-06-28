@@ -28,7 +28,7 @@
 
 @class FPLink;
 
-@interface FPItem : FPXMLParser {
+@interface FPItem : FPXMLParser <NSCoding> {
 @private
 	NSString *title;
 	FPLink *link;

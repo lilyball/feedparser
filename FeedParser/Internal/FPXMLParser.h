@@ -39,7 +39,7 @@ extern NSString * const kFPXMLParserAtomNamespaceURI;
 extern NSString * const kFPXMLParserDublinCoreNamespaceURI;
 extern NSString * const kFPXMLParserContentNamespaceURI;
 
-@interface FPXMLParser : NSObject <FPXMLParserProtocol> {
+@interface FPXMLParser : NSObject <FPXMLParserProtocol, NSCoding> {
 @protected
 	NSMutableArray *extensionElements;
 	id<FPXMLParserProtocol> parentParser; // non-retained

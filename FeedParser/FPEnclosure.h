@@ -26,7 +26,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface FPEnclosure : NSObject {
+@interface FPEnclosure : NSObject <NSCoding> {
 @private
 	NSString *url;
 	NSUInteger length;
