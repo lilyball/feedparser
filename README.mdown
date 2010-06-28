@@ -1,22 +1,22 @@
-=== Introduction ===
+# Introduction
 
 FeedParser is an NSXMLParser-based RSS/Atom feed parser for Cocoa. It is
 intended to parse well-formed RSS and Atom feeds on both the desktop and the
 iPhone.
 
-=== Usage ===
+## Usage
 
 The simplest way to use FeedParser is to simply add the FeedParser directory
 to your project. FeedParser also includes a static library target if you
 prefer to include it that way.
 
-=== Design Goals ===
+## Design Goals
 
 FeedParser was designed to parse valid RSS and Atom feeds, including support
 for extensions outside of the RSS or Atom namespaces. All parsed feeds MUST be
 well-formed, but the parser may or may not enforce validity.
 
-=== Current State ===
+## Current State
 
 As of this writing, FeedParser can parse a full valid RSS 2.0 feed, though it
 intentionally skips elements that I did not consider useful. The parser may be
@@ -29,7 +29,7 @@ project.
 FeedParser requires that the entire feed must be a well-formed XML document,
 but it does not do any validity checking of individual elements.
 
-=== Future Development ===
+## Future Development
 
 The goals for future development of FeedParser are the following:
 
@@ -45,7 +45,7 @@ The goals for future development of FeedParser are the following:
 
 * Better error reporting
 
-=== Naming Issues ===
+## Naming Issues
 
 The name FeedParser conflicts with RSS/Atom parsers for other languages. A new
 name unique name should be chosen that is available on Google Code for bug
