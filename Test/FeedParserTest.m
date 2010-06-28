@@ -200,4 +200,19 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	FPItem *item = [feed.items objectAtIndex:0];
 	STAssertEqualObjects(item.title, @"Goldman's Blankfein hit hard on CDO conflicts - MarketWatch", nil);
 }
+
+- (void)testArchiving {
+	// test all fixtures to ensure the unarchived object is equal to the archived one
+	NSArray *fixtures = [NSArray arrayWithObjects:@"sample-rss-091.rss", @"sample-rss-092.rss",
+						 @"sample-rss-2.rss", @"extensions.rss", @"rss-with-atom.rss", @"google-news.rss", nil];
+	for (NSString *fixture in fixtures) {
+		FPFeed *feed = [self feedFromFixture:fixture];
+		if (feed == nil) continue;
+		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:feed];
+		STAssertNotNil(data, nil);
+		FPFeed *newFeed = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+		STAssertNotNil(newFeed, nil);
+		STAssertEqualObjects(feed, newFeed, nil);
+	}
+}
 @end
