@@ -87,7 +87,7 @@
 		0AACF27E0F8AC1540061AEB8 /* FeedParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedParserTest.m; sourceTree = "<group>"; };
 		0AAF74D20F8AEE3800120935 /* RFC822Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC822Test.h; sourceTree = "<group>"; };
 		0AAF74D30F8AEE3800120935 /* RFC822Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFC822Test.m; sourceTree = "<group>"; };
-		0AD2F7350F9044C800D7CAF1 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		0AD2F7350F9044C800D7CAF1 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,7 +215,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* FeedParser */ = {
 			isa = PBXGroup;
 			children = (
-				0AD2F7350F9044C800D7CAF1 /* README.txt */,
+				0AD2F7350F9044C800D7CAF1 /* README.mdown */,
 				0A244C5D0F921B8100E6C6A7 /* LICENSE.txt */,
 				0A339AFC0F87227500D0F64E /* FeedParser */,
 				0AACF25C0F8AC01B0061AEB8 /* Test */,
