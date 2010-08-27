@@ -91,8 +91,11 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 					NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
 					*error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInternalError userInfo:userInfo];
 				} else {
-					// adjust the error localizedDescription to include the line number
-					NSString *desc = [NSString stringWithFormat:@"line %ld: %@", [xmlParser lineNumber], [*error localizedDescription]];
+					// adjust the error localizedDescription to include the line/column numbers
+					NSString *desc = [NSString stringWithFormat:@"line %ld, column %ld: %@",
+									  (long)[xmlParser lineNumber],
+									  (long)[xmlParser columnNumber],
+									  [*error localizedDescription]];
 					NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[*error userInfo]];
 					[userInfo setObject:desc forKey:NSLocalizedDescriptionKey];
 					*error = [NSError errorWithDomain:[*error domain] code:[*error code] userInfo:userInfo];
