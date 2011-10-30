@@ -119,7 +119,7 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 						 @"How do Americans get ready to work with Russians aboard the International Space Station? " \
 						 @"They take a crash course in culture, language and protocol at Russia's " \
 						 @"<a href=\"http://howe.iki.rssi.ru/GCTC/gctc_e.htm\">Star City</a>.", nil);
-	
+
 	// test fake textual extension element, in this case <dc:creator></dc:creator>
 	item = [feed.items objectAtIndex:3];
 	STAssertNotNil(item.creator, nil);
