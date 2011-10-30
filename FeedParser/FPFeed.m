@@ -54,7 +54,7 @@
 			[self registerRSSHandler:NULL forElement:key type:FPXMLParserSkipElementType];
 		}
 		[self registerRSSHandler:@selector(rss_item:parser:) forElement:@"item" type:FPXMLParserStreamElementType];
-		
+
 		// atom elements
 		[self registerAtomHandler:@selector(atom_link:parser:) forElement:@"link" type:FPXMLParserSkipElementType];
 	}
