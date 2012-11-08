@@ -43,7 +43,7 @@
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"<%@: %0p \"%@\"", NSStringFromClass([self class]), self, [stringValue fpEscapedString]];
+	return [NSString stringWithFormat:@"<%@: %p \"%@\"", NSStringFromClass([self class]), self, [stringValue fpEscapedString]];
 }
 
 - (BOOL)isEqual:(id)anObject {
