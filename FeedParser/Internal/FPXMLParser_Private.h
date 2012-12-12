@@ -1,8 +1,8 @@
 //
-//  FPParser.h
+//  FPXMLParser.h
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/4/09.
+//  Created by Kevin Ballard on 4/6/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,13 +23,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "FPXMLParser.h"
 
-@class FPFeed;
+@interface FPXMLParser ()
 
-@interface FPParser : FPXMLParser
-
-+ (FPFeed *)parsedFeedWithData:(NSData *)data error:(NSError **)error;
+@property (readwrite, unsafe_unretained, nonatomic) id<FPXMLParserProtocol> parentParser;
+@property (readwrite, copy,   nonatomic) NSString *baseNamespaceURI;
+@property (readwrite, copy,   nonatomic) NSDictionary *handlers;
+@property (readwrite, strong, nonatomic) NSMutableString *currentTextValue;
+@property (readwrite, copy,   nonatomic) NSDictionary *currentAttributeDict;
+@property (readwrite, assign, nonatomic) FPXMLParserElementType currentElementType;
+@property (readwrite, assign, nonatomic) NSUInteger skipDepth;
+@property (readwrite, assign, nonatomic) NSUInteger parseDepth;
+@property (readwrite, assign, nonatomic) SEL currentHandlerSelector;
+@property (readwrite, copy,   nonatomic) NSArray *extensionElements;
+@property (readwrite, strong, nonatomic) NSMutableArray *mutableExtensionElements;
 
 @end

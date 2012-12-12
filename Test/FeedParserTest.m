@@ -184,7 +184,9 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 
 - (void)testEnclosures {
 	FPFeed *feed = [self feedFromFixture:@"sample-rss-092.rss"];
-	if (feed == nil) return;
+	if (feed == nil) {
+		return;
+	}
 	FPItem *item = [feed.items objectAtIndex:0];
 	STAssertEquals([item.enclosures count], (NSUInteger)1, nil);
 	STAssertEqualObjects([item.enclosures objectAtIndex:0], [FPEnclosure enclosureWithURL:@"http://www.scripting.com/mp3s/weatherReportDicksPicsVol7.mp3" length:6182912 type:@"audio/mpeg"], nil);
@@ -194,7 +196,9 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	// test a snapshot of http://news.google.com/news?output=rss taken on 4/27/2010
 	// This was reported in issue #8 as causing a problem
 	FPFeed *feed = [self feedFromFixture:@"google-news.rss"];
-	if (feed == nil) return;
+	if (feed == nil) {
+		return;
+	}
 	STAssertEqualObjects(feed.title, @"Top Stories - Google News", nil);
 	STAssertEqualObjects(feed.link.href, @"http://news.google.com?pz=1&ned=us&hl=en", nil);
 	FPItem *item = [feed.items objectAtIndex:0];
@@ -207,7 +211,9 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 						 @"sample-rss-2.rss", @"extensions.rss", @"rss-with-atom.rss", @"google-news.rss", nil];
 	for (NSString *fixture in fixtures) {
 		FPFeed *feed = [self feedFromFixture:fixture];
-		if (feed == nil) continue;
+		if (feed == nil) {
+			continue;
+		}
 		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:feed];
 		STAssertNotNil(data, nil);
 		FPFeed *newFeed = [NSKeyedUnarchiver unarchiveObjectWithData:data];

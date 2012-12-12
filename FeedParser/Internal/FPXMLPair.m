@@ -25,48 +25,48 @@
 
 #import "FPXMLPair.h"
 
+@interface FPXMLPair ()
+
+@property (readwrite, strong, nonatomic) id first;
+@property (readwrite, strong, nonatomic) id second;
+
+@end
+
 @implementation FPXMLPair
-@synthesize first, second;
 
 + (id)pairWithFirst:(id)firstObject second:(id)secondObject {
-	return [[[self alloc] initWithFirst:firstObject second:secondObject] autorelease];
+	return [[self alloc] initWithFirst:firstObject second:secondObject];
 }
 
 - (id)initWithFirst:(id)firstObject second:(id)secondObject {
 	if (self = [super init]) {
-		first = [firstObject retain];
-		second = [secondObject retain];
+		self.first = firstObject;
+		self.second = secondObject;
 	}
 	return self;
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-	return [[FPXMLPair allocWithZone:zone] initWithFirst:first second:second];
+	return [[[self class] allocWithZone:zone] initWithFirst:self.first second:self.second];
 }
 
 - (BOOL)isEqual:(id)anObject {
 	if ([anObject isKindOfClass:[FPXMLPair class]]) {
 		FPXMLPair *other = (FPXMLPair *)anObject;
-		id oFirst = other.first;
-		id oSecond = other.second;
 		// do pointer test first so we handle nil properly
-		return ((first == oFirst || [first isEqual:other.first]) && (second == oSecond || [second isEqual:other.second]));
+		return ((self.first == other.first || [self.first isEqual:other.first]) &&
+				(self.second == other.second || [self.second isEqual:other.second]));
 	}
 	return NO;
 }
 
 - (NSUInteger)hash {
 	// xor in a magic value so that way our hash != [nil hash] if both first == nil && second == nil
-	return 0xABADBABE ^ [first hash] ^ [second hash];
+	return 0xABADBABE ^ [self.first hash] ^ [self.second hash];
 }
 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"<%@: (%@, %@)>", NSStringFromClass([self class]), self.first, self.second];
 }
 
-- (void)dealloc {
-	[first release];
-	[second release];
-	[super dealloc];
-}
 @end

@@ -1,8 +1,8 @@
 //
-//  FPParser.h
+//  FPExtensionNode.h
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/4/09.
+//  Created by Kevin Ballard on 4/9/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,12 +24,22 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "FPXMLParser.h"
 
-@class FPFeed;
+@interface FPExtensionNode ()
 
-@interface FPParser : FPXMLParser
+@property (readwrite, assign, nonatomic) BOOL isElement;
+@property (readwrite, assign, nonatomic) BOOL isTextNode;
 
-+ (FPFeed *)parsedFeedWithData:(NSData *)data error:(NSError **)error;
+@property (readwrite, copy,   nonatomic) NSString *stringValue;
+
+@property (readwrite, copy,   nonatomic) NSString *name;
+@property (readwrite, copy,   nonatomic) NSString *qualifiedName;
+@property (readwrite, copy,   nonatomic) NSString *namespaceURI;
+
+@property (readwrite, copy,   nonatomic) NSDictionary *attributes;
+@property (readwrite, copy,   nonatomic) NSArray *children;
+
+@property (readwrite, strong, nonatomic) NSMutableDictionary *mutableAttributes;
+@property (readwrite, strong, nonatomic) NSMutableArray *mutableChildren;
 
 @end

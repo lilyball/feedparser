@@ -24,23 +24,29 @@
 //  SOFTWARE.
 
 #import "FPFeed.h"
+#import "FPXMLParser_Private.h"
 #import "FPItem.h"
 #import "FPLink.h"
 #import "FPParser.h"
 #import "NSDate_FeedParserExtensions.h"
 
 @interface FPFeed ()
-@property (nonatomic, copy, readwrite) NSString *title;
-@property (nonatomic, copy, readwrite) NSString *feedDescription;
-@property (nonatomic, copy, readwrite) NSDate *pubDate;
+
+@property (readwrite, copy, nonatomic) NSString *title;
+@property (readwrite, copy, nonatomic) FPLink *link;
+@property (readwrite, strong, nonatomic) NSMutableArray *mutableLinks;
+@property (readwrite, copy, nonatomic) NSString *feedDescription;
+@property (readwrite, copy, nonatomic) NSDate *pubDate;
+@property (readwrite, strong, nonatomic) NSMutableArray *mutableItems;
+
 - (void)rss_pubDate:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 - (void)rss_item:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 - (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 - (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
+
 @end
 
 @implementation FPFeed
-@synthesize title, link, links, feedDescription, pubDate, items;
 
 + (void)initialize {
 	if (self == [FPFeed class]) {
@@ -62,10 +68,26 @@
 
 - (id)initWithBaseNamespaceURI:(NSString *)namespaceURI {
 	if (self = [super initWithBaseNamespaceURI:namespaceURI]) {
-		items = [[NSMutableArray alloc] init];
-		links = [[NSMutableArray alloc] init];
+		self.mutableItems = [[NSMutableArray alloc] init];
+		self.mutableLinks = [[NSMutableArray alloc] init];
 	}
 	return self;
+}
+
+- (NSArray *)items {
+	return self.mutableItems;
+}
+
+- (void)setItems:(NSArray *)items {
+	self.mutableItems = [items mutableCopy];
+}
+
+- (NSArray *)links {
+	return self.mutableLinks;
+}
+
+- (void)setLinks:(NSArray *)links {
+	self.mutableLinks = [links mutableCopy];
 }
 
 - (void)rss_pubDate:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
@@ -75,19 +97,17 @@
 }
 
 - (void)rss_item:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
-	FPItem *item = [[FPItem alloc] initWithBaseNamespaceURI:baseNamespaceURI];
+	FPItem *item = [[FPItem alloc] initWithBaseNamespaceURI:self.baseNamespaceURI];
 	[item acceptParsing:parser];
-	[items addObject:item];
-	[item release];
+	[self.mutableItems addObject:item];
 }
 
 - (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
 	FPLink *aLink = [[FPLink alloc] initWithHref:textValue rel:@"alternate" type:nil title:nil];
-	if (link == nil) {
-		link = [aLink retain];
+	if (self.link == nil) {
+		self.link = aLink;
 	}
-	[links addObject:aLink];
-	[aLink release];
+	[self.mutableLinks addObject:aLink];
 }
 
 - (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
@@ -95,32 +115,21 @@
 	if (href == nil) return; // sanity check
 	FPLink *aLink = [[FPLink alloc] initWithHref:href rel:[attributes objectForKey:@"rel"] type:[attributes objectForKey:@"type"]
 										   title:[attributes objectForKey:@"title"]];
-	if (link == nil && [aLink.rel isEqualToString:@"alternate"]) {
-		link = [aLink retain];
+	if (self.link == nil && [aLink.rel isEqualToString:@"alternate"]) {
+		self.link = aLink;
 	}
-	[links addObject:aLink];
-	[aLink release];
+	[self.mutableLinks addObject:aLink];
 }
 
 - (BOOL)isEqual:(id)anObject {
 	if (![anObject isKindOfClass:[FPFeed class]]) return NO;
 	FPFeed *other = (FPFeed *)anObject;
-	return ((title           == other->title           || [title           isEqualToString:other->title])           &&
-			(link            == other->link            || [link            isEqual:other->link])                    &&
-			(links           == other->links           || [links           isEqualToArray:other->links])            &&
-			(feedDescription == other->feedDescription || [feedDescription isEqualToString:other->feedDescription]) &&
-			(pubDate         == other->pubDate         || [pubDate         isEqual:other->pubDate])                 &&
-			(items           == other->items           || [items           isEqualToArray:other->items]));
-}
-
-- (void)dealloc {
-	[title release];
-	[link release];
-	[links release];
-	[feedDescription release];
-	[pubDate release];
-	[items release];
-	[super dealloc];
+	return ((self.title == other.title || [self.title isEqualToString:other.title]) &&
+			(self.link == other.link || [self.link isEqual:other.link]) &&
+			(self.links == other.links || [self.links isEqualToArray:other.links]) &&
+			(self.feedDescription == other.feedDescription || [self.feedDescription isEqualToString:other.feedDescription]) &&
+			(self.pubDate == other.pubDate || [self.pubDate isEqual:other.pubDate]) &&
+			(self.items == other.items || [self.items isEqualToArray:other.items]));
 }
 
 #pragma mark -
@@ -128,23 +137,23 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super initWithCoder:aDecoder]) {
-		title = [[aDecoder decodeObjectForKey:@"title"] copy];
-		link = [[aDecoder decodeObjectForKey:@"link"] retain];
-		links = [[aDecoder decodeObjectForKey:@"links"] mutableCopy];
-		feedDescription = [[aDecoder decodeObjectForKey:@"feedDescription"] copy];
-		pubDate = [[aDecoder decodeObjectForKey:@"pubDate"] copy];
-		items = [[aDecoder decodeObjectForKey:@"items"] mutableCopy];
+		self.title				= [aDecoder decodeObjectForKey:@"title"];
+		self.link				= [aDecoder decodeObjectForKey:@"link"];
+		self.links				= [aDecoder decodeObjectForKey:@"links"];
+		self.feedDescription	= [aDecoder decodeObjectForKey:@"feedDescription"];
+		self.pubDate			= [aDecoder decodeObjectForKey:@"pubDate"];
+		self.items				= [aDecoder decodeObjectForKey:@"items"];
 	}
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
 	[super encodeWithCoder:aCoder];
-	[aCoder encodeObject:title forKey:@"title"];
-	[aCoder encodeObject:link forKey:@"link"];
-	[aCoder encodeObject:links forKey:@"links"];
-	[aCoder encodeObject:feedDescription forKey:@"feedDescription"];
-	[aCoder encodeObject:pubDate forKey:@"pubDate"];
-	[aCoder encodeObject:items forKey:@"items"];
+	[aCoder encodeObject:self.title				forKey:@"title"];
+	[aCoder encodeObject:self.link				forKey:@"link"];
+	[aCoder encodeObject:self.links				forKey:@"links"];
+	[aCoder encodeObject:self.feedDescription	forKey:@"feedDescription"];
+	[aCoder encodeObject:self.pubDate			forKey:@"pubDate"];
+	[aCoder encodeObject:self.items				forKey:@"items"];
 }
 @end

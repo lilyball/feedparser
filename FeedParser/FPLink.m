@@ -26,29 +26,40 @@
 #import "FPLink.h"
 #import "NSString_extensions.h"
 
+@interface FPLink ()
+
+@property (readwrite, copy, nonatomic) NSString *href;
+@property (readwrite, copy, nonatomic) NSString *rel;
+@property (readwrite, copy, nonatomic) NSString *type;
+@property (readwrite, copy, nonatomic) NSString *title;
+
+@end
+
 @implementation FPLink
-@synthesize href, rel, type, title;
+
 + (id)linkWithHref:(NSString *)href rel:(NSString *)rel type:(NSString *)type title:(NSString *)title {
-	return [[[self alloc] initWithHref:href rel:rel type:type title:title] autorelease];
+	return [[self alloc] initWithHref:href rel:rel type:type title:title];
 }
 
-- (id)initWithHref:(NSString *)inHref rel:(NSString *)inRel type:(NSString *)inType title:(NSString *)inTitle {
+- (id)initWithHref:(NSString *)href rel:(NSString *)rel type:(NSString *)type title:(NSString *)title {
 	if (self = [super init]) {
-		href = [inHref copy];
-		rel = (inRel ? [inRel copy] : @"alternate");
-		type = [inType copy];
-		title = [inTitle copy];
+		self.href	= href;
+		self.rel	= (rel) ? rel : @"alternate";
+		self.type	= type;
+		self.title	= title;
 	}
 	return self;
 }
 
 - (BOOL)isEqual:(id)anObject {
-	if (![anObject isKindOfClass:[FPLink class]]) return NO;
+	if (![anObject isKindOfClass:[FPLink class]]) {
+		return NO;
+	}
 	FPLink *other = (FPLink *)anObject;
-	return ((href  == other->href  || [href  isEqualToString:other->href]) &&
-			(rel   == other->rel   || [rel   isEqualToString:other->rel])  &&
-			(type  == other->type  || [type  isEqualToString:other->type]) &&
-			(title == other->title || [title isEqualToString:other->title]));
+	return ((self.href == other.href || [self.href isEqualToString:other.href]) &&
+			(self.rel == other.rel || [self.rel isEqualToString:other.rel]) &&
+			(self.type == other.type || [self.type isEqualToString:other.type]) &&
+			(self.title == other.title || [self.title isEqualToString:other.title]));
 }
 
 - (NSString *)description {
@@ -62,32 +73,31 @@
 	return [NSString stringWithFormat:@"<%@: %@ (%@)>", NSStringFromClass([self class]), self.href, [attributes componentsJoinedByString:@" "]];
 }
 
-- (void)dealloc {
-	[href release];
-	[rel release];
-	[type release];
-	[title release];
-	[super dealloc];
-}
-
 #pragma mark -
 #pragma mark Coding Support
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super init]) {
-		href = [[aDecoder decodeObjectForKey:@"href"] copy];
-		rel = [[aDecoder decodeObjectForKey:@"rel"] copy];
-		type = [[aDecoder decodeObjectForKey:@"type"] copy];
-		title = [[aDecoder decodeObjectForKey:@"title"] copy];
+		self.href	= [aDecoder decodeObjectForKey:@"href"];
+		self.rel	= [aDecoder decodeObjectForKey:@"rel"];
+		self.type	= [aDecoder decodeObjectForKey:@"type"];
+		self.title	= [aDecoder decodeObjectForKey:@"title"];
 	}
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-	[aCoder encodeObject:href forKey:@"href"];
-	[aCoder encodeObject:rel forKey:@"rel"];
-	[aCoder encodeObject:type forKey:@"type"];
-	[aCoder encodeObject:title forKey:@"title"];
+	[aCoder encodeObject:self.href	forKey:@"href"];
+	[aCoder encodeObject:self.rel	forKey:@"rel"];
+	[aCoder encodeObject:self.type	forKey:@"type"];
+	[aCoder encodeObject:self.title	forKey:@"title"];
+}
+
+#pragma mark -
+#pragma mark Copying Support
+
+- (id)copyWithZone:(NSZone *)zone {
+	return [[[self class] allocWithZone:zone] initWithHref:self.href rel:self.rel type:self.type title:self.title];
 }
 
 @end

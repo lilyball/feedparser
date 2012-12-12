@@ -28,17 +28,8 @@
 #import "FPXMLParserProtocol.h"
 
 // FPExtensionElementNode is used for unknown elements outside of the RSS and Atom namespaces
-@interface FPExtensionElementNode : FPExtensionNode <FPXMLParserProtocol, NSCoding> {
-@private
-	NSString *name;
-	NSString *qualifiedName;
-	NSString *namespaceURI;
-	NSDictionary *attributes;
-	NSMutableArray *children;
-	// parsing ivars
-	id<FPXMLParserProtocol> parentParser;
-	NSMutableString *currentText;
-}
+@interface FPExtensionElementNode : FPExtensionNode <FPXMLParserProtocol, NSCoding>
+
 - (id)initWithElementName:(NSString *)name namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 			   attributes:(NSDictionary *)attributeDict;
 @end

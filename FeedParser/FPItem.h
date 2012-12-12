@@ -28,38 +28,38 @@
 
 @class FPLink;
 
-@interface FPItem : FPXMLParser <NSCoding> {
-@private
-	NSString *title;
-	FPLink *link;
-	NSMutableArray *links;
-	NSString *guid;
-	NSString *description;
-	NSString *content;
-	NSDate *pubDate;
-	NSString *creator; // <dc:creator>
-	NSString *author;
-	NSMutableArray *enclosures;
-}
-@property (nonatomic, copy, readonly) NSString *title;
+@interface FPItem : FPXMLParser <NSCoding>
+
+@property (readonly, copy, nonatomic) NSString *title;
+
 // RSS <link> or Atom <link rel="alternate">
 // If multiple qualifying links exist, returns the first
-@property (nonatomic, retain, readonly) FPLink *link;
+@property (readonly, strong, nonatomic) FPLink *link;
+
 // An array of FPLink objects corresponding to Atom <link> elements
 // RSS <link> elements are treated as Atom <link rel="alternate"> elements
-@property (nonatomic, copy, readonly) NSArray *links;
-@property (nonatomic, copy, readonly) NSString *guid;
-@property (nonatomic, copy, readonly) NSString *description;
+@property (readonly, copy, nonatomic) NSArray *links;
+
+@property (readonly, copy, nonatomic) NSString *guid;
+
+@property (readonly, copy, nonatomic) NSString *description;
+
 // The content property is, in most feeds, the same thing as the description property.
 // However, if a feed contains a <content:encoded> tag, the content property will
 // contain that data instead. The description tag will always contain the <description> tag.
 // If you need to test for the presence of <content:encoded>, you can check if item.content == item.description.
-@property (nonatomic, copy, readonly) NSString *content;
-@property (nonatomic, copy, readonly) NSString *creator; // <dc:creator>
-@property (nonatomic, copy, readonly) NSDate *pubDate;
-@property (nonatomic, copy, readonly) NSString *author;
-@property (nonatomic, copy, readonly) NSArray *enclosures;
+@property (readonly, copy, nonatomic) NSString *content;
+
+@property (readonly, copy, nonatomic) NSString *creator; // <dc:creator>
+
+@property (readonly, copy, nonatomic) NSDate *pubDate;
+
+@property (readonly, copy, nonatomic) NSString *author;
+
+@property (readonly, copy, nonatomic) NSArray *enclosures;
+
 // parent class defines property NSArray *extensionElements
 // parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
 // parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName
+
 @end

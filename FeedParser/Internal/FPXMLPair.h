@@ -27,12 +27,12 @@
 
 // FPXLMPair is used to hold an immutable pair of objects
 // useful for using as the key in a dictionary
-@interface FPXMLPair : NSObject <NSCopying> {
-	id first;
-	id second;
-}
-@property (nonatomic, readonly) id first;
-@property (nonatomic, readonly) id second;
+@interface FPXMLPair : NSObject <NSCopying>
+
+@property (readonly, strong, nonatomic) id first;
+@property (readonly, strong, nonatomic) id second;
+
 + (id)pairWithFirst:(id)firstObject second:(id)secondObject;
 - (id)initWithFirst:(id)firstObject second:(id)secondObject;
+
 @end

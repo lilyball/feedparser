@@ -24,25 +24,30 @@
 //  SOFTWARE.
 
 #import "FPExtensionElementNode.h"
+#import "FPExtensionNode_Private.h"
 #import "FPExtensionElementNode_Private.h"
 #import "FPXMLParserProtocol.h"
 #import "FPExtensionTextNode.h"
 
 @interface FPExtensionElementNode ()
+
+@property (readwrite, unsafe_unretained, nonatomic) id<FPXMLParserProtocol> parentParser;
+@property (readwrite, strong, nonatomic) NSMutableString *currentText;
+
 - (void)closeTextNode;
+
 @end
 
 @implementation FPExtensionElementNode
-@synthesize name, qualifiedName, namespaceURI, attributes, children;
 
 - (id)initWithElementName:(NSString *)aName namespaceURI:(NSString *)aNamespaceURI qualifiedName:(NSString *)qName
 			   attributes:(NSDictionary *)attributeDict {
 	if (self = [super init]) {
-		name = [aName copy];
-		qualifiedName = [qName copy];
-		namespaceURI = [aNamespaceURI copy];
-		attributes = [attributeDict copy];
-		children = [[NSMutableArray alloc] init];
+		self.name = aName;
+		self.qualifiedName = qName;
+		self.namespaceURI = aNamespaceURI;
+		self.attributes = attributeDict;
+		self.mutableChildren = [[NSMutableArray alloc] init];
 	}
 	return self;
 }
@@ -52,16 +57,16 @@
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"<%@: %p <%@>>", NSStringFromClass([self class]), self, qualifiedName];
+	return [NSString stringWithFormat:@"<%@: %p <%@>>", NSStringFromClass([self class]), self, self.qualifiedName];
 }
 
 - (NSString *)stringValue {
-	if ([children count] == 1) {
+	if ([self.mutableChildren count] == 1) {
 		// optimize for single child
-		return [[children objectAtIndex:0] stringValue];
+		return [[self.mutableChildren objectAtIndex:0] stringValue];
 	} else {
 		NSMutableString *stringValue = [NSMutableString string];
-		for (FPExtensionNode *child in children) {
+		for (FPExtensionNode *child in self.mutableChildren) {
 			NSString *str = child.stringValue;
 			if (str != nil) {
 				[stringValue appendString:str];
@@ -72,74 +77,66 @@
 }
 
 - (void)closeTextNode {
-	FPExtensionTextNode *child = [[FPExtensionTextNode alloc] initWithStringValue:currentText];
-	[children addObject:child];
-	[child release];
-	[currentText release];
-	currentText = nil;
+	FPExtensionTextNode *child = [[FPExtensionTextNode alloc] initWithStringValue:self.currentText];
+	[self.mutableChildren addObject:child];
+	self.currentText = nil;
 }
 
 - (BOOL)isEqual:(id)anObject {
 	if (![anObject isKindOfClass:[FPExtensionElementNode class]]) return NO;
 	FPExtensionElementNode *other = (FPExtensionElementNode *)anObject;
-	return ((name          == other->name          || [name          isEqualToString:other->name])           &&
-			(qualifiedName == other->qualifiedName || [qualifiedName isEqualToString:other->qualifiedName])  &&
-			(namespaceURI  == other->namespaceURI  || [namespaceURI  isEqualToString:other->namespaceURI])   &&
-			(attributes    == other->attributes    || [attributes    isEqualToDictionary:other->attributes]) &&
-			(children      == other->children      || [children      isEqualToArray:other->children]));
-}
-
-- (void)dealloc {
-	[name release];
-	[qualifiedName release];
-	[namespaceURI release];
-	[attributes release];
-	[children release];
-	[currentText release];
-	[super dealloc];
+	return ((self.name == other.name || [self.name isEqualToString:other.name])           &&
+			(self.qualifiedName == other.qualifiedName || [self.qualifiedName isEqualToString:other.qualifiedName])  &&
+			(self.namespaceURI == other.namespaceURI || [self.namespaceURI isEqualToString:other.namespaceURI])   &&
+			(self.attributes == other.attributes || [self.attributes isEqualToDictionary:other.attributes]) &&
+			(self.children == other.children || [self.children isEqualToArray:other.children]));
 }
 
 #pragma mark XML parser methods
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)aNamespaceURI
  qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-	if (currentText != nil) {
+	if (self.currentText != nil) {
 		[self closeTextNode];
 	}
 	FPExtensionElementNode *child = [[FPExtensionElementNode alloc] initWithElementName:elementName namespaceURI:aNamespaceURI
 																		  qualifiedName:qName attributes:attributeDict];
 	[child acceptParsing:parser];
-	[children addObject:child];
-	[child release];
+	[self.mutableChildren addObject:child];
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-	if (currentText != nil) {
+	if (self.currentText != nil) {
 		[self closeTextNode];
 	}
-	[parser setDelegate:parentParser];
-	[parentParser resumeParsing:parser fromChild:self];
-	parentParser = nil;
+	[parser setDelegate:self.parentParser];
+	[self.parentParser resumeParsing:parser fromChild:self];
+	self.parentParser = nil;
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-	if (currentText == nil) currentText = [[NSMutableString alloc] init];
-	[currentText appendString:string];
+	if (self.currentText == nil) {
+		self.currentText = [[NSMutableString alloc] init];
+	}
+	[self.currentText appendString:string];
 }
 
 - (void)parser:(NSXMLParser *)parser foundIgnorableWhitespace:(NSString *)whitespaceString {
-	if (currentText == nil) currentText = [[NSMutableString alloc] init];
-	[currentText appendString:whitespaceString];
+	if (self.currentText == nil) {
+		self.currentText = [[NSMutableString alloc] init];
+	}
+	[self.currentText appendString:whitespaceString];
 }
 
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock {
 	NSString *data = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
 	if (data == nil) {
-		[self abortParsing:parser withString:[NSString stringWithFormat:@"Non-UTF8 data found in CDATA block at line %d", [parser lineNumber]]];
+		[self abortParsing:parser withString:[NSString stringWithFormat:@"Non-UTF8 data found in CDATA block at line %ld", [parser lineNumber]]];
 	} else {
-		if (currentText == nil) currentText = [[NSMutableString alloc] init];
-		[currentText appendString:data];
-		[data release];
+		if (self.currentText == nil) {
+			self.currentText = [[NSMutableString alloc] init];
+		}
+		[self.currentText appendString:data];
 	}
 }
 
@@ -150,15 +147,14 @@
 #pragma mark FPXMLParserProtocol methods
 
 - (void)acceptParsing:(NSXMLParser *)parser {
-	parentParser = (id<FPXMLParserProtocol>)[parser delegate];
+	self.parentParser = (id<FPXMLParserProtocol>)[parser delegate];
 	[parser setDelegate:self];
 }
 
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description {
-	id<FPXMLParserProtocol> parent = parentParser;
-	parentParser = nil;
-	[currentText release];
-	currentText = nil;
+	id<FPXMLParserProtocol> parent = self.parentParser;
+	self.parentParser = nil;
+	self.currentText = nil;
 	[parent abortParsing:parser withString:description];
 }
 
@@ -171,22 +167,22 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super initWithCoder:aDecoder]) {
-		name = [[aDecoder decodeObjectForKey:@"name"] copy];
-		qualifiedName = [[aDecoder decodeObjectForKey:@"qualifiedName"] copy];
-		namespaceURI = [[aDecoder decodeObjectForKey:@"namespaceURI"] copy];
-		attributes = [[aDecoder decodeObjectForKey:@"attributes"] copy];
-		children = [[aDecoder decodeObjectForKey:@"children"] mutableCopy];
+		self.name			= [aDecoder decodeObjectForKey:@"name"];
+		self.qualifiedName	= [aDecoder decodeObjectForKey:@"qualifiedName"];
+		self.namespaceURI	= [aDecoder decodeObjectForKey:@"namespaceURI"];
+		self.attributes		= [aDecoder decodeObjectForKey:@"attributes"];
+		self.children		= [aDecoder decodeObjectForKey:@"children"];
 	}
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
 	[super encodeWithCoder:aCoder];
-	[aCoder encodeObject:name forKey:@"name"];
-	[aCoder encodeObject:qualifiedName forKey:@"qualifiedName"];
-	[aCoder encodeObject:namespaceURI forKey:@"namespaceURI"];
-	[aCoder encodeObject:attributes forKey:@"attributes"];
-	[aCoder encodeObject:children forKey:@"children"];
+	[aCoder encodeObject:self.name			forKey:@"name"];
+	[aCoder encodeObject:self.qualifiedName	forKey:@"qualifiedName"];
+	[aCoder encodeObject:self.namespaceURI	forKey:@"namespaceURI"];
+	[aCoder encodeObject:self.attributes	forKey:@"attributes"];
+	[aCoder encodeObject:self.children		forKey:@"children"];
 }
 
 @end
