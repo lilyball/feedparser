@@ -39,20 +39,10 @@ extern NSString * const kFPXMLParserAtomNamespaceURI;
 extern NSString * const kFPXMLParserDublinCoreNamespaceURI;
 extern NSString * const kFPXMLParserContentNamespaceURI;
 
-@interface FPXMLParser : NSObject <FPXMLParserProtocol, NSCoding> {
-@protected
-	NSMutableArray *extensionElements;
-	id<FPXMLParserProtocol> parentParser; // non-retained
-	NSString *baseNamespaceURI;
-	NSDictionary *handlers;
-	NSMutableString *currentTextValue;
-	NSDictionary *currentAttributeDict;
-	FPXMLParserElementType currentElementType;
-	NSUInteger skipDepth;
-	NSUInteger parseDepth;
-	SEL currentHandlerSelector;
-}
-@property (nonatomic, readonly) NSArray *extensionElements;
+@interface FPXMLParser : NSObject <FPXMLParserProtocol, NSCoding>
+
+@property (readonly, copy, nonatomic) NSArray *extensionElements;
+
 + (void)registerRSSHandler:(SEL)selector forElement:(NSString *)elementName type:(FPXMLParserElementType)type;
 + (void)registerAtomHandler:(SEL)selector forElement:(NSString *)elementName type:(FPXMLParserElementType)type;
 // The following method is for registering handlers for non-Atom/RSS tags. This method behaves differently
@@ -72,4 +62,5 @@ extern NSString * const kFPXMLParserContentNamespaceURI;
 
 - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI;
 - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName;
+
 @end

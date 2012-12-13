@@ -24,40 +24,26 @@
 //  SOFTWARE.
 
 #import "FPExtensionNode.h"
+#import "FPExtensionNode_Private.h"
 #import "FPExtensionElementNode.h"
 #import "FPExtensionTextNode.h"
 
 @implementation FPExtensionNode
-- (BOOL)isElement {
-	return NO;
-}
-
-- (BOOL)isTextNode {
-	return NO;
-}
-
-- (NSString *)stringValue {
-	return nil;
-}
-
-- (NSString *)name {
-	return nil;
-}
-
-- (NSString *)qualifiedName {
-	return nil;
-}
-
-- (NSString *)namespaceURI {
-	return nil;
-}
 
 - (NSDictionary *)attributes {
-	return nil;
+	return self.mutableAttributes;
+}
+
+- (void)setAttributes:(NSDictionary *)attributes {
+	self.mutableAttributes = [attributes mutableCopy];
 }
 
 - (NSArray *)children {
-	return nil;
+	return self.mutableChildren;
+}
+
+- (void)setChildren:(NSArray *)children {
+	self.mutableChildren = [children mutableCopy];
 }
 
 #pragma mark -
@@ -71,4 +57,5 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
 	// no-op
 }
+
 @end

@@ -29,26 +29,26 @@
 @class FPParser;
 @class FPLink;
 
-@interface FPFeed : FPXMLParser <NSCoding> {
-@private
-	NSString *title;
-	FPLink *link;
-	NSMutableArray *links;
-	NSString *feedDescription;
-	NSDate *pubDate;
-	NSMutableArray *items;
-}
-@property (nonatomic, copy, readonly) NSString *title;
+@interface FPFeed : FPXMLParser <NSCoding>
+
+@property (readonly, copy, nonatomic) NSString *title;
+
 // RSS <link> or Atom <link rel="alternate">
 // If multiple qualifying links exist, the first is returned
-@property (nonatomic, copy, readonly) FPLink *link;
+@property (readonly, copy, nonatomic) FPLink *link;
+
 // An array of FPLink objects corresponding to Atom <link> elements
 // RSS <link> elements are represented as links of rel="alternate"
-@property (nonatomic, copy, readonly) NSArray *links;
-@property (nonatomic, copy, readonly) NSString *feedDescription;
-@property (nonatomic, copy, readonly) NSDate *pubDate;
-@property (nonatomic, retain, readonly) NSArray *items;
+@property (readonly, copy, nonatomic) NSArray *links;
+
+@property (readonly, copy, nonatomic) NSString *feedDescription;
+
+@property (readonly, copy, nonatomic) NSDate *pubDate;
+
+@property (readonly, copy, nonatomic) NSArray *items;
+
 // parent class defines property NSArray *extensionElements
 // parent class defines method -(NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
 // parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName
+
 @end
