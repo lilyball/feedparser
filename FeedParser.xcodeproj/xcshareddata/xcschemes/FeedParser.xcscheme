@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0AACF2610F8AC02E0061AEB8"
-               BuildableName = "Test.octest"
-               BlueprintName = "Test"
+               BuildableName = "FeedParserTests.octest"
+               BlueprintName = "FeedParserTests"
                ReferencedContainer = "container:FeedParser.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0AACF2610F8AC02E0061AEB8"
-               BuildableName = "Test.octest"
-               BlueprintName = "Test"
+               BuildableName = "FeedParserTests.octest"
+               BlueprintName = "FeedParserTests"
                ReferencedContainer = "container:FeedParser.xcodeproj">
             </BuildableReference>
          </TestableReference>
