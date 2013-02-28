@@ -36,6 +36,7 @@
 @property (nonatomic, copy, readwrite) NSString *creator;
 @property (nonatomic, copy, readwrite) NSDate *pubDate;
 @property (nonatomic, copy, readwrite) NSString *author;
+@property (nonatomic, copy, readwrite) NSString *category;
 - (void)rss_pubDate:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 - (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 - (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
@@ -55,7 +56,8 @@
 		[self registerRSSHandler:@selector(setDescription:) forElement:@"description" type:FPXMLParserTextElementType];
 		[self registerRSSHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" type:FPXMLParserTextElementType];
 		[self registerRSSHandler:@selector(rss_enclosure:parser:) forElement:@"enclosure" type:FPXMLParserSkipElementType];
-		for (NSString *key in [NSArray arrayWithObjects:@"category", @"comments", @"source", nil]) {
+		[self registerRSSHandler:@selector(setCategory:) forElement:@"category" type:FPXMLParserTextElementType];
+		for (NSString *key in [NSArray arrayWithObjects:@"comments", @"source", nil]) {
 			[self registerRSSHandler:NULL forElement:key type:FPXMLParserSkipElementType];
 		}
 		// Atom

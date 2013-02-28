@@ -62,4 +62,5 @@
 // parent class defines property NSArray *extensionElements
 // parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
 // parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName
+@property (nonatomic, copy, readonly) NSString *category;
 @end
