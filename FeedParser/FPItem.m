@@ -26,6 +26,7 @@
 #import "FPItem.h"
 #import "FPLink.h"
 #import "FPEnclosure.h"
+#import "FPCategory.h"
 #import "NSDate_FeedParserExtensions.h"
 
 @interface FPItem ()
@@ -40,10 +41,11 @@
 - (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 - (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 - (void)rss_enclosure:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
+- (void)rss_category:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 @end
 
 @implementation FPItem
-@synthesize title, link, links, guid, description, content, pubDate, author, enclosures;
+@synthesize title, link, links, guid, description, content, pubDate, author, enclosures, categories;
 @synthesize creator;
 
 + (void)initialize {
@@ -55,7 +57,8 @@
 		[self registerRSSHandler:@selector(setDescription:) forElement:@"description" type:FPXMLParserTextElementType];
 		[self registerRSSHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" type:FPXMLParserTextElementType];
 		[self registerRSSHandler:@selector(rss_enclosure:parser:) forElement:@"enclosure" type:FPXMLParserSkipElementType];
-		for (NSString *key in [NSArray arrayWithObjects:@"category", @"comments", @"source", nil]) {
+        [self registerRSSHandler:@selector(rss_category:attributes:parser:) forElement:@"category" type:FPXMLParserTextElementType];
+		for (NSString *key in [NSArray arrayWithObjects:@"comments", @"source", nil]) {
 			[self registerRSSHandler:NULL forElement:key type:FPXMLParserSkipElementType];
 		}
 		// Atom
@@ -71,6 +74,7 @@
 	if (self = [super initWithBaseNamespaceURI:namespaceURI]) {
 		links = [[NSMutableArray alloc] init];
 		enclosures = [[NSMutableArray alloc] init];
+        categories = [[NSMutableArray alloc] init];
 	}
 	return self;
 }
@@ -111,6 +115,14 @@
 	[anEnclosure release];
 }
 
+
+- (void)rss_category:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
+    NSString *domain = [attributes objectForKey:@"domain"];
+    FPCategory *aCategory = [[FPCategory alloc] initWithDomain:domain value:textValue];
+    [categories addObject:aCategory];
+    [aCategory release];
+}
+
 - (NSString *)content {
 	return (content ?: description);
 }
@@ -127,7 +139,8 @@
 			(pubDate     == other->pubDate     || [pubDate     isEqual:other->pubDate])             &&
 			(creator     == other->creator     || [creator     isEqualToString:other->creator])     &&
 			(author      == other->author      || [author      isEqualToString:other->author])      &&
-			(enclosures  == other->enclosures  || [enclosures  isEqualToArray:other->enclosures]));
+			(enclosures  == other->enclosures  || [enclosures  isEqualToArray:other->enclosures])   &&
+            (categories  == other->categories  || [categories  isEqualToArray:other->categories]));
 }
 
 - (void)dealloc {
@@ -141,6 +154,7 @@
 	[creator release];
 	[author release];
 	[enclosures release];
+    [categories release];
 	[super dealloc];
 }
 
@@ -159,6 +173,7 @@
 		creator = [[aDecoder decodeObjectForKey:@"creator"] copy];
 		author = [[aDecoder decodeObjectForKey:@"author"] copy];
 		enclosures = [[aDecoder decodeObjectForKey:@"enclosures"] mutableCopy];
+        categories = [[aDecoder decodeObjectForKey:@"categories"] mutableCopy] ?: [[NSMutableArray alloc] init];
 	}
 	return self;
 }
@@ -175,5 +190,6 @@
 	[aCoder encodeObject:creator forKey:@"creator"];
 	[aCoder encodeObject:author forKey:@"author"];
 	[aCoder encodeObject:enclosures forKey:@"enclosures"];
+    [aCoder encodeObject:categories forKey:@"categories"];
 }
 @end

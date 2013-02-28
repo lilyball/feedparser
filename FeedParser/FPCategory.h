@@ -1,9 +1,9 @@
 //
-//  FeedParser.h
+//  FPCategory.h
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/3/09.
-//  Copyright 2009 Kevin Ballard. All rights reserved.
+//  Created by Kevin Ballard on 2/28/13.
+//  Copyright 2013 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,11 +23,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPParser.h"
-#import "FPFeed.h"
-#import "FPItem.h"
-#import "FPLink.h"
-#import "FPEnclosure.h"
-#import "FPCategory.h"
-#import "FPErrors.h"
-#import "FPExtensionNode.h"
+
+#import <Foundation/Foundation.h>
+
+@interface FPCategory : NSObject <NSCoding>
+@property (nonatomic, copy, readonly) NSString *domain; // may be nil
+@property (nonatomic, copy, readonly) NSString *value;
++ (instancetype)categoryWithDomain:(NSString *)domain value:(NSString *)value;
+- (id)initWithDomain:(NSString *)domain value:(NSString *)value;
+@end

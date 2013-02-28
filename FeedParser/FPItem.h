@@ -40,6 +40,7 @@
 	NSString *creator; // <dc:creator>
 	NSString *author;
 	NSMutableArray *enclosures;
+    NSMutableArray *categories;
 }
 @property (nonatomic, copy, readonly) NSString *title;
 // RSS <link> or Atom <link rel="alternate">
@@ -59,6 +60,7 @@
 @property (nonatomic, copy, readonly) NSDate *pubDate;
 @property (nonatomic, copy, readonly) NSString *author;
 @property (nonatomic, copy, readonly) NSArray *enclosures;
+@property (nonatomic, copy, readonly) NSArray *categories;
 // parent class defines property NSArray *extensionElements
 // parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
 // parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName

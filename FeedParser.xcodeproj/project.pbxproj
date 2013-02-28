@@ -40,6 +40,8 @@
 		0AACF2750F8AC1350061AEB8 /* FPFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A339C990F8804E400D0F64E /* FPFeed.m */; };
 		0AACF27F0F8AC1540061AEB8 /* FeedParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AACF27E0F8AC1540061AEB8 /* FeedParserTest.m */; };
 		0AAF74D40F8AEE3800120935 /* RFC822Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF74D30F8AEE3800120935 /* RFC822Test.m */; };
+		435AD4C416DFD3BC0018951F /* FPCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 435AD4C316DFD3BC0018951F /* FPCategory.m */; };
+		435AD4C516DFD3BC0018951F /* FPCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 435AD4C316DFD3BC0018951F /* FPCategory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +90,8 @@
 		0AAF74D20F8AEE3800120935 /* RFC822Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFC822Test.h; sourceTree = "<group>"; };
 		0AAF74D30F8AEE3800120935 /* RFC822Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFC822Test.m; sourceTree = "<group>"; };
 		0AD2F7350F9044C800D7CAF1 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = "<group>"; };
+		435AD4C216DFD3BC0018951F /* FPCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPCategory.h; sourceTree = "<group>"; };
+		435AD4C316DFD3BC0018951F /* FPCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPCategory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,8 @@
 				0A5C3C7E0F902A2A00106D24 /* FPLink.m */,
 				0A33059910B794F9006E6FDD /* FPEnclosure.h */,
 				0A33059A10B794F9006E6FDD /* FPEnclosure.m */,
+				435AD4C216DFD3BC0018951F /* FPCategory.h */,
+				435AD4C316DFD3BC0018951F /* FPCategory.m */,
 				0A5C39CA0F8E98A000106D24 /* XML Extensions */,
 				0A9BB99B0F8ACCDE00CB5F5D /* Internal */,
 				0A9BB9F20F8AE17F00CB5F5D /* Extensions */,
@@ -333,6 +339,7 @@
 				0A5C3C800F902A2A00106D24 /* FPLink.m in Sources */,
 				0A5C3CBB0F9031E000106D24 /* NSString_extensions.m in Sources */,
 				0A33059B10B794F9006E6FDD /* FPEnclosure.m in Sources */,
+				435AD4C416DFD3BC0018951F /* FPCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +361,7 @@
 				0A5C3C7F0F902A2A00106D24 /* FPLink.m in Sources */,
 				0A5C3CBA0F9031E000106D24 /* NSString_extensions.m in Sources */,
 				0A33059C10B794F9006E6FDD /* FPEnclosure.m in Sources */,
+				435AD4C516DFD3BC0018951F /* FPCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

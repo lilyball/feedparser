@@ -190,6 +190,19 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 	STAssertEqualObjects([item.enclosures objectAtIndex:0], [FPEnclosure enclosureWithURL:@"http://www.scripting.com/mp3s/weatherReportDicksPicsVol7.mp3" length:6182912 type:@"audio/mpeg"], nil);
 }
 
+- (void)testCategories {
+	FPFeed *feed = [self feedFromFixture:@"sample-rss-092.rss"];
+	NSAssert(feed != nil, @"sample-rss-092.rss feed was nil");
+    FPItem *item = [feed.items objectAtIndex:14];
+    STAssertEquals([item.categories count], (NSUInteger)1, nil);
+    STAssertEqualObjects([item.categories objectAtIndex:0], [FPCategory categoryWithDomain:nil value:@"Grateful Dead"], nil);
+    item = [feed.items objectAtIndex:15];
+    STAssertEquals([item.categories count], (NSUInteger)2, nil);
+    STAssertEqualObjects([item.categories objectAtIndex:0], [FPCategory categoryWithDomain:@"http://www.tildesoft.com/foo" value:@"Bar"], nil);
+    STAssertEqualObjects([item.categories objectAtIndex:1], [FPCategory categoryWithDomain:nil value:@"Bar"], nil);
+    STAssertFalse([[item.categories objectAtIndex:0] isEqual:[item.categories objectAtIndex:1]], nil);
+}
+
 - (void)testGoogleNews {
 	// test a snapshot of http://news.google.com/news?output=rss taken on 4/27/2010
 	// This was reported in issue #8 as causing a problem

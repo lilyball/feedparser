@@ -70,10 +70,13 @@ The lyrics are &lt;a href=&quot;http://www.cs.cmu.edu/~mleone/gdead/dead-lyrics/
 		<item>
 			<description>Ed Cone: &quot;Had a nice Deadhead experience with my wife, who never was one but gets the vibe and knows and likes a lot of the music. Somehow she made it to the age of 40 without ever hearing Wharf Rat. We drove to Jersey and back over Christmas with the live album commonly known as Skull and Roses in the CD player much of the way, and it was cool to see her discover one the band&apos;s finest moments. That song is unique and underappreciated. Fun to hear that disc again after a few years off -- you get Jerry as blues-guitar hero on Big Railroad Blues and a nice version of Bertha.&quot;</description>
 			<enclosure url="http://www.scripting.com/mp3s/darkStarWharfRat.mp3" length="27503386" type="audio/mpeg"/>
+            <category>Grateful Dead</category>
 			</item>
 		<item>
 			<description>&lt;a href=&quot;http://arts.ucsc.edu/GDead/AGDL/fotd.html&quot;&gt;Tonight&apos;s Song&lt;/a&gt;: &quot;If I get home before daylight I just might get some sleep tonight.&quot; </description>
 			<enclosure url="http://www.scripting.com/mp3s/friendOfTheDevil.mp3" length="3219742" type="audio/mpeg"/>
+            <category domain="http://www.tildesoft.com/foo">Bar</category>
+            <category>Bar</category>
 			</item>
 		<item>
 			<description>&lt;a href=&quot;http://arts.ucsc.edu/GDead/AGDL/uncle.html&quot;&gt;Tonight&apos;s song&lt;/a&gt;: &quot;Come hear Uncle John&apos;s Band by the river side. Got some things to talk about here beside the rising tide.&quot;</description>
