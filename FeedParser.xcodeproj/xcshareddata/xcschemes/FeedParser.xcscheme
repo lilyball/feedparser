@@ -28,9 +28,9 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0AACF2610F8AC02E0061AEB8"
-               BuildableName = "Test.octest"
-               BlueprintName = "Test"
+               BlueprintIdentifier = "0A06FE0E1EC1766C0016165F"
+               BuildableName = "FeedParserTests.xctest"
+               BlueprintName = "FeedParserTests"
                ReferencedContainer = "container:FeedParser.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,13 +46,22 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0AACF2610F8AC02E0061AEB8"
-               BuildableName = "Test.octest"
-               BlueprintName = "Test"
+               BlueprintIdentifier = "0A06FE0E1EC1766C0016165F"
+               BuildableName = "FeedParserTests.xctest"
+               BlueprintName = "FeedParserTests"
                ReferencedContainer = "container:FeedParser.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "0A339C760F88034D00D0F64E"
+            BuildableName = "libFeedParser.a"
+            BlueprintName = "FeedParser"
+            ReferencedContainer = "container:FeedParser.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -84,6 +93,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "0A339C760F88034D00D0F64E"
+            BuildableName = "libFeedParser.a"
+            BlueprintName = "FeedParser"
+            ReferencedContainer = "container:FeedParser.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
