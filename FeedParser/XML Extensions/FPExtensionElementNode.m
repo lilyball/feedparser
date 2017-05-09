@@ -135,7 +135,7 @@
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock {
 	NSString *data = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
 	if (data == nil) {
-		[self abortParsing:parser withString:[NSString stringWithFormat:@"Non-UTF8 data found in CDATA block at line %d", [parser lineNumber]]];
+		[self abortParsing:parser withString:[NSString stringWithFormat:@"Non-UTF8 data found in CDATA block at line %zd", [parser lineNumber]]];
 	} else {
 		if (currentText == nil) currentText = [[NSMutableString alloc] init];
 		[currentText appendString:data];

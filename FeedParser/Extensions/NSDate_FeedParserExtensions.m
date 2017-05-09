@@ -113,7 +113,7 @@ static NSArray *kMonths;
 	}
 	ASSERT(tz != nil);
 	ASSERT([scanner isAtEnd]);
-	NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+	NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian] autorelease];
 	[calendar setTimeZone:tz];
 	NSDate *date = [calendar dateFromComponents:components];
 	[date retain];
