@@ -27,5 +27,5 @@
 
 
 @interface NSObject (NSDate_FeedParserExtensions)
-+ (NSDate *)dateWithRFC822:(NSString *)rfc822;
++ (NSDate *)fdp_dateWithRFC822:(NSString *)rfc822;
 @end

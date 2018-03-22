@@ -26,7 +26,7 @@
 #import "NSString_extensions.h"
 
 @implementation NSString (NSString_FeedParserExtensions)
-- (NSString *)fpEscapedString {
+- (NSString *)fdp_escapedString {
 	NSMutableString *escapedString = [NSMutableString stringWithCapacity:[self length]];
 	NSScanner *scanner = [NSScanner scannerWithString:self];
 	[scanner setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@""]];

@@ -80,7 +80,7 @@
 }
 
 - (void)rss_pubDate:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
-	self.pubDate = [NSDate dateWithRFC822:textValue];
+	self.pubDate = [NSDate fdp_dateWithRFC822:textValue];
 }
 
 - (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {

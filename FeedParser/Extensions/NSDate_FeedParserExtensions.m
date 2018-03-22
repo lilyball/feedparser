@@ -35,7 +35,7 @@ static NSArray *kMonths;
 }
 
 #define ASSERT(cond) do { if (!(cond)) { [pool release]; return nil; } } while (0)
-+ (NSDate *)dateWithRFC822:(NSString *)rfc822 {
++ (NSDate *)fdp_dateWithRFC822:(NSString *)rfc822 {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	NSDateComponents *components = [[[NSDateComponents alloc] init] autorelease];
 	NSScanner *scanner = [NSScanner scannerWithString:rfc822];

@@ -26,5 +26,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (NSString_FeedParserExtensions)
-- (NSString *)fpEscapedString;
+- (NSString *)fdp_escapedString;
 @end

@@ -56,7 +56,7 @@
 	for (NSString *key in [NSArray arrayWithObjects:@"rel", @"type", @"title", nil]) {
 		NSString *value = [self valueForKey:key];
 		if (value != nil) {
-			[attributes addObject:[NSString stringWithFormat:@"%@=\"%@\"", key, [value fpEscapedString]]];
+			[attributes addObject:[NSString stringWithFormat:@"%@=\"%@\"", key, [value fdp_escapedString]]];
 		}
 	}
 	return [NSString stringWithFormat:@"<%@: %@ (%@)>", NSStringFromClass([self class]), self.href, [attributes componentsJoinedByString:@" "]];

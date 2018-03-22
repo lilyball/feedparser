@@ -32,13 +32,13 @@
 
 @implementation RFC822Test
 - (void)testDateWithRFC822 {
-	XCTAssertEqual([[NSDate dateWithRFC822:@"Tue, 10 Jun 03 09:41:01 GMT"] timeIntervalSince1970], 1055238061.0);
-	XCTAssertEqual([[NSDate dateWithRFC822:@"Tue, 10 Jun 03 07:41:01 B"] timeIntervalSince1970], 1055238061.0);
-	XCTAssertEqual([[NSDate dateWithRFC822:@"Tue, 10 Jun 03 07:41:01 -0200"] timeIntervalSince1970], 1055238061.0);
-	XCTAssertEqual([[NSDate dateWithRFC822:@"Tue, 10 Jun 03 11:51:01 +0210"] timeIntervalSince1970], 1055238061.0);
-	XCTAssertEqual([[NSDate dateWithRFC822:@"Fri, 15 Jan 2010 16:17:03"] timeIntervalSince1970], 1263572223.0);
+	XCTAssertEqual([[NSDate fdp_dateWithRFC822:@"Tue, 10 Jun 03 09:41:01 GMT"] timeIntervalSince1970], 1055238061.0);
+	XCTAssertEqual([[NSDate fdp_dateWithRFC822:@"Tue, 10 Jun 03 07:41:01 B"] timeIntervalSince1970], 1055238061.0);
+	XCTAssertEqual([[NSDate fdp_dateWithRFC822:@"Tue, 10 Jun 03 07:41:01 -0200"] timeIntervalSince1970], 1055238061.0);
+	XCTAssertEqual([[NSDate fdp_dateWithRFC822:@"Tue, 10 Jun 03 11:51:01 +0210"] timeIntervalSince1970], 1055238061.0);
+	XCTAssertEqual([[NSDate fdp_dateWithRFC822:@"Fri, 15 Jan 2010 16:17:03"] timeIntervalSince1970], 1263572223.0);
 	// the following timestamp is a weird variant used by Google News
-	XCTAssertEqual([[NSDate dateWithRFC822:@"Tue, 27 Apr 2010 23:08:21 GMT+00:00"] timeIntervalSince1970], 1272409701.0);
+	XCTAssertEqual([[NSDate fdp_dateWithRFC822:@"Tue, 27 Apr 2010 23:08:21 GMT+00:00"] timeIntervalSince1970], 1272409701.0);
 }
 
 // this should be fleshed out to test all the edge cases
