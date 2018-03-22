@@ -1,8 +1,8 @@
 //
-//  FPEnclosure.h
+//  FDPXMLPair.h
 //  FeedParser
 //
-//  Created by Kevin Ballard on 11/20/09.
+//  Created by Kevin Ballard on 4/6/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,16 +25,14 @@
 
 #import <Foundation/Foundation.h>
 
-
-@interface FPEnclosure : NSObject <NSCoding> {
-@private
-	NSString *url;
-	NSUInteger length;
-	NSString *type;
+// FDPXMLPair is used to hold an immutable pair of objects
+// useful for using as the key in a dictionary
+@interface FDPXMLPair : NSObject <NSCopying> {
+	id first;
+	id second;
 }
-@property (nonatomic, readonly) NSString *url;
-@property (nonatomic, readonly) NSUInteger length;
-@property (nonatomic, readonly) NSString *type;
-+ (id)enclosureWithURL:(NSString *)url length:(NSUInteger)length type:(NSString *)type;
-- (id)initWithURL:(NSString *)url length:(NSUInteger)length type:(NSString *)type;
+@property (nonatomic, readonly) id first;
+@property (nonatomic, readonly) id second;
++ (id)pairWithFirst:(id)firstObject second:(id)secondObject;
+- (id)initWithFirst:(id)firstObject second:(id)secondObject;
 @end

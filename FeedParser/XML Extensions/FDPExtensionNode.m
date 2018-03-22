@@ -1,8 +1,8 @@
 //
-//  FPLink.h
+//  FDPExtensionNode.m
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/10/09.
+//  Created by Kevin Ballard on 4/9/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,20 +23,52 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "FDPExtensionNode.h"
+#import "FDPExtensionElementNode.h"
+#import "FDPExtensionTextNode.h"
 
-
-@interface FPLink : NSObject <NSCoding> {
-@private
-	NSString *href;
-	NSString *rel;
-	NSString *type;
-	NSString *title;
+@implementation FDPExtensionNode
+- (BOOL)isElement {
+	return NO;
 }
-@property (nonatomic, readonly) NSString *href;
-@property (nonatomic, readonly) NSString *rel; // the value of the rel attribute or @"alternate"
-@property (nonatomic, readonly) NSString *type; // the value of the type attribute or nil
-@property (nonatomic, readonly) NSString *title; // the value of the title attribute or nil
-+ (id)linkWithHref:(NSString *)href rel:(NSString *)rel type:(NSString *)type title:(NSString *)title;
-- (id)initWithHref:(NSString *)href rel:(NSString *)rel type:(NSString *)type title:(NSString *)title;
+
+- (BOOL)isTextNode {
+	return NO;
+}
+
+- (NSString *)stringValue {
+	return nil;
+}
+
+- (NSString *)name {
+	return nil;
+}
+
+- (NSString *)qualifiedName {
+	return nil;
+}
+
+- (NSString *)namespaceURI {
+	return nil;
+}
+
+- (NSDictionary *)attributes {
+	return nil;
+}
+
+- (NSArray *)children {
+	return nil;
+}
+
+#pragma mark -
+#pragma mark Coding Support
+
+// these are just shims, to declare that this class should support coding
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	return [super init];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	// no-op
+}
 @end

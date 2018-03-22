@@ -1,8 +1,8 @@
 //
-//  FPErrors.h
+//  FDPExtensionTextNode.h
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/4/09.
+//  Created by Kevin Ballard on 4/9/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,10 +24,12 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "FDPExtensionNode.h"
 
-extern NSString * const FPParserErrorDomain;
+@interface FDPExtensionTextNode : FDPExtensionNode <NSCoding> {
+	NSString *stringValue;
+}
+- (id)initWithStringValue:(NSString *)value;
+@end
 
-typedef enum {
-	FPParserInternalError = 1,
-	FPParserInvalidFeedError = 2
-} FPParserError;
+@compatibility_alias FPExtensionTextNode FDPExtensionTextNode;

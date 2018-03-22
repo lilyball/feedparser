@@ -1,5 +1,5 @@
 //
-//  FPCategory.m
+//  FDPCategory.m
 //  FeedParser
 //
 //  Created by Kevin Ballard on 2/28/13.
@@ -23,9 +23,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPCategory.h"
+#import "FDPCategory.h"
 
-@implementation FPCategory
+@implementation FDPCategory
 @synthesize domain=_domain, value=_value;
 + (instancetype)categoryWithDomain:(NSString *)domain value:(NSString *)value {
     return [[[self alloc] initWithDomain:domain value:value] autorelease];
@@ -40,8 +40,8 @@
 }
 
 - (BOOL)isEqual:(id)object {
-	if (![object isKindOfClass:[FPCategory class]]) return NO;
-	FPCategory *other = (FPCategory *)object;
+	if (![object isKindOfClass:[FDPCategory class]]) return NO;
+	FDPCategory *other = (FDPCategory *)object;
 	return ((_domain    == other->_domain  || [_domain  isEqualToString:other->_domain]) &&
 			(_value   == other->_value || [_value isEqualToString:other->_value]));
 }

@@ -1,5 +1,5 @@
 //
-//  FPXMLParser.m
+//  FDPXMLParser.m
 //  FeedParser
 //
 //  Created by Kevin Ballard on 4/6/09.
@@ -23,62 +23,66 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPXMLParser.h"
-#import "FPXMLPair.h"
-#import "FPExtensionNode.h"
-#import "FPExtensionElementNode.h"
+#import "FDPXMLParser.h"
+#import "FDPXMLPair.h"
+#import "FDPExtensionNode.h"
+#import "FDPExtensionElementNode.h"
 #import "FPExtensionElementNode_Private.h"
 #import <objc/message.h>
 #import <stdarg.h>
 
-NSString * const kFPXMLParserAtomNamespaceURI = @"http://www.w3.org/2005/Atom";
-NSString * const kFPXMLParserDublinCoreNamespaceURI = @"http://purl.org/dc/elements/1.1/";
-NSString * const kFPXMLParserContentNamespaceURI = @"http://purl.org/rss/1.0/modules/content/";
+NSString * const kFDPXMLParserAtomNamespaceURI = @"http://www.w3.org/2005/Atom";
+NSString * const kFDPXMLParserDublinCoreNamespaceURI = @"http://purl.org/dc/elements/1.1/";
+NSString * const kFDPXMLParserContentNamespaceURI = @"http://purl.org/rss/1.0/modules/content/";
+
+NSString * const kFPXMLParserAtomNamespaceURI = kFDPXMLParserAtomNamespaceURI;
+NSString * const kFPXMLParserDublinCoreNamespaceURI = kFDPXMLParserDublinCoreNamespaceURI;
+NSString * const kFPXMLParserContentNamespaceURI = kFDPXMLParserContentNamespaceURI;
 
 static NSMutableDictionary *kHandlerMap;
 
 void (*handleTextValue)(id, SEL, NSString*, NSDictionary*, NSXMLParser*) = (void(*)(id, SEL, NSString*, NSDictionary*, NSXMLParser*))objc_msgSend;
 void (*handleStreamElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id, SEL, NSDictionary*, NSXMLParser*))objc_msgSend;
 void (*handleSkipElement)(id, SEL, NSDictionary*, NSXMLParser*) = (void(*)(id, SEL, NSDictionary*, NSXMLParser*))objc_msgSend;
-void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (void(*)(id, SEL, FPExtensionNode*, NSXMLParser*))objc_msgSend;
+void (*handleExtensionElement)(id, SEL, FDPExtensionNode *node, NSXMLParser*) = (void(*)(id, SEL, FDPExtensionNode*, NSXMLParser*))objc_msgSend;
 
-@interface FPXMLParser ()
-+ (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI type:(FPXMLParserElementType)type;
+@interface FDPXMLParser ()
++ (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI type:(FDPXMLParserElementType)type;
 @end
 
-@implementation FPXMLParser
+@implementation FDPXMLParser
 @synthesize extensionElements;
 + (void)initialize {
-	if (self == [FPXMLParser class]) {
+	if (self == [FDPXMLParser class]) {
 		kHandlerMap = (NSMutableDictionary *)CFDictionaryCreateMutable(NULL, 0, NULL, &kCFTypeDictionaryValueCallBacks);
 	}
 }
 
-+ (void)registerRSSHandler:(SEL)selector forElement:(NSString *)elementName type:(FPXMLParserElementType)type {
++ (void)registerRSSHandler:(SEL)selector forElement:(NSString *)elementName type:(FDPXMLParserElementType)type {
 	[self registerHandler:selector forElement:elementName namespaceURI:@"" type:type];
 }
 
-+ (void)registerAtomHandler:(SEL)selector forElement:(NSString *)elementName type:(FPXMLParserElementType)type {
-	[self registerHandler:selector forElement:elementName namespaceURI:kFPXMLParserAtomNamespaceURI type:type];
++ (void)registerAtomHandler:(SEL)selector forElement:(NSString *)elementName type:(FDPXMLParserElementType)type {
+	[self registerHandler:selector forElement:elementName namespaceURI:kFDPXMLParserAtomNamespaceURI type:type];
 }
 
 + (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI {
-	[self registerHandler:selector forElement:elementName namespaceURI:namespaceURI type:FPXMLParserExtensionElementType];
+	[self registerHandler:selector forElement:elementName namespaceURI:namespaceURI type:FDPXMLParserExtensionElementType];
 }
 
 + (void)registerTextHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI {
-	[self registerHandler:selector forElement:elementName namespaceURI:namespaceURI type:FPXMLParserTextExtensionElementType];
+	[self registerHandler:selector forElement:elementName namespaceURI:namespaceURI type:FDPXMLParserTextExtensionElementType];
 }
 
 // if selector is NULL then just ignore this element rather than raising an error
-+ (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI type:(FPXMLParserElementType)type {
++ (void)registerHandler:(SEL)selector forElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI type:(FDPXMLParserElementType)type {
 	NSMutableDictionary *handlers = [kHandlerMap objectForKey:self];
 	if (handlers == nil) {
 		handlers = [NSMutableDictionary dictionary];
 		CFDictionarySetValue((CFMutableDictionaryRef)kHandlerMap, self, handlers);
 	}
-	FPXMLPair *keyPair = [FPXMLPair pairWithFirst:elementName second:namespaceURI];
-	FPXMLPair *valuePair = [FPXMLPair pairWithFirst:NSStringFromSelector(selector) second:[NSNumber numberWithInt:type]];
+	FDPXMLPair *keyPair = [FDPXMLPair pairWithFirst:elementName second:namespaceURI];
+	FDPXMLPair *valuePair = [FDPXMLPair pairWithFirst:NSStringFromSelector(selector) second:[NSNumber numberWithInt:type]];
 	[handlers setObject:valuePair forKey:keyPair];
 }
 
@@ -93,7 +97,7 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 	if (self = [super init]) {
 		extensionElements = [[NSMutableArray alloc] init];
 		handlers = [[kHandlerMap objectForKey:[self class]] retain];
-		currentElementType = FPXMLParserStreamElementType;
+		currentElementType = FDPXMLParserStreamElementType;
 		parseDepth = 1;
 	}
 	return self;
@@ -111,7 +115,7 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 	if (parentParser != nil) {
 		// we may be owned by our parent. If this is true, ensure we don't die instantly
 		[[self retain] autorelease];
-		id<FPXMLParserProtocol> parent = parentParser;
+		id<FDPXMLParserProtocol> parent = parentParser;
 		parentParser = nil;
 		[parent abortParsing:parser withString:description];
 	} else {
@@ -136,7 +140,7 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 
 - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName {
 	NSMutableArray *ary = [NSMutableArray arrayWithCapacity:[extensionElements count]];
-	for (FPExtensionNode *node in extensionElements) {
+	for (FDPExtensionNode *node in extensionElements) {
 		if ([node.namespaceURI isEqualToString:namespaceURI] &&
 			(elementName == nil || [node.name isEqualToString:elementName])) {
 			[ary addObject:node];
@@ -157,34 +161,34 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
 	switch (currentElementType) {
-		case FPXMLParserTextElementType:
+		case FDPXMLParserTextElementType:
 			[currentTextValue appendString:string];
 			break;
-		case FPXMLParserStreamElementType:
+		case FDPXMLParserStreamElementType:
 			if ([string rangeOfCharacterFromSet:[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet]].location != NSNotFound) {
 				[self abortParsing:parser withFormat:@"Unexpected text \"%@\" at line %d", string, [parser lineNumber]];
 			}
 			break;
-		case FPXMLParserSkipElementType:
+		case FDPXMLParserSkipElementType:
             break;
-        case FPXMLParserExtensionElementType:
-        case FPXMLParserTextExtensionElementType:
+        case FDPXMLParserExtensionElementType:
+        case FDPXMLParserTextExtensionElementType:
 			// we should never parse an element while in this type
-			NSAssert(NO, @"Encountered FPXMLParserExtensionElementType on generic FPXMLParser");
+			NSAssert(NO, @"Encountered FDPXMLParserExtensionElementType on generic FDPXMLParser");
 			break;
 	}
 }
 
 // this method never seems to be called
 - (void)parser:(NSXMLParser *)parser foundIgnorableWhitespace:(NSString *)whitespaceString {
-	if (currentElementType == FPXMLParserTextElementType) {
+	if (currentElementType == FDPXMLParserTextElementType) {
 		[currentTextValue appendString:whitespaceString];
 	}
 }
 
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock {
 	switch (currentElementType) {
-		case FPXMLParserTextElementType: {
+		case FDPXMLParserTextElementType: {
 			NSString *str = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
 			if (str == nil) {
 				// the data isn't valid UTF-8
@@ -195,15 +199,15 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 			[str release];
 			break;
 		}
-		case FPXMLParserStreamElementType:
+		case FDPXMLParserStreamElementType:
 			[self abortParsing:parser withFormat:@"Unexpected CDATA at line %d", [parser lineNumber]];
 			break;
-		case FPXMLParserSkipElementType:
+		case FDPXMLParserSkipElementType:
             break;
-        case FPXMLParserExtensionElementType:
-        case FPXMLParserTextExtensionElementType:
+        case FDPXMLParserExtensionElementType:
+        case FDPXMLParserTextExtensionElementType:
 			// we should never parse an element while in this type
-			NSAssert(NO, @"Encountered FPXMLParserExtensionElementType on generic FPXMLParser");
+			NSAssert(NO, @"Encountered FDPXMLParserExtensionElementType on generic FDPXMLParser");
 			break;
 	}
 }
@@ -214,30 +218,30 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 		baseNamespaceURI = [namespaceURI copy];
 	}
 	switch (currentElementType) {
-		case FPXMLParserTextElementType:
+		case FDPXMLParserTextElementType:
 			[self abortParsing:parser];
 			break;
-		case FPXMLParserStreamElementType: {
-			FPXMLPair *keyPair = [FPXMLPair pairWithFirst:elementName second:namespaceURI];
-			FPXMLPair *handler = [handlers objectForKey:keyPair];
+		case FDPXMLParserStreamElementType: {
+			FDPXMLPair *keyPair = [FDPXMLPair pairWithFirst:elementName second:namespaceURI];
+			FDPXMLPair *handler = [handlers objectForKey:keyPair];
 			if (handler != nil) {
 				SEL selector = NSSelectorFromString((NSString *)handler.first);
-				currentElementType = (FPXMLParserElementType)[(NSNumber *)handler.second intValue];
+				currentElementType = (FDPXMLParserElementType)[(NSNumber *)handler.second intValue];
 				switch (currentElementType) {
-					case FPXMLParserStreamElementType:
+					case FDPXMLParserStreamElementType:
 						if (selector != NULL) {
 							handleStreamElement(self, selector, attributeDict, parser);
 						}
 						if ([parser delegate] == self) parseDepth++;
 						break;
-					case FPXMLParserTextElementType:
+					case FDPXMLParserTextElementType:
 						[currentTextValue release];
 						currentTextValue = [[NSMutableString alloc] init];
 						[currentAttributeDict release];
 						currentAttributeDict = [attributeDict copy];
 						currentHandlerSelector = selector;
 						break;
-					case FPXMLParserSkipElementType:
+					case FDPXMLParserSkipElementType:
 						if (selector != NULL) {
 							handleSkipElement(self, selector, attributeDict, parser);
 						}
@@ -248,14 +252,14 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 							// again we should be in the stream mode.
 							// note that this is an exceptional condition, as skip handlers are not expected
 							// to change the delegate. If the handler wants to do that it should use a stream handler.
-							currentElementType = FPXMLParserStreamElementType;
+							currentElementType = FDPXMLParserStreamElementType;
 						}
 						break;
-					case FPXMLParserExtensionElementType:
-					case FPXMLParserTextExtensionElementType:
+					case FDPXMLParserExtensionElementType:
+					case FDPXMLParserTextExtensionElementType:
 						;
 						currentHandlerSelector = selector;
-						FPExtensionElementNode *node = [[FPExtensionElementNode alloc] initWithElementName:elementName
+						FDPExtensionElementNode *node = [[FDPExtensionElementNode alloc] initWithElementName:elementName
 																							  namespaceURI:namespaceURI
 																							 qualifiedName:qualifiedName
 																								attributes:attributeDict];
@@ -266,9 +270,9 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 				}
 			} else if ([namespaceURI isEqualToString:baseNamespaceURI]) {
 				[self abortParsing:parser];
-			} else if (![namespaceURI isEqualToString:kFPXMLParserAtomNamespaceURI] && ![namespaceURI isEqualToString:@""]) {
+			} else if (![namespaceURI isEqualToString:kFDPXMLParserAtomNamespaceURI] && ![namespaceURI isEqualToString:@""]) {
 				// element is unknown and belongs to neither the Atom nor RSS namespaces
-				FPExtensionElementNode *node = [[FPExtensionElementNode alloc] initWithElementName:elementName namespaceURI:namespaceURI
+				FDPExtensionElementNode *node = [[FDPExtensionElementNode alloc] initWithElementName:elementName namespaceURI:namespaceURI
 																					 qualifiedName:qualifiedName attributes:attributeDict];
 				[node acceptParsing:parser];
 				[extensionElements addObject:node];
@@ -279,25 +283,25 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 				// Do not use the extension mechanism for this because of forward-compatibility issues. If we use the
 				// extension mechanism, then later add support for the element, code relying on the extension mechanism
 				// would stop working.
-				currentElementType = FPXMLParserSkipElementType;
+				currentElementType = FDPXMLParserSkipElementType;
 				skipDepth = 1;
 			}
 			break;
 		}
-		case FPXMLParserSkipElementType:
+		case FDPXMLParserSkipElementType:
 			skipDepth++;
 			break;
-		case FPXMLParserExtensionElementType:
-		case FPXMLParserTextExtensionElementType:
+		case FDPXMLParserExtensionElementType:
+		case FDPXMLParserTextExtensionElementType:
 			// we should never parse an element while in this type
-			NSAssert(NO, @"Encountered FPXMLParserExtensionElementType on generic FPXMLParser");
+			NSAssert(NO, @"Encountered FDPXMLParserExtensionElementType on generic FDPXMLParser");
 			break;
 	}
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	switch (currentElementType) {
-		case FPXMLParserTextElementType: {
+		case FDPXMLParserTextElementType: {
 			if (currentHandlerSelector != NULL) {
 				handleTextValue(self, currentHandlerSelector, currentTextValue, currentAttributeDict, parser);
 			}
@@ -306,25 +310,25 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 			currentTextValue = nil;
 			[currentAttributeDict release];
 			currentAttributeDict = nil;
-			currentElementType = FPXMLParserStreamElementType;
+			currentElementType = FDPXMLParserStreamElementType;
 			break;
 		}
-		case FPXMLParserStreamElementType:
+		case FDPXMLParserStreamElementType:
 			parseDepth--;
 			if (parseDepth == 0) {
 				[self abdicateParsing:parser];
 			}
 			break;
-		case FPXMLParserSkipElementType:
+		case FDPXMLParserSkipElementType:
 			skipDepth--;
 			if (skipDepth == 0) {
-				currentElementType = FPXMLParserStreamElementType;
+				currentElementType = FDPXMLParserStreamElementType;
 			}
 			break;
-        case FPXMLParserExtensionElementType:
-        case FPXMLParserTextExtensionElementType:
+        case FDPXMLParserExtensionElementType:
+        case FDPXMLParserTextExtensionElementType:
 			// we should never parse an element while in this type
-			NSAssert(NO, @"Encountered FPXMLParserExtensionElementType on generic FPXMLParser");
+			NSAssert(NO, @"Encountered FDPXMLParserExtensionElementType on generic FDPXMLParser");
             break;
 	}
 }
@@ -333,10 +337,10 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 	[self abortParsing:parser];
 }
 
-#pragma mark FPXMLParserProtocol methods
+#pragma mark FDPXMLParserProtocol methods
 
 - (void)acceptParsing:(NSXMLParser *)parser {
-	parentParser = (id<FPXMLParserProtocol>)[parser delegate];
+	parentParser = (id<FDPXMLParserProtocol>)[parser delegate];
 	[parser setDelegate:self];
 }
 
@@ -344,12 +348,12 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 	[self abortParsing:parser withString:nil];
 }
 
-- (void)resumeParsing:(NSXMLParser *)parser fromChild:(id<FPXMLParserProtocol>)child {
-	if (currentElementType == FPXMLParserExtensionElementType ||
-		currentElementType == FPXMLParserTextExtensionElementType) {
-		NSAssert([child isKindOfClass:[FPExtensionNode class]], @"resumeParsing: called with unexpected child");
-		FPExtensionNode *node = (FPExtensionNode *)child;
-		if (currentElementType == FPXMLParserTextExtensionElementType) {
+- (void)resumeParsing:(NSXMLParser *)parser fromChild:(id<FDPXMLParserProtocol>)child {
+	if (currentElementType == FDPXMLParserExtensionElementType ||
+		currentElementType == FDPXMLParserTextExtensionElementType) {
+		NSAssert([child isKindOfClass:[FDPExtensionNode class]], @"resumeParsing: called with unexpected child");
+		FDPExtensionNode *node = (FDPExtensionNode *)child;
+		if (currentElementType == FDPXMLParserTextExtensionElementType) {
 			// validation
 			if ([node.children count] > 1 || ([node.children count] == 1 && ![[node.children objectAtIndex:0] isTextNode])) {
 				[self abortParsing:parser withFormat:@"Unexpected child elements in node <%@>", node.qualifiedName];
@@ -364,7 +368,7 @@ void (*handleExtensionElement)(id, SEL, FPExtensionNode *node, NSXMLParser*) = (
 			}
 		}
 		currentHandlerSelector = NULL;
-		currentElementType = FPXMLParserStreamElementType;
+		currentElementType = FDPXMLParserStreamElementType;
 	}
 }
 

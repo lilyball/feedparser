@@ -1,5 +1,5 @@
 //
-//  FPItem.h
+//  FDPFeed.h
 //  FeedParser
 //
 //  Created by Kevin Ballard on 4/4/09.
@@ -24,44 +24,33 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "FPXMLParser.h"
+#import "FDPXMLParser.h"
 
-@class FPLink;
+@class FDPParser;
+@class FDPLink;
 
-@interface FPItem : FPXMLParser <NSCoding> {
+@interface FDPFeed : FDPXMLParser <NSCoding> {
 @private
 	NSString *title;
-	FPLink *link;
+	FDPLink *link;
 	NSMutableArray *links;
-	NSString *guid;
-	NSString *description;
-	NSString *content;
+	NSString *feedDescription;
 	NSDate *pubDate;
-	NSString *creator; // <dc:creator>
-	NSString *author;
-	NSMutableArray *enclosures;
-    NSMutableArray *categories;
+	NSMutableArray *items;
 }
 @property (nonatomic, copy, readonly) NSString *title;
 // RSS <link> or Atom <link rel="alternate">
-// If multiple qualifying links exist, returns the first
-@property (nonatomic, retain, readonly) FPLink *link;
-// An array of FPLink objects corresponding to Atom <link> elements
-// RSS <link> elements are treated as Atom <link rel="alternate"> elements
+// If multiple qualifying links exist, the first is returned
+@property (nonatomic, copy, readonly) FDPLink *link;
+// An array of FDPLink objects corresponding to Atom <link> elements
+// RSS <link> elements are represented as links of rel="alternate"
 @property (nonatomic, copy, readonly) NSArray *links;
-@property (nonatomic, copy, readonly) NSString *guid;
-@property (nonatomic, copy, readonly) NSString *description;
-// The content property is, in most feeds, the same thing as the description property.
-// However, if a feed contains a <content:encoded> tag, the content property will
-// contain that data instead. The description tag will always contain the <description> tag.
-// If you need to test for the presence of <content:encoded>, you can check if item.content == item.description.
-@property (nonatomic, copy, readonly) NSString *content;
-@property (nonatomic, copy, readonly) NSString *creator; // <dc:creator>
+@property (nonatomic, copy, readonly) NSString *feedDescription;
 @property (nonatomic, copy, readonly) NSDate *pubDate;
-@property (nonatomic, copy, readonly) NSString *author;
-@property (nonatomic, copy, readonly) NSArray *enclosures;
-@property (nonatomic, copy, readonly) NSArray *categories;
+@property (nonatomic, retain, readonly) NSArray *items;
 // parent class defines property NSArray *extensionElements
-// parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
+// parent class defines method -(NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
 // parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName
 @end
+
+@compatibility_alias FPFeed FDPFeed;

@@ -1,8 +1,8 @@
 //
-//  FPExtensionTextNode.m
+//  FDPEnclosure.m
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/9/09.
+//  Created by Kevin Ballard on 11/20/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,37 +23,40 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPExtensionTextNode.h"
-#import "NSString_extensions.h"
+#import "FDPEnclosure.h"
 
-@implementation FPExtensionTextNode
-- (id)initWithStringValue:(NSString *)value {
+
+@implementation FDPEnclosure
+@synthesize url, length, type;
+
++ (id)enclosureWithURL:(NSString *)url length:(NSUInteger)length type:(NSString *)type {
+	return [[[self alloc] initWithURL:url length:length type:type] autorelease];
+}
+
+- (id)initWithURL:(NSString *)inurl length:(NSUInteger)inlength type:(NSString *)intype {
 	if (self = [super init]) {
-		stringValue = [value copy];
+		url = [inurl copy];
+		length = inlength;
+		type = [intype copy];
 	}
 	return self;
 }
 
-- (BOOL)isTextNode {
-	return YES;
-}
-
-- (NSString *)stringValue {
-	return stringValue;
+- (BOOL)isEqual:(id)object {
+	if (![object isKindOfClass:[FDPEnclosure class]]) return NO;
+	FDPEnclosure *other = (FDPEnclosure *)object;
+	return ((url    == other->url  || [url  isEqualToString:other->url]) &&
+			(type   == other->type || [type isEqualToString:other->type]) &&
+			(length == other->length));
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"<%@: %p \"%@\"", NSStringFromClass([self class]), self, [stringValue fpEscapedString]];
-}
-
-- (BOOL)isEqual:(id)anObject {
-	if (![anObject isKindOfClass:[FPExtensionTextNode class]]) return NO;
-	FPExtensionTextNode *other = (FPExtensionTextNode *)anObject;
-	return (stringValue == other->stringValue || [stringValue isEqualToString:other->stringValue]);
+	return [NSString stringWithFormat:@"<%@: %@ (length=%lu type=\"%@\")>", NSStringFromClass([self class]), self.url, (unsigned long)self.length, self.type];
 }
 
 - (void)dealloc {
-	[stringValue release];
+	[url release];
+	[type release];
 	[super dealloc];
 }
 
@@ -61,14 +64,17 @@
 #pragma mark Coding Support
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-	if (self = [super initWithCoder:aDecoder]) {
-		stringValue = [[aDecoder decodeObjectForKey:@"stringValue"] copy];
+	if (self = [super init]) {
+		url = [[aDecoder decodeObjectForKey:@"url"] copy];
+		length = [[aDecoder decodeObjectForKey:@"length"] unsignedIntegerValue];
+		type = [[aDecoder decodeObjectForKey:@"type"] copy];
 	}
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-	[super encodeWithCoder:aCoder];
-	[aCoder encodeObject:stringValue forKey:@"stringValue"];
+	[aCoder encodeObject:url forKey:@"url"];
+	[aCoder encodeObject:[NSNumber numberWithUnsignedInteger:length] forKey:@"length"];
+	[aCoder encodeObject:type forKey:@"type"];
 }
 @end

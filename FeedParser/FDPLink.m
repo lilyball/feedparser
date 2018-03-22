@@ -1,5 +1,5 @@
 //
-//  FPLink.m
+//  FDPLink.m
 //  FeedParser
 //
 //  Created by Kevin Ballard on 4/10/09.
@@ -23,10 +23,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPLink.h"
+#import "FDPLink.h"
 #import "NSString_extensions.h"
 
-@implementation FPLink
+@implementation FDPLink
 @synthesize href, rel, type, title;
 + (id)linkWithHref:(NSString *)href rel:(NSString *)rel type:(NSString *)type title:(NSString *)title {
 	return [[[self alloc] initWithHref:href rel:rel type:type title:title] autorelease];
@@ -43,8 +43,8 @@
 }
 
 - (BOOL)isEqual:(id)anObject {
-	if (![anObject isKindOfClass:[FPLink class]]) return NO;
-	FPLink *other = (FPLink *)anObject;
+	if (![anObject isKindOfClass:[FDPLink class]]) return NO;
+	FDPLink *other = (FDPLink *)anObject;
 	return ((href  == other->href  || [href  isEqualToString:other->href]) &&
 			(rel   == other->rel   || [rel   isEqualToString:other->rel])  &&
 			(type  == other->type  || [type  isEqualToString:other->type]) &&

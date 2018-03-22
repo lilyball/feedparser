@@ -1,8 +1,8 @@
 //
-//  FPFeed.h
+//  FDPExtensionElementNode.h
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/4/09.
+//  Created by Kevin Ballard on 4/9/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,31 +24,23 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "FPXMLParser.h"
+#import "FDPExtensionNode.h"
+#import "FDPXMLParserProtocol.h"
 
-@class FPParser;
-@class FPLink;
-
-@interface FPFeed : FPXMLParser <NSCoding> {
+// FDPExtensionElementNode is used for unknown elements outside of the RSS and Atom namespaces
+@interface FDPExtensionElementNode : FDPExtensionNode <FDPXMLParserProtocol, NSCoding> {
 @private
-	NSString *title;
-	FPLink *link;
-	NSMutableArray *links;
-	NSString *feedDescription;
-	NSDate *pubDate;
-	NSMutableArray *items;
+	NSString *name;
+	NSString *qualifiedName;
+	NSString *namespaceURI;
+	NSDictionary *attributes;
+	NSMutableArray *children;
+	// parsing ivars
+	id<FDPXMLParserProtocol> parentParser;
+	NSMutableString *currentText;
 }
-@property (nonatomic, copy, readonly) NSString *title;
-// RSS <link> or Atom <link rel="alternate">
-// If multiple qualifying links exist, the first is returned
-@property (nonatomic, copy, readonly) FPLink *link;
-// An array of FPLink objects corresponding to Atom <link> elements
-// RSS <link> elements are represented as links of rel="alternate"
-@property (nonatomic, copy, readonly) NSArray *links;
-@property (nonatomic, copy, readonly) NSString *feedDescription;
-@property (nonatomic, copy, readonly) NSDate *pubDate;
-@property (nonatomic, retain, readonly) NSArray *items;
-// parent class defines property NSArray *extensionElements
-// parent class defines method -(NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI
-// parent class defines method - (NSArray *)extensionElementsWithXMLNamespace:(NSString *)namespaceURI elementName:(NSString *)elementName
+- (id)initWithElementName:(NSString *)name namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+			   attributes:(NSDictionary *)attributeDict;
 @end
+
+@compatibility_alias FPExtensionElementNode FDPExtensionElementNode;

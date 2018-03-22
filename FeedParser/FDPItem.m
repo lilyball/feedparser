@@ -1,5 +1,5 @@
 //
-//  FPItem.m
+//  FDPItem.m
 //  FeedParser
 //
 //  Created by Kevin Ballard on 4/4/09.
@@ -23,13 +23,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPItem.h"
-#import "FPLink.h"
-#import "FPEnclosure.h"
-#import "FPCategory.h"
+#import "FDPItem.h"
+#import "FDPLink.h"
+#import "FDPEnclosure.h"
+#import "FDPCategory.h"
 #import "NSDate_FeedParserExtensions.h"
 
-@interface FPItem ()
+@interface FDPItem ()
 @property (nonatomic, copy, readwrite) NSString *title;
 @property (nonatomic, copy, readwrite) NSString *guid;
 @property (nonatomic, copy, readwrite) NSString *description;
@@ -44,29 +44,29 @@
 - (void)rss_category:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 @end
 
-@implementation FPItem
+@implementation FDPItem
 @synthesize title, link, links, guid, description, content, pubDate, author, enclosures, categories;
 @synthesize creator;
 
 + (void)initialize {
-	if (self == [FPItem class]) {
-		[self registerRSSHandler:@selector(setTitle:) forElement:@"title" type:FPXMLParserTextElementType];
-		[self registerRSSHandler:@selector(setAuthor:) forElement:@"author" type:FPXMLParserTextElementType];
-		[self registerRSSHandler:@selector(rss_link:attributes:parser:) forElement:@"link" type:FPXMLParserTextElementType];
-		[self registerRSSHandler:@selector(setGuid:) forElement:@"guid" type:FPXMLParserTextElementType];
-		[self registerRSSHandler:@selector(setDescription:) forElement:@"description" type:FPXMLParserTextElementType];
-		[self registerRSSHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" type:FPXMLParserTextElementType];
-		[self registerRSSHandler:@selector(rss_enclosure:parser:) forElement:@"enclosure" type:FPXMLParserSkipElementType];
-        [self registerRSSHandler:@selector(rss_category:attributes:parser:) forElement:@"category" type:FPXMLParserTextElementType];
+	if (self == [FDPItem class]) {
+		[self registerRSSHandler:@selector(setTitle:) forElement:@"title" type:FDPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(setAuthor:) forElement:@"author" type:FDPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(rss_link:attributes:parser:) forElement:@"link" type:FDPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(setGuid:) forElement:@"guid" type:FDPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(setDescription:) forElement:@"description" type:FDPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" type:FDPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(rss_enclosure:parser:) forElement:@"enclosure" type:FDPXMLParserSkipElementType];
+        [self registerRSSHandler:@selector(rss_category:attributes:parser:) forElement:@"category" type:FDPXMLParserTextElementType];
 		for (NSString *key in [NSArray arrayWithObjects:@"comments", @"source", nil]) {
-			[self registerRSSHandler:NULL forElement:key type:FPXMLParserSkipElementType];
+			[self registerRSSHandler:NULL forElement:key type:FDPXMLParserSkipElementType];
 		}
 		// Atom
-		[self registerAtomHandler:@selector(atom_link:parser:) forElement:@"link" type:FPXMLParserSkipElementType];
+		[self registerAtomHandler:@selector(atom_link:parser:) forElement:@"link" type:FDPXMLParserSkipElementType];
 		// DublinCore
-		[self registerTextHandler:@selector(setCreator:) forElement:@"creator" namespaceURI:kFPXMLParserDublinCoreNamespaceURI];
+		[self registerTextHandler:@selector(setCreator:) forElement:@"creator" namespaceURI:kFDPXMLParserDublinCoreNamespaceURI];
 		// Content
-		[self registerTextHandler:@selector(setContent:) forElement:@"encoded" namespaceURI:kFPXMLParserContentNamespaceURI];
+		[self registerTextHandler:@selector(setContent:) forElement:@"encoded" namespaceURI:kFDPXMLParserContentNamespaceURI];
 	}
 }
 
@@ -84,7 +84,7 @@
 }
 
 - (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
-	FPLink *aLink = [[FPLink alloc] initWithHref:textValue rel:@"alternate" type:nil title:nil];
+	FDPLink *aLink = [[FDPLink alloc] initWithHref:textValue rel:@"alternate" type:nil title:nil];
 	if (link == nil) {
 		link = [aLink retain];
 	}
@@ -95,7 +95,7 @@
 - (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
 	NSString *href = [attributes objectForKey:@"href"];
 	if (href == nil) return; // sanity check
-	FPLink *aLink = [[FPLink alloc] initWithHref:href rel:[attributes objectForKey:@"rel"] type:[attributes objectForKey:@"type"]
+	FDPLink *aLink = [[FDPLink alloc] initWithHref:href rel:[attributes objectForKey:@"rel"] type:[attributes objectForKey:@"type"]
 										   title:[attributes objectForKey:@"title"]];
 	if (link == nil && [aLink.rel isEqualToString:@"alternate"]) {
 		link = [aLink retain];
@@ -110,7 +110,7 @@
 	NSString *lengthStr = [attributes objectForKey:@"length"];
 	if (url == nil || type == nil || lengthStr == nil) return; // sanity check
 	NSUInteger length = [lengthStr integerValue];
-	FPEnclosure *anEnclosure = [[FPEnclosure alloc] initWithURL:url length:length type:type];
+	FDPEnclosure *anEnclosure = [[FDPEnclosure alloc] initWithURL:url length:length type:type];
 	[enclosures addObject:anEnclosure];
 	[anEnclosure release];
 }
@@ -118,7 +118,7 @@
 
 - (void)rss_category:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
     NSString *domain = [attributes objectForKey:@"domain"];
-    FPCategory *aCategory = [[FPCategory alloc] initWithDomain:domain value:textValue];
+    FDPCategory *aCategory = [[FDPCategory alloc] initWithDomain:domain value:textValue];
     [categories addObject:aCategory];
     [aCategory release];
 }
@@ -128,8 +128,8 @@
 }
 
 - (BOOL)isEqual:(id)anObject {
-	if (![anObject isKindOfClass:[FPItem class]]) return NO;
-	FPItem *other = (FPItem *)anObject;
+	if (![anObject isKindOfClass:[FDPItem class]]) return NO;
+	FDPItem *other = (FDPItem *)anObject;
 	return ((title       == other->title       || [title       isEqualToString:other->title])       &&
 			(link        == other->link        || [link        isEqual:other->link])                &&
 			(links       == other->links       || [links       isEqualToArray:other->links])        &&

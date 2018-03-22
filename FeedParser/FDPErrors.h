@@ -1,8 +1,8 @@
 //
-//  FPExtensionElementNode.h
+//  FDPErrors.h
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/9/09.
+//  Created by Kevin Ballard on 4/4/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,21 +24,16 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "FPExtensionNode.h"
-#import "FPXMLParserProtocol.h"
 
-// FPExtensionElementNode is used for unknown elements outside of the RSS and Atom namespaces
-@interface FPExtensionElementNode : FPExtensionNode <FPXMLParserProtocol, NSCoding> {
-@private
-	NSString *name;
-	NSString *qualifiedName;
-	NSString *namespaceURI;
-	NSDictionary *attributes;
-	NSMutableArray *children;
-	// parsing ivars
-	id<FPXMLParserProtocol> parentParser;
-	NSMutableString *currentText;
-}
-- (id)initWithElementName:(NSString *)name namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
-			   attributes:(NSDictionary *)attributeDict;
-@end
+extern NSString * const FDPParserErrorDomain;
+extern NSString * const FPParserErrorDomain __attribute__((deprecated("replaced by FPParserErrorDomain", "FDPParserErrorDomain")));
+
+typedef enum {
+	FDPParserInternalError = 1,
+	FDPParserInvalidFeedError = 2,
+    
+    FPParserInternalError __attribute__((deprecated("replaced by FDPParserInternalError", "FDPParserInternalError"))) = FDPParserInternalError,
+    FPParserInvalidFeedError __attribute__((deprecated("replaced by FDPParserInvalidFeedError", "FDPParserInvalidFeedError"))) = FDPParserInvalidFeedError
+} FDPParserError;
+
+typedef FDPParserError FPParserError __attribute__((deprecated("replaced by FDPParserError", "FDPParserError")));

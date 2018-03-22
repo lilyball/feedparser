@@ -1,5 +1,5 @@
 //
-//  FPXMLParserProtocol.h
+//  FDPXMLParserProtocol.h
 //  FeedParser
 //
 //  Created by Kevin Ballard on 4/9/09.
@@ -25,12 +25,12 @@
 
 /*!
     @protocol
-    @abstract    FPXMLParserProtocol declares a protocol for a tree of XML parser delegates
+    @abstract    FDPXMLParserProtocol declares a protocol for a tree of XML parser delegates
     @discussion  Every class that can be a delegate of the NSXMLParser must conform to this protocol.
 				 This ensures that each class can pass parser delegation to its parent appropriately.
 */
 
-@protocol FPXMLParserProtocol <NSObject, NSXMLParserDelegate>
+@protocol FDPXMLParserProtocol <NSObject, NSXMLParserDelegate>
 @required
 /*!
     @method     
@@ -38,7 +38,7 @@
 	@param parser The NSXMLParser that is currently parsing the document.
     @discussion The implementation of this method must call [parser setDelegate:self]
 				after recording the previous delegate of the parser. The previous
-				delegate should be assumed to conform to FPXMLParserProtocol.
+				delegate should be assumed to conform to FDPXMLParserProtocol.
 */
 - (void)acceptParsing:(NSXMLParser *)parser;
 /*!
@@ -50,7 +50,7 @@
 				the parser must call this method. It should do any cleanup necessary, and
 				it must call this same method on its parent parser. If the parent parser
 				does not exist, then it must call [parser abortParsing].
-				Normally FPXMLParser is the root parser and will abort the parser.
+				Normally FDPXMLParser is the root parser and will abort the parser.
 				Be aware that the call to super may cause self to be deallocated.
 */
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description;
@@ -58,10 +58,10 @@
 	@method
 	@abstract	Resume parsing
 	param parser The NSXMLParser that is currently parsing the document
-	@param child The id<FPXMLParserProtocol> that was previously the parser delegate
+	@param child The id<FDPXMLParserProtocol> that was previously the parser delegate
 	@discussion This method must be called when parsing control is returned to a parent parser.
 				It is simply a notification to the parent parser that it should expect to receive
 				delegate methods again.
 */
-- (void)resumeParsing:(NSXMLParser *)parser fromChild:(id<FPXMLParserProtocol>)child;
+- (void)resumeParsing:(NSXMLParser *)parser fromChild:(id<FDPXMLParserProtocol>)child;
 @end

@@ -1,9 +1,9 @@
 //
-//  FPExtensionNode.m
+//  FDPCategory.h
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/9/09.
-//  Copyright 2009 Kevin Ballard. All rights reserved.
+//  Created by Kevin Ballard on 2/28/13.
+//  Copyright 2013 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,52 +23,14 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPExtensionNode.h"
-#import "FPExtensionElementNode.h"
-#import "FPExtensionTextNode.h"
 
-@implementation FPExtensionNode
-- (BOOL)isElement {
-	return NO;
-}
+#import <Foundation/Foundation.h>
 
-- (BOOL)isTextNode {
-	return NO;
-}
-
-- (NSString *)stringValue {
-	return nil;
-}
-
-- (NSString *)name {
-	return nil;
-}
-
-- (NSString *)qualifiedName {
-	return nil;
-}
-
-- (NSString *)namespaceURI {
-	return nil;
-}
-
-- (NSDictionary *)attributes {
-	return nil;
-}
-
-- (NSArray *)children {
-	return nil;
-}
-
-#pragma mark -
-#pragma mark Coding Support
-
-// these are just shims, to declare that this class should support coding
-- (id)initWithCoder:(NSCoder *)aDecoder {
-	return [super init];
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder {
-	// no-op
-}
+@interface FDPCategory : NSObject <NSCoding>
+@property (nonatomic, copy, readonly) NSString *domain; // may be nil
+@property (nonatomic, copy, readonly) NSString *value;
++ (instancetype)categoryWithDomain:(NSString *)domain value:(NSString *)value;
+- (id)initWithDomain:(NSString *)domain value:(NSString *)value;
 @end
+
+@compatibility_alias FPCategory FDPCategory;

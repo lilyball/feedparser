@@ -1,5 +1,5 @@
 //
-//  FPFeed.m
+//  FDPFeed.m
 //  FeedParser
 //
 //  Created by Kevin Ballard on 4/4/09.
@@ -23,13 +23,13 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPFeed.h"
-#import "FPItem.h"
-#import "FPLink.h"
-#import "FPParser.h"
+#import "FDPFeed.h"
+#import "FDPItem.h"
+#import "FDPLink.h"
+#import "FDPParser.h"
 #import "NSDate_FeedParserExtensions.h"
 
-@interface FPFeed ()
+@interface FDPFeed ()
 @property (nonatomic, copy, readwrite) NSString *title;
 @property (nonatomic, copy, readwrite) NSString *feedDescription;
 @property (nonatomic, copy, readwrite) NSDate *pubDate;
@@ -39,24 +39,24 @@
 - (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser;
 @end
 
-@implementation FPFeed
+@implementation FDPFeed
 @synthesize title, link, links, feedDescription, pubDate, items;
 
 + (void)initialize {
-	if (self == [FPFeed class]) {
-		[self registerRSSHandler:@selector(setTitle:) forElement:@"title" type:FPXMLParserTextElementType];
-		[self registerRSSHandler:@selector(rss_link:attributes:parser:) forElement:@"link" type:FPXMLParserTextElementType];
-		[self registerRSSHandler:@selector(setFeedDescription:) forElement:@"description" type:FPXMLParserTextElementType];
-		[self registerRSSHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" type:FPXMLParserTextElementType];
+	if (self == [FDPFeed class]) {
+		[self registerRSSHandler:@selector(setTitle:) forElement:@"title" type:FDPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(rss_link:attributes:parser:) forElement:@"link" type:FDPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(setFeedDescription:) forElement:@"description" type:FDPXMLParserTextElementType];
+		[self registerRSSHandler:@selector(rss_pubDate:attributes:parser:) forElement:@"pubDate" type:FDPXMLParserTextElementType];
 		for (NSString *key in [NSArray arrayWithObjects:
 							   @"language", @"copyright", @"managingEditor", @"webMaster", @"lastBuildDate", @"category",
 							   @"generator", @"docs", @"cloud", @"ttl", @"image", @"rating", @"textInput", @"skipHours", @"skipDays", nil]) {
-			[self registerRSSHandler:NULL forElement:key type:FPXMLParserSkipElementType];
+			[self registerRSSHandler:NULL forElement:key type:FDPXMLParserSkipElementType];
 		}
-		[self registerRSSHandler:@selector(rss_item:parser:) forElement:@"item" type:FPXMLParserStreamElementType];
+		[self registerRSSHandler:@selector(rss_item:parser:) forElement:@"item" type:FDPXMLParserStreamElementType];
 		
 		// atom elements
-		[self registerAtomHandler:@selector(atom_link:parser:) forElement:@"link" type:FPXMLParserSkipElementType];
+		[self registerAtomHandler:@selector(atom_link:parser:) forElement:@"link" type:FDPXMLParserSkipElementType];
 	}
 }
 
@@ -75,14 +75,14 @@
 }
 
 - (void)rss_item:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
-	FPItem *item = [[FPItem alloc] initWithBaseNamespaceURI:baseNamespaceURI];
+	FDPItem *item = [[FDPItem alloc] initWithBaseNamespaceURI:baseNamespaceURI];
 	[item acceptParsing:parser];
 	[items addObject:item];
 	[item release];
 }
 
 - (void)rss_link:(NSString *)textValue attributes:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
-	FPLink *aLink = [[FPLink alloc] initWithHref:textValue rel:@"alternate" type:nil title:nil];
+	FDPLink *aLink = [[FDPLink alloc] initWithHref:textValue rel:@"alternate" type:nil title:nil];
 	if (link == nil) {
 		link = [aLink retain];
 	}
@@ -93,7 +93,7 @@
 - (void)atom_link:(NSDictionary *)attributes parser:(NSXMLParser *)parser {
 	NSString *href = [attributes objectForKey:@"href"];
 	if (href == nil) return; // sanity check
-	FPLink *aLink = [[FPLink alloc] initWithHref:href rel:[attributes objectForKey:@"rel"] type:[attributes objectForKey:@"type"]
+	FDPLink *aLink = [[FDPLink alloc] initWithHref:href rel:[attributes objectForKey:@"rel"] type:[attributes objectForKey:@"type"]
 										   title:[attributes objectForKey:@"title"]];
 	if (link == nil && [aLink.rel isEqualToString:@"alternate"]) {
 		link = [aLink retain];
@@ -103,8 +103,8 @@
 }
 
 - (BOOL)isEqual:(id)anObject {
-	if (![anObject isKindOfClass:[FPFeed class]]) return NO;
-	FPFeed *other = (FPFeed *)anObject;
+	if (![anObject isKindOfClass:[FDPFeed class]]) return NO;
+	FDPFeed *other = (FDPFeed *)anObject;
 	return ((title           == other->title           || [title           isEqualToString:other->title])           &&
 			(link            == other->link            || [link            isEqual:other->link])                    &&
 			(links           == other->links           || [links           isEqualToArray:other->links])            &&

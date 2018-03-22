@@ -1,5 +1,5 @@
 //
-//  FPXMLPair.m
+//  FDPXMLPair.m
 //  FeedParser
 //
 //  Created by Kevin Ballard on 4/6/09.
@@ -23,9 +23,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPXMLPair.h"
+#import "FDPXMLPair.h"
 
-@implementation FPXMLPair
+@implementation FDPXMLPair
 @synthesize first, second;
 
 + (id)pairWithFirst:(id)firstObject second:(id)secondObject {
@@ -41,12 +41,12 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-	return [[FPXMLPair allocWithZone:zone] initWithFirst:first second:second];
+	return [[FDPXMLPair allocWithZone:zone] initWithFirst:first second:second];
 }
 
 - (BOOL)isEqual:(id)anObject {
-	if ([anObject isKindOfClass:[FPXMLPair class]]) {
-		FPXMLPair *other = (FPXMLPair *)anObject;
+	if ([anObject isKindOfClass:[FDPXMLPair class]]) {
+		FDPXMLPair *other = (FDPXMLPair *)anObject;
 		id oFirst = other.first;
 		id oSecond = other.second;
 		// do pointer test first so we handle nil properly

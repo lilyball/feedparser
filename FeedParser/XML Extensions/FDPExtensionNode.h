@@ -1,5 +1,5 @@
 //
-//  FPExtensionNode.h
+//  FDPExtensionNode.h
 //  FeedParser
 //
 //  Created by Kevin Ballard on 4/9/09.
@@ -25,10 +25,10 @@
 
 #import <Foundation/Foundation.h>
 
-// FPExtensionNode is used to represent extension elements outside of the RSS/Atom namespaces
+// FDPExtensionNode is used to represent extension elements outside of the RSS/Atom namespaces
 // conceptually this is an extremely simplified NSXMLNode
-// it can represent either textual data (FPExtensionTextNode) or an element (FPExtensionElementNode)
-@interface FPExtensionNode : NSObject <NSCoding> {
+// it can represent either textual data (FDPExtensionTextNode) or an element (FDPExtensionElementNode)
+@interface FDPExtensionNode : NSObject <NSCoding> {
 }
 @property (nonatomic, readonly) BOOL isElement;
 @property (nonatomic, readonly) BOOL isTextNode;
@@ -46,3 +46,5 @@
 @property (nonatomic, readonly) NSDictionary *attributes;
 @property (nonatomic, readonly) NSArray *children; // an array of FPExtensionNodes
 @end
+
+@compatibility_alias FPEXtensionNode FDPExtensionNode;

@@ -1,5 +1,5 @@
 //
-//  FPExtensionElementNode.m
+//  FDPExtensionElementNode.m
 //  FeedParser
 //
 //  Created by Kevin Ballard on 4/9/09.
@@ -23,16 +23,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPExtensionElementNode.h"
+#import "FDPExtensionElementNode.h"
 #import "FPExtensionElementNode_Private.h"
-#import "FPXMLParserProtocol.h"
-#import "FPExtensionTextNode.h"
+#import "FDPXMLParserProtocol.h"
+#import "FDPExtensionTextNode.h"
 
-@interface FPExtensionElementNode ()
+@interface FDPExtensionElementNode ()
 - (void)closeTextNode;
 @end
 
-@implementation FPExtensionElementNode
+@implementation FDPExtensionElementNode
 @synthesize name, qualifiedName, namespaceURI, attributes, children;
 
 - (id)initWithElementName:(NSString *)aName namespaceURI:(NSString *)aNamespaceURI qualifiedName:(NSString *)qName
@@ -61,7 +61,7 @@
 		return [[children objectAtIndex:0] stringValue];
 	} else {
 		NSMutableString *stringValue = [NSMutableString string];
-		for (FPExtensionNode *child in children) {
+		for (FDPExtensionNode *child in children) {
 			NSString *str = child.stringValue;
 			if (str != nil) {
 				[stringValue appendString:str];
@@ -72,7 +72,7 @@
 }
 
 - (void)closeTextNode {
-	FPExtensionTextNode *child = [[FPExtensionTextNode alloc] initWithStringValue:currentText];
+	FDPExtensionTextNode *child = [[FDPExtensionTextNode alloc] initWithStringValue:currentText];
 	[children addObject:child];
 	[child release];
 	[currentText release];
@@ -80,8 +80,8 @@
 }
 
 - (BOOL)isEqual:(id)anObject {
-	if (![anObject isKindOfClass:[FPExtensionElementNode class]]) return NO;
-	FPExtensionElementNode *other = (FPExtensionElementNode *)anObject;
+	if (![anObject isKindOfClass:[FDPExtensionElementNode class]]) return NO;
+	FDPExtensionElementNode *other = (FDPExtensionElementNode *)anObject;
 	return ((name          == other->name          || [name          isEqualToString:other->name])           &&
 			(qualifiedName == other->qualifiedName || [qualifiedName isEqualToString:other->qualifiedName])  &&
 			(namespaceURI  == other->namespaceURI  || [namespaceURI  isEqualToString:other->namespaceURI])   &&
@@ -106,7 +106,7 @@
 	if (currentText != nil) {
 		[self closeTextNode];
 	}
-	FPExtensionElementNode *child = [[FPExtensionElementNode alloc] initWithElementName:elementName namespaceURI:aNamespaceURI
+	FDPExtensionElementNode *child = [[FDPExtensionElementNode alloc] initWithElementName:elementName namespaceURI:aNamespaceURI
 																		  qualifiedName:qName attributes:attributeDict];
 	[child acceptParsing:parser];
 	[children addObject:child];
@@ -147,22 +147,22 @@
 	[self abortParsing:parser withString:nil];
 }
 
-#pragma mark FPXMLParserProtocol methods
+#pragma mark FDPXMLParserProtocol methods
 
 - (void)acceptParsing:(NSXMLParser *)parser {
-	parentParser = (id<FPXMLParserProtocol>)[parser delegate];
+	parentParser = (id<FDPXMLParserProtocol>)[parser delegate];
 	[parser setDelegate:self];
 }
 
 - (void)abortParsing:(NSXMLParser *)parser withString:(NSString *)description {
-	id<FPXMLParserProtocol> parent = parentParser;
+	id<FDPXMLParserProtocol> parent = parentParser;
 	parentParser = nil;
 	[currentText release];
 	currentText = nil;
 	[parent abortParsing:parser withString:description];
 }
 
-- (void)resumeParsing:(NSXMLParser *)parser fromChild:(id<FPXMLParserProtocol>)child {
+- (void)resumeParsing:(NSXMLParser *)parser fromChild:(id<FDPXMLParserProtocol>)child {
 	// stub
 }
 

@@ -1,8 +1,8 @@
 //
-//  FPXMLPair.h
+//  FDPLink.h
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/6/09.
+//  Created by Kevin Ballard on 4/10/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,14 +25,19 @@
 
 #import <Foundation/Foundation.h>
 
-// FPXLMPair is used to hold an immutable pair of objects
-// useful for using as the key in a dictionary
-@interface FPXMLPair : NSObject <NSCopying> {
-	id first;
-	id second;
+@interface FDPLink : NSObject <NSCoding> {
+@private
+	NSString *href;
+	NSString *rel;
+	NSString *type;
+	NSString *title;
 }
-@property (nonatomic, readonly) id first;
-@property (nonatomic, readonly) id second;
-+ (id)pairWithFirst:(id)firstObject second:(id)secondObject;
-- (id)initWithFirst:(id)firstObject second:(id)secondObject;
+@property (nonatomic, readonly) NSString *href;
+@property (nonatomic, readonly) NSString *rel; // the value of the rel attribute or @"alternate"
+@property (nonatomic, readonly) NSString *type; // the value of the type attribute or nil
+@property (nonatomic, readonly) NSString *title; // the value of the title attribute or nil
++ (id)linkWithHref:(NSString *)href rel:(NSString *)rel type:(NSString *)type title:(NSString *)title;
+- (id)initWithHref:(NSString *)href rel:(NSString *)rel type:(NSString *)type title:(NSString *)title;
 @end
+
+@compatibility_alias FPLink FDPLink;

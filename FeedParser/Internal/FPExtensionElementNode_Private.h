@@ -23,8 +23,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPExtensionElementNode.h"
-#import "FPXMLParserProtocol.h"
+#import "FDPExtensionElementNode.h"
+#import "FDPXMLParserProtocol.h"
 
-@interface FPExtensionElementNode (FPExtensionElementNode_Private) <FPXMLParserProtocol>
+@interface FDPExtensionElementNode (FDPExtensionElementNode_Private) <FDPXMLParserProtocol>
 @end

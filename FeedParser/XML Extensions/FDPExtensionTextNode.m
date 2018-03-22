@@ -1,5 +1,5 @@
 //
-//  FPExtensionTextNode.h
+//  FDPExtensionTextNode.m
 //  FeedParser
 //
 //  Created by Kevin Ballard on 4/9/09.
@@ -23,11 +23,52 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import "FPExtensionNode.h"
+#import "FDPExtensionTextNode.h"
+#import "NSString_extensions.h"
 
-@interface FPExtensionTextNode : FPExtensionNode <NSCoding> {
-	NSString *stringValue;
+@implementation FDPExtensionTextNode
+- (id)initWithStringValue:(NSString *)value {
+	if (self = [super init]) {
+		stringValue = [value copy];
+	}
+	return self;
 }
-- (id)initWithStringValue:(NSString *)value;
+
+- (BOOL)isTextNode {
+	return YES;
+}
+
+- (NSString *)stringValue {
+	return stringValue;
+}
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<%@: %p \"%@\"", NSStringFromClass([self class]), self, [stringValue fpEscapedString]];
+}
+
+- (BOOL)isEqual:(id)anObject {
+	if (![anObject isKindOfClass:[FDPExtensionTextNode class]]) return NO;
+	FDPExtensionTextNode *other = (FDPExtensionTextNode *)anObject;
+	return (stringValue == other->stringValue || [stringValue isEqualToString:other->stringValue]);
+}
+
+- (void)dealloc {
+	[stringValue release];
+	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark Coding Support
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if (self = [super initWithCoder:aDecoder]) {
+		stringValue = [[aDecoder decodeObjectForKey:@"stringValue"] copy];
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+	[super encodeWithCoder:aCoder];
+	[aCoder encodeObject:stringValue forKey:@"stringValue"];
+}
 @end

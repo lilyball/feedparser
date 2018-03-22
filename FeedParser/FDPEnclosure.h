@@ -1,8 +1,8 @@
 //
-//  FPParser.h
+//  FDPEnclosure.h
 //  FeedParser
 //
-//  Created by Kevin Ballard on 4/4/09.
+//  Created by Kevin Ballard on 11/20/09.
 //  Copyright 2009 Kevin Ballard. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,15 +24,18 @@
 //  SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "FPXMLParser.h"
 
-@class FPFeed;
-
-@interface FPParser : FPXMLParser {
+@interface FDPEnclosure : NSObject <NSCoding> {
 @private
-	FPFeed *feed;
-	NSString *errorString;
-	BOOL lookingForChannel;
+	NSString *url;
+	NSUInteger length;
+	NSString *type;
 }
-+ (FPFeed *)parsedFeedWithData:(NSData *)data error:(NSError **)error;
+@property (nonatomic, readonly) NSString *url;
+@property (nonatomic, readonly) NSUInteger length;
+@property (nonatomic, readonly) NSString *type;
++ (id)enclosureWithURL:(NSString *)url length:(NSUInteger)length type:(NSString *)type;
+- (id)initWithURL:(NSString *)url length:(NSUInteger)length type:(NSString *)type;
 @end
+
+@compatibility_alias FPEnclosure FDPEnclosure;

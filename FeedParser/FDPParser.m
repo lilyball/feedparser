@@ -1,5 +1,5 @@
 //
-//  FPParser.m
+//  FDPParser.m
 //  FeedParser
 //
 //  Created by Kevin Ballard on 4/4/09.
@@ -23,27 +23,28 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-#import "FPParser.h"
-#import "FPFeed.h"
-#import "FPErrors.h"
+#import "FDPParser.h"
+#import "FDPFeed.h"
+#import "FDPErrors.h"
 
-NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
+NSString * const FDPParserErrorDomain = @"FDPParserErrorDomain";
+NSString * const FPParserErrorDomain = FDPParserErrorDomain;
 
-@interface FPParser ()
-- (FPFeed *)parseData:(NSData *)data error:(NSError **)error;
+@interface FDPParser ()
+- (FDPFeed *)parseData:(NSData *)data error:(NSError **)error;
 @end
 
-@implementation FPParser
+@implementation FDPParser
 + (void)initialize {
-	if (self == [FPParser class]) {
-		[self registerRSSHandler:@selector(rss_rss:parser:) forElement:@"rss" type:FPXMLParserStreamElementType];
-		[self registerRSSHandler:@selector(rss_channel:parser:) forElement:@"channel" type:FPXMLParserStreamElementType];
-		[self registerAtomHandler:@selector(atom_feed:parser:) forElement:@"feed" type:FPXMLParserStreamElementType];
+	if (self == [FDPParser class]) {
+		[self registerRSSHandler:@selector(rss_rss:parser:) forElement:@"rss" type:FDPXMLParserStreamElementType];
+		[self registerRSSHandler:@selector(rss_channel:parser:) forElement:@"channel" type:FDPXMLParserStreamElementType];
+		[self registerAtomHandler:@selector(atom_feed:parser:) forElement:@"feed" type:FDPXMLParserStreamElementType];
 	}
 }
 
-+ (FPFeed *)parsedFeedWithData:(NSData *)data error:(NSError **)error {
-	FPParser *parser = [[[FPParser alloc] init] autorelease];
++ (FDPFeed *)parsedFeedWithData:(NSData *)data error:(NSError **)error {
+	FDPParser *parser = [[[FDPParser alloc] init] autorelease];
 	return [parser parseData:data error:error];
 }
 
@@ -55,10 +56,10 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 
 #pragma mark -
 
-- (FPFeed *)parseData:(NSData *)data error:(NSError **)error {
+- (FDPFeed *)parseData:(NSData *)data error:(NSError **)error {
 	NSXMLParser *xmlParser = [[[NSXMLParser alloc] initWithData:data] autorelease];
 	if (xmlParser == nil) {
-		if (error) *error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInternalError userInfo:nil];
+		if (error) *error = [NSError errorWithDomain:FDPParserErrorDomain code:FDPParserInternalError userInfo:nil];
 		return nil;
 	}
 	parseDepth = 1;
@@ -66,7 +67,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 	[xmlParser setShouldProcessNamespaces:YES];
 	if ([xmlParser parse]) {
 		if (feed != nil) {
-			FPFeed *retFeed = [feed autorelease];
+			FDPFeed *retFeed = [feed autorelease];
 			feed = nil;
 			[errorString release]; errorString = nil;
 			return retFeed;
@@ -79,7 +80,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 			}
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
 			[errorString release]; errorString = nil;
-			if (error) *error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInvalidFeedError userInfo:userInfo];
+			if (error) *error = [NSError errorWithDomain:FDPParserErrorDomain code:FDPParserInvalidFeedError userInfo:userInfo];
 			return nil;
 		}
 	} else {
@@ -89,7 +90,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 			if ([[*error domain] isEqualToString:NSXMLParserErrorDomain]) {
 				if ([*error code] == NSXMLParserInternalError) {
 					NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
-					*error = [NSError errorWithDomain:FPParserErrorDomain code:FPParserInternalError userInfo:userInfo];
+					*error = [NSError errorWithDomain:FDPParserErrorDomain code:FDPParserInternalError userInfo:userInfo];
 				} else {
 					// adjust the error localizedDescription to include the line/column numbers
 					NSString *desc = [NSString stringWithFormat:@"line %ld, column %ld: %@",
@@ -146,7 +147,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 	if (feed != nil || !lookingForChannel) {
 		[self abortParsing:parser];
 	} else {
-		feed = [[FPFeed alloc] initWithBaseNamespaceURI:baseNamespaceURI];
+		feed = [[FDPFeed alloc] initWithBaseNamespaceURI:baseNamespaceURI];
 		[feed acceptParsing:parser];
 		lookingForChannel = NO;
 	}
@@ -156,7 +157,7 @@ NSString * const FPParserErrorDomain = @"FPParserErrorDomain";
 	if (feed != nil || lookingForChannel) {
 		[self abortParsing:parser];
 	} else {
-		feed = [[FPFeed alloc] initWithBaseNamespaceURI:baseNamespaceURI];
+		feed = [[FDPFeed alloc] initWithBaseNamespaceURI:baseNamespaceURI];
 		[feed acceptParsing:parser];
 	}
 }
