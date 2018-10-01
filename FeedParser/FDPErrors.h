@@ -28,12 +28,12 @@
 extern NSString * const FDPParserErrorDomain;
 extern NSString * const FPParserErrorDomain __attribute__((deprecated("replaced by FPParserErrorDomain", "FDPParserErrorDomain")));
 
-typedef enum {
-	FDPParserInternalError = 1,
-	FDPParserInvalidFeedError = 2,
+typedef NS_ERROR_ENUM(FDPParserErrorDomain, FDPParserError) {
+	FDPParserInternalError NS_SWIFT_NAME(internal) = 1,
+	FDPParserInvalidFeedError NS_SWIFT_NAME(invalidFeed) = 2,
     
-    FPParserInternalError __attribute__((deprecated("replaced by FDPParserInternalError", "FDPParserInternalError"))) = FDPParserInternalError,
-    FPParserInvalidFeedError __attribute__((deprecated("replaced by FDPParserInvalidFeedError", "FDPParserInvalidFeedError"))) = FDPParserInvalidFeedError
-} FDPParserError;
+    FPParserInternalError __attribute__((deprecated("replaced by FDPParserInternalError", "FDPParserInternalError"))) NS_SWIFT_UNAVAILABLE("Use .internal") = FDPParserInternalError,
+    FPParserInvalidFeedError __attribute__((deprecated("replaced by FDPParserInvalidFeedError", "FDPParserInvalidFeedError"))) NS_SWIFT_UNAVAILABLE("Use .invalidFeed") = FDPParserInvalidFeedError
+};
 
 typedef FDPParserError FPParserError __attribute__((deprecated("replaced by FDPParserError", "FDPParserError")));
