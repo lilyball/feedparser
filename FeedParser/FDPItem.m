@@ -161,19 +161,23 @@
 #pragma mark -
 #pragma mark Coding Support
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super initWithCoder:aDecoder]) {
-		title = [[aDecoder decodeObjectForKey:@"title"] copy];
-		link = [[aDecoder decodeObjectForKey:@"link"] retain];
-		links = [[aDecoder decodeObjectForKey:@"links"] mutableCopy];
-		guid = [[aDecoder decodeObjectForKey:@"guid"] copy];
-		description = [[aDecoder decodeObjectForKey:@"description"] copy];
-		content = [[aDecoder decodeObjectForKey:@"content"] copy];
-		pubDate = [[aDecoder decodeObjectForKey:@"pubDate"] copy];
-		creator = [[aDecoder decodeObjectForKey:@"creator"] copy];
-		author = [[aDecoder decodeObjectForKey:@"author"] copy];
-		enclosures = [[aDecoder decodeObjectForKey:@"enclosures"] mutableCopy];
-        categories = [[aDecoder decodeObjectForKey:@"categories"] mutableCopy] ?: [[NSMutableArray alloc] init];
+        title = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"title"] copy];
+        link = [[aDecoder decodeObjectOfClass:[FDPLink class] forKey:@"link"] retain];
+        links = [[aDecoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [FDPLink class], nil] forKey:@"links"] mutableCopy];
+        guid = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"guid"] copy];
+        description = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"description"] copy];
+        content = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"content"] copy];
+        pubDate = [[aDecoder decodeObjectOfClass:[NSDate class] forKey:@"pubDate"] copy];
+        creator = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"creator"] copy];
+        author = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"author"] copy];
+        enclosures = [[aDecoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [FDPEnclosure class], nil] forKey:@"enclosures"] mutableCopy];
+        categories = [[aDecoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [FDPCategory class], nil] forKey:@"categories"] mutableCopy] ?: [[NSMutableArray alloc] init];
 	}
 	return self;
 }

@@ -236,4 +236,20 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
         XCTAssertEqualObjects(feed, newFeed);
     }
 }
+
+- (void)testSecureArchiving {
+    // Same as testArchiving but requires secure coding
+    NSArray *fixtures = [NSArray arrayWithObjects:@"sample-rss-091.rss", @"sample-rss-092.rss",
+                         @"sample-rss-2.rss", @"extensions.rss", @"rss-with-atom.rss", @"google-news.rss", nil];
+    for (NSString *fixture in fixtures) {
+        FDPFeed *feed = [self feedFromFixture:fixture];
+        if (feed == nil) continue;
+        NSError *error;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:feed requiringSecureCoding:YES error:&error];
+        XCTAssertNotNil(data, "error: %@", error);
+        FDPFeed *newFeed = [NSKeyedUnarchiver unarchivedObjectOfClass:[FDPFeed class] fromData:data error:&error];
+        XCTAssertNotNil(newFeed, "error: %@", error);
+        XCTAssertEqualObjects(feed, newFeed);
+    }
+}
 @end

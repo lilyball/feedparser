@@ -60,9 +60,13 @@
 #pragma mark -
 #pragma mark Coding Support
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super initWithCoder:aDecoder]) {
-		stringValue = [[aDecoder decodeObjectForKey:@"stringValue"] copy];
+        stringValue = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"stringValue"] copy];
 	}
 	return self;
 }

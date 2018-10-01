@@ -63,6 +63,10 @@
 #pragma mark -
 #pragma mark Coding Support
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 // these are just shims, to declare that this class should support coding
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	return [super init];

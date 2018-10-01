@@ -51,7 +51,7 @@ extern NSString * const kFPXMLParserAtomNamespaceURI __attribute__((deprecated("
 extern NSString * const kFPXMLParserDublinCoreNamespaceURI __attribute__((deprecated("replaced by kFDPXMLParserDublinCoreNamespaceURI", "kFDPXMLParserDublinCoreNamespaceURI")));
 extern NSString * const kFPXMLParserContentNamespaceURI __attribute__((deprecated("replaced by kFDPXMLParserContentNamespaceURI", "kFDPXMLParserContentNamespaceURI")));
 
-@interface FDPXMLParser : NSObject <FDPXMLParserProtocol, NSCoding> {
+@interface FDPXMLParser : NSObject <FDPXMLParserProtocol, NSSecureCoding> {
 @protected
 	NSMutableArray *extensionElements;
 	id<FDPXMLParserProtocol> parentParser; // non-retained

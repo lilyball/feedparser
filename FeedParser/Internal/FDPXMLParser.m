@@ -375,11 +375,15 @@ void (*handleExtensionElement)(id, SEL, FDPExtensionNode *node, NSXMLParser*) = 
 #pragma mark -
 #pragma mark Coding Support
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [self init]) {
-		baseNamespaceURI = [[aDecoder decodeObjectForKey:@"baseNamespaceURI"] copy];
+        baseNamespaceURI = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"baseNamespaceURI"] copy];
 		[extensionElements release];
-		extensionElements = [[aDecoder decodeObjectForKey:@"extensionElements"] mutableCopy];
+        extensionElements = [[aDecoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [FDPExtensionNode class], nil] forKey:@"extensionElements"] mutableCopy];
 	}
 	return self;
 }

@@ -169,13 +169,17 @@
 #pragma mark -
 #pragma mark Coding Support
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super initWithCoder:aDecoder]) {
-		name = [[aDecoder decodeObjectForKey:@"name"] copy];
-		qualifiedName = [[aDecoder decodeObjectForKey:@"qualifiedName"] copy];
-		namespaceURI = [[aDecoder decodeObjectForKey:@"namespaceURI"] copy];
-		attributes = [[aDecoder decodeObjectForKey:@"attributes"] copy];
-		children = [[aDecoder decodeObjectForKey:@"children"] mutableCopy];
+        name = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"name"] copy];
+        qualifiedName = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"qualifiedName"] copy];
+        namespaceURI = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"namespaceURI"] copy];
+        attributes = [[aDecoder decodeObjectOfClass:[NSDictionary class] forKey:@"attributes"] copy];
+        children = [[aDecoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [FDPExtensionNode class], nil] forKey:@"children"] mutableCopy];
 	}
 	return self;
 }

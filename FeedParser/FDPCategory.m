@@ -63,10 +63,14 @@
 #pragma mark -
 #pragma mark Coding Support
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super init])) {
-        _domain = [[aDecoder decodeObjectForKey:@"domain"] copy];
-        _value = [[aDecoder decodeObjectForKey:@"value"] copy];
+        _domain = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"domain"] copy];
+        _value = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"value"] copy];
     }
     return self;
 }

@@ -28,7 +28,7 @@
 // FDPExtensionNode is used to represent extension elements outside of the RSS/Atom namespaces
 // conceptually this is an extremely simplified NSXMLNode
 // it can represent either textual data (FDPExtensionTextNode) or an element (FDPExtensionElementNode)
-@interface FDPExtensionNode : NSObject <NSCoding> {
+@interface FDPExtensionNode : NSObject <NSSecureCoding> {
 }
 @property (nonatomic, readonly) BOOL isElement;
 @property (nonatomic, readonly) BOOL isTextNode;

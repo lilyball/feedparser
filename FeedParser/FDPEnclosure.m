@@ -63,11 +63,15 @@
 #pragma mark -
 #pragma mark Coding Support
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super init]) {
-		url = [[aDecoder decodeObjectForKey:@"url"] copy];
-		length = [[aDecoder decodeObjectForKey:@"length"] unsignedIntegerValue];
-		type = [[aDecoder decodeObjectForKey:@"type"] copy];
+        url = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"url"] copy];
+        length = [[aDecoder decodeObjectOfClass:[NSNumber class] forKey:@"length"] unsignedIntegerValue];
+        type = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"type"] copy];
 	}
 	return self;
 }

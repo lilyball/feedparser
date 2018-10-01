@@ -126,14 +126,18 @@
 #pragma mark -
 #pragma mark Coding Support
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super initWithCoder:aDecoder]) {
-		title = [[aDecoder decodeObjectForKey:@"title"] copy];
-		link = [[aDecoder decodeObjectForKey:@"link"] retain];
-		links = [[aDecoder decodeObjectForKey:@"links"] mutableCopy];
-		feedDescription = [[aDecoder decodeObjectForKey:@"feedDescription"] copy];
-		pubDate = [[aDecoder decodeObjectForKey:@"pubDate"] copy];
-		items = [[aDecoder decodeObjectForKey:@"items"] mutableCopy];
+        title = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"title"] copy];
+        link = [[aDecoder decodeObjectOfClass:[FDPLink class] forKey:@"link"] retain];
+        links = [[aDecoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [FDPLink class], nil] forKey:@"links"] mutableCopy];
+        feedDescription = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"feedDescription"] copy];
+        pubDate = [[aDecoder decodeObjectOfClass:[NSDate class] forKey:@"pubDate"] copy];
+        items = [[aDecoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [FDPItem class], nil] forKey:@"items"] mutableCopy];
 	}
 	return self;
 }

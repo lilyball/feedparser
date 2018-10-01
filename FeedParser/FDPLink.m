@@ -73,12 +73,16 @@
 #pragma mark -
 #pragma mark Coding Support
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super init]) {
-		href = [[aDecoder decodeObjectForKey:@"href"] copy];
-		rel = [[aDecoder decodeObjectForKey:@"rel"] copy];
-		type = [[aDecoder decodeObjectForKey:@"type"] copy];
-		title = [[aDecoder decodeObjectForKey:@"title"] copy];
+        href = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"href"] copy];
+        rel = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"rel"] copy];
+        type = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"type"] copy];
+        title = [[aDecoder decodeObjectOfClass:[NSString class] forKey:@"title"] copy];
 	}
 	return self;
 }

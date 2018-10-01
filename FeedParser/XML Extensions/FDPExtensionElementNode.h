@@ -28,7 +28,7 @@
 #import "FDPXMLParserProtocol.h"
 
 // FDPExtensionElementNode is used for unknown elements outside of the RSS and Atom namespaces
-@interface FDPExtensionElementNode : FDPExtensionNode <FDPXMLParserProtocol, NSCoding> {
+@interface FDPExtensionElementNode : FDPExtensionNode <FDPXMLParserProtocol, NSSecureCoding> {
 @private
 	NSString *name;
 	NSString *qualifiedName;

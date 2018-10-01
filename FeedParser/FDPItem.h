@@ -28,7 +28,7 @@
 
 @class FDPLink;
 
-@interface FDPItem : FDPXMLParser <NSCoding> {
+@interface FDPItem : FDPXMLParser <NSSecureCoding> {
 @private
 	NSString *title;
 	FDPLink *link;

@@ -26,7 +26,7 @@
 #import <Foundation/Foundation.h>
 #import "FDPExtensionNode.h"
 
-@interface FDPExtensionTextNode : FDPExtensionNode <NSCoding> {
+@interface FDPExtensionTextNode : FDPExtensionNode <NSSecureCoding> {
 	NSString *stringValue;
 }
 - (id)initWithStringValue:(NSString *)value;

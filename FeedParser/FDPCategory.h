@@ -26,7 +26,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FDPCategory : NSObject <NSCoding>
+@interface FDPCategory : NSObject <NSSecureCoding>
 @property (nonatomic, copy, readonly) NSString *domain; // may be nil
 @property (nonatomic, copy, readonly) NSString *value;
 + (instancetype)categoryWithDomain:(NSString *)domain value:(NSString *)value;

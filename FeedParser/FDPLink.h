@@ -25,7 +25,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FDPLink : NSObject <NSCoding> {
+@interface FDPLink : NSObject <NSSecureCoding> {
 @private
 	NSString *href;
 	NSString *rel;

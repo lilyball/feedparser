@@ -29,7 +29,7 @@
 @class FDPParser;
 @class FDPLink;
 
-@interface FDPFeed : FDPXMLParser <NSCoding> {
+@interface FDPFeed : FDPXMLParser <NSSecureCoding> {
 @private
 	NSString *title;
 	FDPLink *link;
