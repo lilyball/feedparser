@@ -219,17 +219,21 @@ us fly through the Solar System more quickly.  The proposed VASIMR engine would 
 }
 
 - (void)testArchiving {
-	// test all fixtures to ensure the unarchived object is equal to the archived one
-	NSArray *fixtures = [NSArray arrayWithObjects:@"sample-rss-091.rss", @"sample-rss-092.rss",
-						 @"sample-rss-2.rss", @"extensions.rss", @"rss-with-atom.rss", @"google-news.rss", nil];
-	for (NSString *fixture in fixtures) {
-		FDPFeed *feed = [self feedFromFixture:fixture];
-		if (feed == nil) continue;
-		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:feed];
-		XCTAssertNotNil(data);
-		FDPFeed *newFeed = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-		XCTAssertNotNil(newFeed);
-		XCTAssertEqualObjects(feed, newFeed);
-	}
+    // test all fixtures to ensure the unarchived object is equal to the archived one
+    NSArray *fixtures = [NSArray arrayWithObjects:@"sample-rss-091.rss", @"sample-rss-092.rss",
+                         @"sample-rss-2.rss", @"extensions.rss", @"rss-with-atom.rss", @"google-news.rss", nil];
+    for (NSString *fixture in fixtures) {
+        FDPFeed *feed = [self feedFromFixture:fixture];
+        if (feed == nil) continue;
+        NSError *error;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:feed requiringSecureCoding:NO error:&error];
+        XCTAssertNotNil(data, "error: %@", error);
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
+        XCTAssertNotNil(unarchiver, "error: %@", error);
+        unarchiver.requiresSecureCoding = NO;
+        FDPFeed *newFeed = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+        XCTAssertNotNil(newFeed, "error: %@", unarchiver.error);
+        XCTAssertEqualObjects(feed, newFeed);
+    }
 }
 @end
