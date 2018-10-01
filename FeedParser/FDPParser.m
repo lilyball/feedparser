@@ -59,7 +59,7 @@ NSString * const FPParserErrorDomain = FDPParserErrorDomain;
 - (FDPFeed *)parseData:(NSData *)data error:(NSError **)error {
 	NSXMLParser *xmlParser = [[[NSXMLParser alloc] initWithData:data] autorelease];
 	if (xmlParser == nil) {
-		if (error) *error = [NSError errorWithDomain:FDPParserErrorDomain code:FDPParserInternalError userInfo:nil];
+        if (error) *error = [NSError errorWithDomain:FDPParserErrorDomain code:FDPParserErrorInternal userInfo:nil];
 		return nil;
 	}
 	parseDepth = 1;
@@ -80,7 +80,7 @@ NSString * const FPParserErrorDomain = FDPParserErrorDomain;
 			}
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
 			[errorString release]; errorString = nil;
-			if (error) *error = [NSError errorWithDomain:FDPParserErrorDomain code:FDPParserInvalidFeedError userInfo:userInfo];
+            if (error) *error = [NSError errorWithDomain:FDPParserErrorDomain code:FDPParserErrorInvalidFeed userInfo:userInfo];
 			return nil;
 		}
 	} else {
@@ -90,7 +90,7 @@ NSString * const FPParserErrorDomain = FDPParserErrorDomain;
 			if ([[*error domain] isEqualToString:NSXMLParserErrorDomain]) {
 				if ([*error code] == NSXMLParserInternalError) {
 					NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorString forKey:NSLocalizedDescriptionKey];
-					*error = [NSError errorWithDomain:FDPParserErrorDomain code:FDPParserInternalError userInfo:userInfo];
+                    *error = [NSError errorWithDomain:FDPParserErrorDomain code:FDPParserErrorInternal userInfo:userInfo];
 				} else {
 					// adjust the error localizedDescription to include the line/column numbers
 					NSString *desc = [NSString stringWithFormat:@"line %ld, column %ld: %@",
