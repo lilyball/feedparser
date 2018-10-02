@@ -47,4 +47,4 @@
 @property (nonatomic, readonly) NSArray *children; // an array of FPExtensionNodes
 @end
 
-@compatibility_alias FPEXtensionNode FDPExtensionNode;
+@compatibility_alias FPExtensionNode FDPExtensionNode;
